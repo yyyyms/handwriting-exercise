@@ -162,7 +162,6 @@ function MypromiseAny(iterable) {
     })
 
 }
-
 //手写promise.race
 function myPromiseRace(iterable) {
     let promises = Array.from(iterable)
@@ -308,7 +307,7 @@ instance2.color.push("3")// ["red", "blue", "green", "3"]
 //手写深拷贝 对对象内部进行深拷贝，支持 Array、Date、RegExp、DOM
 function deepClone(params) {
     //如果不是对象则退出(停止递归)
-    if (typeof params !== 'object') return
+    if (typeof params !== 'object') return params
     //深拷贝初始值:对象/数组
     let newObj = params instanceof Array ? [] : {}
     // 使用for in 循环对象属性（包括原型链上的属性）
@@ -341,7 +340,7 @@ function deepClone(params) {
 
                     // 当元素属于对象（排除 Date、RegExp、DOM）类型时递归拷贝
 
-                    newObj[i] = (typeof params[i] === 'object') ? deepCopy(params[i]) : params[i];
+                    newObj[i] = (typeof params[i] === 'object') ? deepClone(params[i]) : params[i];
 
                 }
             }
@@ -350,6 +349,10 @@ function deepClone(params) {
     }
     return newObj
 }
+const date = new Date();
+
+// console.log(obj);
+
 //手写发布订阅
 {
     class EventEmit {
@@ -392,12 +395,71 @@ function deepClone(params) {
     const fun1 = (str) => {
         console.log(str);
     }
-    ev.on('say', fun1);
-    console.log(ev);
-    ev.emit('say', 'visa');
-    ev.off('say', fun1);
-    ev.once('say', fun1)
-    console.log(ev);
+    // ev.on('say', fun1);
+    // console.log(ev);
+    // ev.emit('say', 'visa');
+    // ev.off('say', fun1);
+    // ev.once('say', fun1)
+    // console.log(ev);
+}
+{
+    function deepClone(params) {
+        if(typeof params !== 'object') return params
+        let newObj = Array.isArray(params) ? [] : {}
+        for (const key in params) {
+            if (Object.hasOwnProperty.call(params, key)) {
+                const element = params[key];
+                if(element instanceof Date){
+                    newObj[key] = new Date( element.getTime() )
+                }
+                if(element instanceof RegExp){
+                    newObj[key] = new RegExp(element)
+                }
+                if(typeof element === 'object'&& element.nodeType==1){
+                     // 判断 DOM 元素节点
+
+                     let domEle = document.getElementsByTagName(element.nodeName)[0];
+
+                     newObj[key] = domEle.cloneNode(true);
+                } else {
+                    newObj[key] = (typeof element === 'object') ? deepClone(element) : element
+                }
+            }
+        }
+        return newObj
+    }
+
+  
+    //    console.log( deepClone(obj));
+    let obj = { name: 'test', age: 18, arr: [1, 2, 3] }
+// console.log(deepClone(obj));
+      
+}
+//防抖
+{
+   const debounce = (fn,time)=>{
+    let timer = null
+    return function(){
+        clearTimeout(timer)
+        setTimeout(() => {
+            fn.call(this)
+        }, time);
+    }
+   }
+}
+//节流
+{
+   const throttle = (fn,time)=>{
+    let flat = true
+    if(!flat) return 
+    return function(){
+        let flat = false
+        setTimeout(() => {
+            fn(this)
+            flat = true
+        }, time);
+    }
+   }
 }
 
 
