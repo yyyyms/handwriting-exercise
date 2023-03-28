@@ -461,6 +461,50 @@ const date = new Date();
     }
    }
 }
+//数组扁平 函数递归
+{
+    const arr = [1, [2, [3, [4, 5]]], 6];
+    let res = []
+    function fn(arr) {
+        for (let i = 0; i < arr.length; i++) {
+            const element = arr[i];
+            if (Array.isArray(element)) {
+                fn(element)
+            }else{
+                res.push(element)
+            }
+            
+        }
+    }
+    // fn(arr)
+    // console.log(res);
+}
+//数组扁平 reduce
+{
+    const arr = [1, [2, [3, [4, 5]]], 6];
+
+    const flatten = arr => {
+        return arr.reduce((pre,cur)=>{
+            return pre.concat(Array.isArray(cur) ? flatten(cur) : cur)
+        },[])
+    }
+    // const res = flatten(arr) 
+    // console.log(res);
+}
+//数组扁平 正则
+{
+    const arr = [1, [2, [3, [4, 5]]], 6];
+    let res = JSON.parse('['+JSON.stringify(arr).replace(/\[|]/g,'')+']') 
+    console.log(res);
+}
+//数组扁平 栈
+{
+    const arr = [1, [2, [3, [4, 5]]], 6];
+    
+}
+
+
+
 
 
 
