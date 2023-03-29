@@ -40,5 +40,17 @@
           <div class="footer"></div>
         </div>
       </body>
+      <script>
+        function Sup(name, age) {
+        this.color = ['red', 'green', 'blue']
+        this.name = name
+        this.age = age
+    }
+    Sup.prototype.sayname = function () {
+        console.log(this.name);
+    }
+    let obj = Object.create(Sup.prototype)
+    console.log(obj.__proto__);
+      </script>
 </body>
 </html>

@@ -251,7 +251,6 @@ function inheritPrototype(Sub, Sup) {
     Sub.prototype = prototype
 }
 
-
 function Sup(name, age) {
     this.color = ['red', 'green', 'blue']
     this.name = name
@@ -402,6 +401,7 @@ const date = new Date();
     // ev.once('say', fun1)
     // console.log(ev);
 }
+//深拷贝
 {
     function deepClone(params) {
         if(typeof params !== 'object') return params
@@ -495,17 +495,198 @@ const date = new Date();
 {
     const arr = [1, [2, [3, [4, 5]]], 6];
     let res = JSON.parse('['+JSON.stringify(arr).replace(/\[|]/g,'')+']') 
-    console.log(res);
+    // console.log(res);
 }
-//数组扁平 栈
+//数组扁平 栈 利用 ... 拿出非数组项
 {
     const arr = [1, [2, [3, [4, 5]]], 6];
-    
+    function Stack(arr) {
+        let stack = arr
+        let res = []
+        while (stack.length!==0) {
+            let item = stack.shift()
+            if (!Array.isArray(item)) {
+                res.push(item)
+            }else {
+                stack.unshift(...item)
+            }
+        }
+        return res
+    }
+    // console.log(Stack(arr)); 
 }
+//数组去重 for + splice
+{
+    const arr = [1, 1, '1', 17, true, true, false, false, 'true', 'a', {}, {}];
+    function unique(arr) {
+        let len = arr.length
+        for (let i = 0; i < len; i++) {
+            for (let j = i+1; j < len; j++) {
+                if (arr[i]=== arr[j]) {
+                    arr.splice(j,1)
+                    len--
+                    j--
+                }
+                
+            }
+            
+        }
+        return arr
+    }
+    // console.log(unique(arr));
+}
+//数组去重 filter + indexOf
+{
+    const arr = [1, 1, '1', 17, true, true, false, false, 'true', 'a', {}, {}];
+    function unique(arr) {
+       return arr.filter((item,index)=>{
+            return arr.indexOf(item) === index
+        })
+    }
+    // console.log(unique(arr));
+}
+//函数珂里化
+//指的是将一个接受多个参数的函数 变为 接受一个参数返回一个函数的固定形式，这样便于再次调用，例如f(1)(2)
+{
+    function curry(fn,args) {
+        // console.log(args);
+    }
+    function multiFn(a,b,c) {
+        return a*b*c
+    }
+    curry(multiFn)
+}
+//实现new
+{
+    function _new(fn,...args) {
+        if (typeof fn !== 'function') {
+            return 
+        }
+        let obj = Object.create(fn.prototype)
+        let res = fn.apply(obj,args)
+        return typeof res === 'object'&& res!== null || typeof res === 'function' ? res : obj
+    }
+}
+//寄生组合式继承
+{
+    function inheritPrototype(Sup,Sub){
+        const obj = Object.create(Sup.prototype)
+        obj.constrctor = Sub
+        Sub.prototype = obj
+    }
+    function Sup(name, age) {
+        this.color = ['red', 'green', 'blue']
+        this.name = name
+        this.age = age
+    }
+    Sup.prototype.sayname = function () {
+        console.log(this.name);
+    }
+    function Sub(age,name) {
+        Sup.apply(this,[age,name])
+    }
+    inheritPrototype(Sup,Sub)
+    // const name = new Sup('yms',18);
+    // console.log(name.age);
+    // name.sayname()
+}
+// instanceof
+{
+    function _instanceof(obj,fn) {
+        if (typeof obj!=='object'|| obj===null) {
+            return false
+        }
+        let proto = Object.getPrototypeOf(obj)
+        while (true) {
+            if (proto===null) {
+                return false
+            }
+            if (proto === fn.prototype) {
+                return true
+            }
+            proto = Object.getPrototypeOf(proto)
+        }
 
+    }
+    let obj = {
 
-
-
+    }
+    // console.log(_instanceof(obj,Object)); 
+    // console.log(obj.__proto__.prototype);
+}
+//获取URL参数
+{
+    const url =  'https://baidu.com/abc?token=123&task=undefined'
+   function getParams(url) {
+        const res = {}
+        if (url.includes('?')) {
+           const str =  url.split('?')[1]
+           const arr = str.split('&')
+           arr.forEach(element => {
+            const key =  element.split('=')[0]
+            const value = element.split('=')[1]
+            res[key] = decodeURIComponent(value)
+           //decodeURIComponent解码
+           });
+           return res
+        }else{
+            return res
+        }
+   }
+//    console.log(getParams(url)); 
+}
+//发布订阅
+{
+    class EventEmit {
+        constructor(){
+            this.cache = {}
+        }
+        on(name,fn){
+            if (this.cache[name]) {
+                this.cache[name].push(fn)
+            }else {
+                this.cache[name] = [fn]
+            }
+        }
+        off(name,fn){
+            if (this.cache[name]) {
+                this.cache[name] = this.cache[name].filter(item => item !== fn)
+            }
+        }
+        emit(name,...args){
+            if (this.cache[name]) {
+                //创建副本，如果回调函数内继续注册相同事件，会造成死循环
+                const tasks = this.cache[name].splice()
+                for (const cb of tasks) {
+                    cb(...args)
+                }
+            }else {
+                return 
+            }
+            
+        }
+        once(name,fn){
+            let fn1 = ()=>{
+                fn()
+                this.off(name,fn)
+            }
+            this.on(name,fn1)
+        }
+    }
+}
+//正则匹配号码
+{
+    let str = '010-12345678'
+    let reg = /^\{3}-(\d{8}|10010|110)$/g
+    // console.log(reg.test(str)); 
+}
+//正则匹配邮箱
+{
+    let reg = /^([\w\-\.])+\@([\w\-\.])+\.[A-Za-z]{2,4}$/
+    let str = 'ifat3@42du.online'
+    console.log(reg.test(str)); 
+}
+//
 
 
 
