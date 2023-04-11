@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input onchange="getImageToBase64()" accept="image/jpg,image/jpeg,image/png" id="input" type="file">
+    <script>
+
+        function getImageToBase64() {
+            let input =  document.getElementById('input')
+            let File = input.files[0]
+            // console.log(File);
+            let reader = new FileReader();
+             reader.readAsDataURL(File)
+             setTimeout(() => {
+                const result = reader.result
+                console.log(result);
+             }, 50);
+          
+        }
+    </script>
+</body>
+</html>

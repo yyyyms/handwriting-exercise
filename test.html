@@ -47,10 +47,93 @@
         this.age = age
     }
     Sup.prototype.sayname = function () {
-        console.log(this.name);
+        // console.log(this.name);
     }
     let obj = Object.create(Sup.prototype)
-    console.log(obj.__proto__);
+    // console.log(obj.__proto__);
+    {
+    const obj = {
+        a:undefined,
+        b:function test(params) {
+            console.log(params);
+        },
+        c:2,
+        d: new Date(),
+        e:/\d/,
+        f:NaN
+
+    }
+    Object.defineProperty(obj,'c',{
+        enumerable:false
+    })
+    // console.log(obj.c);
+    // console.log(JSON.parse(JSON.stringify(obj)));
+    {
+    let obj = {
+        a:1,
+        b:{
+            c:2
+        }
+    }
+    let obj1 = {}
+    obj1 = structuredClone(obj)
+    // Object.assign(obj1,obj)
+    // obj1.b.c = 1
+    // console.log(obj);
+    {
+    // let arr = {
+    //   a:[1,2,3,4]
+    // } 
+    // Object.defineProperty(arr,{
+    //     get(){
+    //         console.log('obj被获取');
+    //     }
+    // })
+    // const obj1 = new Proxy(obj,{
+    //   get(){
+    //         console.log('obj被获取');
+    //   },
+    //   set(){
+    //     console.log('obj发生变化');
+    //   }
+    // });
+    // console.log(arr.a); 
+
+}
+{
+    let obj = [1,2,3]
+    
+    let obj1 = {
+        a:[1,2,3]
+    }
+    
+    // Object.defineProperty(obj,'a',{
+    //     // value:[1,2,4],
+    //     set(){
+    //         console.log('obj发生变化');
+    //     },
+    //     get(){
+    //         console.log('obj被获取');
+    //     },
+    // })
+    const name = new Proxy(obj,{
+        set(obj,params){
+            console.log(params,'a发生变化');
+            return params
+        },
+        get(obj){
+            console.log('a被获取');
+            return obj
+        },
+    });
+    // console.log(name[0]);
+    // name = Array.from(name)
+    // name = JSON.parse(JSON.stringify(name))
+    name[1] = []
+    // name.a = []
+}
+}
+}
       </script>
 </body>
 </html>

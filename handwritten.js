@@ -684,9 +684,77 @@ const date = new Date();
 {
     let reg = /^([\w\-\.])+\@([\w\-\.])+\.[A-Za-z]{2,4}$/
     let str = 'ifat3@42du.online'
-    console.log(reg.test(str)); 
+    // console.log(reg.test(str)); 
 }
-//
+{
+    class EventEmit{
+        constrctor(){
+            this.cache = []
+        }
+        on(name,fn){
+            
+        }
+        emit(name,...args){
+            if (this.cache[name]) {
+                let tasks = this.cache[name].splice()
+                for (const task of tasks) {
+                    task(...args)
+                }
+            }
+        }
+        off(name,fn){
+            if (this.cache[name]) {
+                this.cache[name] = this.cache[name].filter(item=>{
+                    return item !== fn
+                })
+            }
+        }
+        once(name,fn){
+             function fn1(params) {
+                if (this.cache[name]) {
+                    fn()
+                    this.off(name,fn)
+                }
+            }
+            this.on(name,fn1)
+
+        }
+    }
+}
+//观察者模式
+{
+    class Notifier {
+        constructor(){
+            this.observerList = []
+        }
+        add(obj){
+            this.observerList.push(obj)
+        }
+        remove(obj){
+            this.observerList =  this.observerList.filter(o => o !== obj)
+        }
+        notify(){
+            this.observerList.forEach((obj)=>{
+                obj.update()
+            })
+        }
+    }
+    class Observer {
+        constructor(name){
+            this.name = name
+        }
+        update(){
+            console.log('收到通知了');
+        }
+    }
+    let notifier = new Notifier()
+    let oberver1 = new Observer('张三')
+    // notifier.add(oberver1)
+    // notifier.remove(oberver1)
+    // notifier.notify()
+}
+
+
 
 
 
