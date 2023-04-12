@@ -443,4 +443,89 @@ function parseStr(params) {
     }
     // console.log(minCostClimbingStairs(cost));
 }
+//机器人 不同路径
+{
+    let m = 3, n = 7
+    // dp[i][j] = dp[i-1][j] + dp[i][j-1]
+function uniquePaths(m,n) {
+    const dp = new Array(m).fill(0).map(() => new Array(n).fill(0)); //初始dp数组
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (j===0 && i===0 || j===0 && i!==0 || j!==0 && i===0) {
+                dp[i][j] = 1
+            }else if (j!==0&&i!==0) {
+                dp[i][j] = dp[i-1][j] + dp[i][j-1]   
+            }
+        }
+    }
+    // for (let i = 0; i < m; i++) {
+    //     for (let j = 0; j < n; j++) {
+    //       if (i === 0 && j === 0 || i === 0 && j !== 0 || i !== 0 && j === 0) {
+    //         dp[i][j] = 1
+    //       } else if (i !== 0 && j !== 0) {
+    //         dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+    //       }
+    //     }
+    //   }
+
+    return dp[m-1][n-1]
+}
+    // console.log(uniquePaths(m,n));
+}
+//小孩上楼梯 1阶 2阶 或者3阶
+{
+    let n = 4
+    function waysToStep(n) {
+        const dp = []
+        dp[0] = 0
+        dp[1] = 1
+        dp[2] = 2
+        dp[3] = 4
+        for (let i = 4; i <= n; i++) {
+            dp[i] = dp[i-3] + dp[i-2] + dp[i-1]
+        }
+        return dp[n]%1000000007
+    }
+    // console.log(waysToStep(n));
+}
+//连续数列
+{
+    //只关心到某个结尾下标时 最大的数列是多少
+    function maxSubArray(nums) {
+        let len = nums.length
+        let dp = []
+        dp[0] = nums[0]
+        for (let i = 1; i < len; i++) {
+            dp[i] = Math.max((dp[i-1]+nums[i]),nums[i])
+        }
+        return Math.max(...dp) 
+    }
+    let arr = [-2,1,-3,4,-1,2,1,-5,4]
+    // console.log(maxSubArray(arr));
+}
+//机器人最短路径
+{
+    let grid = [[1,3,1],[1,5,1],[4,2,1]]
+    function minPathSum(grid) {
+        let m = grid.length
+        let n = grid[0].length
+        let dp = new Array(m).fill(0).map(()=>new Array(n).fill(0))
+        dp[0][0] = grid[0][0]
+
+        for (let i = 0; i < m; i++) {
+            for (let j = 0; j < n; j++) {
+                if (i==0&&j>0) {
+                    dp[0][j] = dp[0][j-1] + grid[0][j]
+                }else if(j==0&&i>0){
+                    dp[i][0] = dp[i-1][0] + grid[i][0]
+                }else if (i>0&&j>0) {
+                    dp[i][j] = Math.min(dp[i-1][j],dp[i][j-1]) + grid[i][j]
+                }
+                console.log(dp[i][j],i,j);
+            }
+        }
+        return dp[m-1][n-1]
+    }
+    console.log(minPathSum(grid));
+}
 
