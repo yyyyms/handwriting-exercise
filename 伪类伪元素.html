@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* a:visited:hover{
+            color: rgb(71, 11, 233);
+        } */
+
+        a:focus {
+            color: brown;
+        }
+
+        .test::after {
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 12px solid rgb(250, 6, 6);
+            left: 25px;
+            bottom: -10px;
+            content: '';
+            width: 0;
+            height: 0;
+            position: absolute;
+
+        }
+
+        .test {
+            width: 150px;
+            height: 100px;
+            background-color: red;
+            color: white;
+            position: relative;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 200px;
+            margin: 50px auto;
+            border: 1px solid antiquewhite;
+        }
+
+        .container div {
+            padding: 5px;
+        }
+
+        .container div:nth-child(even) {
+            background-color: blueviolet;
+        }
+
+        .container1 {
+            height: 200px;
+            width: 360px;
+            margin: auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .product {
+            width: 100px;
+            height: 100px;
+            background: white;
+            background-image: url(//cdn.cnbj1.fds.api.mi-img.com/nr-pub/202207011841_084ed41d67f248677914605b73faf582.png?thumb=1&w=400&h=400&f=webp&q=90);
+            background-size: cover;
+        }
+        .product:hover {
+            box-shadow: 0 15px 30px rgb(0 0 0 / 10%);
+            transform: rotate(7deg) translate3d(0px,-15px,0px) scale(1.2);
+        }
+        .container2 {
+            width: 200px;
+            height: 200px;
+            background-color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container2">
+        <div class="test1"></div>
+    </div>
+    <div class="container1">
+        <div class="product"></div>
+        <div class="product"></div>
+        <div class="product"></div>
+    </div>
+    <div class="test">
+        气泡
+    </div>
+    <div class="container">
+        <!-- 斑马条 -->
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+    </div>
+    <br>
+    //伪元素用于将特殊效果添加到不存在的虚拟元素中（浏览器自动创建）
+    <a href="">链接</a>
+</body>
+
+</html>

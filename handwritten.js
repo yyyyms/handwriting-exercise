@@ -359,35 +359,35 @@ const date = new Date();
             this.event = {
             }
         }
-        on(type,callback) {
+        on(type, callback) {
             if (!this.event[type]) {
                 this.event[type] = [callback]
-            }else {
+            } else {
                 this.event[type].push(callback)
             }
         }
-        emit(type,...params) {
+        emit(type, ...params) {
             if (this.event[type]) {
                 this.event[type].forEach(cb => {
                     cb(...params)
                 });
-            }else {
-                return 
+            } else {
+                return
             }
         }
-        off(type,callback) {
+        off(type, callback) {
             if (this.event[type]) {
-                this.event[type] = this.event[type].filter(item => item!==callback)
-            }else {
-                return 
+                this.event[type] = this.event[type].filter(item => item !== callback)
+            } else {
+                return
             }
         }
-        once(type,callback) {
-            let fn = ()=>{
+        once(type, callback) {
+            let fn = () => {
                 callback();
-                this.off(type,fn)
+                this.off(type, fn)
             }
-            this.on(type,fn)
+            this.on(type, fn)
         }
     }
     const ev = new EventEmit(arguments);
@@ -404,23 +404,23 @@ const date = new Date();
 //深拷贝
 {
     function deepClone(params) {
-        if(typeof params !== 'object') return params
+        if (typeof params !== 'object') return params
         let newObj = Array.isArray(params) ? [] : {}
         for (const key in params) {
             if (Object.hasOwnProperty.call(params, key)) {
                 const element = params[key];
-                if(element instanceof Date){
-                    newObj[key] = new Date( element.getTime() )
+                if (element instanceof Date) {
+                    newObj[key] = new Date(element.getTime())
                 }
-                if(element instanceof RegExp){
+                if (element instanceof RegExp) {
                     newObj[key] = new RegExp(element)
                 }
-                if(typeof element === 'object'&& element.nodeType==1){
-                     // 判断 DOM 元素节点
+                if (typeof element === 'object' && element.nodeType == 1) {
+                    // 判断 DOM 元素节点
 
-                     let domEle = document.getElementsByTagName(element.nodeName)[0];
+                    let domEle = document.getElementsByTagName(element.nodeName)[0];
 
-                     newObj[key] = domEle.cloneNode(true);
+                    newObj[key] = domEle.cloneNode(true);
                 } else {
                     newObj[key] = (typeof element === 'object') ? deepClone(element) : element
                 }
@@ -429,37 +429,37 @@ const date = new Date();
         return newObj
     }
 
-  
+
     //    console.log( deepClone(obj));
     let obj = { name: 'test', age: 18, arr: [1, 2, 3] }
-// console.log(deepClone(obj));
-      
+    // console.log(deepClone(obj));
+
 }
 //防抖
 {
-   const debounce = (fn,time)=>{
-    let timer = null
-    return function(){
-        clearTimeout(timer)
-        setTimeout(() => {
-            fn.call(this)
-        }, time);
+    const debounce = (fn, time) => {
+        let timer = null
+        return function () {
+            clearTimeout(timer)
+            setTimeout(() => {
+                fn.call(this)
+            }, time);
+        }
     }
-   }
 }
 //节流
 {
-   const throttle = (fn,time)=>{
-    let flat = true
-    if(!flat) return 
-    return function(){
-        let flat = false
-        setTimeout(() => {
-            fn(this)
-            flat = true
-        }, time);
+    const throttle = (fn, time) => {
+        let flat = true
+        if (!flat) return
+        return function () {
+            let flat = false
+            setTimeout(() => {
+                fn(this)
+                flat = true
+            }, time);
+        }
     }
-   }
 }
 //数组扁平 函数递归
 {
@@ -470,10 +470,10 @@ const date = new Date();
             const element = arr[i];
             if (Array.isArray(element)) {
                 fn(element)
-            }else{
+            } else {
                 res.push(element)
             }
-            
+
         }
     }
     // fn(arr)
@@ -484,9 +484,9 @@ const date = new Date();
     const arr = [1, [2, [3, [4, 5]]], 6];
 
     const flatten = arr => {
-        return arr.reduce((pre,cur)=>{
+        return arr.reduce((pre, cur) => {
             return pre.concat(Array.isArray(cur) ? flatten(cur) : cur)
-        },[])
+        }, [])
     }
     // const res = flatten(arr) 
     // console.log(res);
@@ -494,7 +494,7 @@ const date = new Date();
 //数组扁平 正则
 {
     const arr = [1, [2, [3, [4, 5]]], 6];
-    let res = JSON.parse('['+JSON.stringify(arr).replace(/\[|]/g,'')+']') 
+    let res = JSON.parse('[' + JSON.stringify(arr).replace(/\[|]/g, '') + ']')
     // console.log(res);
 }
 //数组扁平 栈 利用 ... 拿出非数组项
@@ -503,11 +503,11 @@ const date = new Date();
     function Stack(arr) {
         let stack = arr
         let res = []
-        while (stack.length!==0) {
+        while (stack.length !== 0) {
             let item = stack.shift()
             if (!Array.isArray(item)) {
                 res.push(item)
-            }else {
+            } else {
                 stack.unshift(...item)
             }
         }
@@ -521,15 +521,15 @@ const date = new Date();
     function unique(arr) {
         let len = arr.length
         for (let i = 0; i < len; i++) {
-            for (let j = i+1; j < len; j++) {
-                if (arr[i]=== arr[j]) {
-                    arr.splice(j,1)
+            for (let j = i + 1; j < len; j++) {
+                if (arr[i] === arr[j]) {
+                    arr.splice(j, 1)
                     len--
                     j--
                 }
-                
+
             }
-            
+
         }
         return arr
     }
@@ -539,7 +539,7 @@ const date = new Date();
 {
     const arr = [1, 1, '1', 17, true, true, false, false, 'true', 'a', {}, {}];
     function unique(arr) {
-       return arr.filter((item,index)=>{
+        return arr.filter((item, index) => {
             return arr.indexOf(item) === index
         })
     }
@@ -548,28 +548,28 @@ const date = new Date();
 //函数珂里化
 //指的是将一个接受多个参数的函数 变为 接受一个参数返回一个函数的固定形式，这样便于再次调用，例如f(1)(2)
 {
-    function curry(fn,args) {
+    function curry(fn, args) {
         // console.log(args);
     }
-    function multiFn(a,b,c) {
-        return a*b*c
+    function multiFn(a, b, c) {
+        return a * b * c
     }
     curry(multiFn)
 }
 //实现new
 {
-    function _new(fn,...args) {
+    function _new(fn, ...args) {
         if (typeof fn !== 'function') {
-            return 
+            return
         }
         let obj = Object.create(fn.prototype)
-        let res = fn.apply(obj,args)
-        return typeof res === 'object'&& res!== null || typeof res === 'function' ? res : obj
+        let res = fn.apply(obj, args)
+        return typeof res === 'object' && res !== null || typeof res === 'function' ? res : obj
     }
 }
 //寄生组合式继承
 {
-    function inheritPrototype(Sup,Sub){
+    function inheritPrototype(Sup, Sub) {
         const obj = Object.create(Sup.prototype)
         obj.constrctor = Sub
         Sub.prototype = obj
@@ -582,23 +582,23 @@ const date = new Date();
     Sup.prototype.sayname = function () {
         console.log(this.name);
     }
-    function Sub(age,name) {
-        Sup.apply(this,[age,name])
+    function Sub(age, name) {
+        Sup.apply(this, [age, name])
     }
-    inheritPrototype(Sup,Sub)
+    inheritPrototype(Sup, Sub)
     // const name = new Sup('yms',18);
     // console.log(name.age);
     // name.sayname()
 }
 // instanceof
 {
-    function _instanceof(obj,fn) {
-        if (typeof obj!=='object'|| obj===null) {
+    function _instanceof(obj, fn) {
+        if (typeof obj !== 'object' || obj === null) {
             return false
         }
         let proto = Object.getPrototypeOf(obj)
         while (true) {
-            if (proto===null) {
+            if (proto === null) {
                 return false
             }
             if (proto === fn.prototype) {
@@ -616,61 +616,61 @@ const date = new Date();
 }
 //获取URL参数
 {
-    const url =  'https://baidu.com/abc?token=123&task=undefined'
-   function getParams(url) {
+    const url = 'https://baidu.com/abc?token=123&task=undefined'
+    function getParams(url) {
         const res = {}
         if (url.includes('?')) {
-           const str =  url.split('?')[1]
-           const arr = str.split('&')
-           arr.forEach(element => {
-            const key =  element.split('=')[0]
-            const value = element.split('=')[1]
-            res[key] = decodeURIComponent(value)
-           //decodeURIComponent解码
-           });
-           return res
-        }else{
+            const str = url.split('?')[1]
+            const arr = str.split('&')
+            arr.forEach(element => {
+                const key = element.split('=')[0]
+                const value = element.split('=')[1]
+                res[key] = decodeURIComponent(value)
+                //decodeURIComponent解码
+            });
+            return res
+        } else {
             return res
         }
-   }
-//    console.log(getParams(url)); 
+    }
+    //    console.log(getParams(url)); 
 }
 //发布订阅
 {
     class EventEmit {
-        constructor(){
+        constructor() {
             this.cache = {}
         }
-        on(name,fn){
+        on(name, fn) {
             if (this.cache[name]) {
                 this.cache[name].push(fn)
-            }else {
+            } else {
                 this.cache[name] = [fn]
             }
         }
-        off(name,fn){
+        off(name, fn) {
             if (this.cache[name]) {
                 this.cache[name] = this.cache[name].filter(item => item !== fn)
             }
         }
-        emit(name,...args){
+        emit(name, ...args) {
             if (this.cache[name]) {
                 //创建副本，如果回调函数内继续注册相同事件，会造成死循环
                 const tasks = this.cache[name].splice()
                 for (const cb of tasks) {
                     cb(...args)
                 }
-            }else {
-                return 
+            } else {
+                return
             }
-            
+
         }
-        once(name,fn){
-            let fn1 = ()=>{
+        once(name, fn) {
+            let fn1 = () => {
                 fn()
-                this.off(name,fn)
+                this.off(name, fn)
             }
-            this.on(name,fn1)
+            this.on(name, fn1)
         }
     }
 }
@@ -687,14 +687,14 @@ const date = new Date();
     // console.log(reg.test(str)); 
 }
 {
-    class EventEmit{
-        constrctor(){
+    class EventEmit {
+        constrctor() {
             this.cache = []
         }
-        on(name,fn){
-            
+        on(name, fn) {
+
         }
-        emit(name,...args){
+        emit(name, ...args) {
             if (this.cache[name]) {
                 let tasks = this.cache[name].splice()
                 for (const task of tasks) {
@@ -702,21 +702,21 @@ const date = new Date();
                 }
             }
         }
-        off(name,fn){
+        off(name, fn) {
             if (this.cache[name]) {
-                this.cache[name] = this.cache[name].filter(item=>{
+                this.cache[name] = this.cache[name].filter(item => {
                     return item !== fn
                 })
             }
         }
-        once(name,fn){
-             function fn1(params) {
+        once(name, fn) {
+            function fn1(params) {
                 if (this.cache[name]) {
                     fn()
-                    this.off(name,fn)
+                    this.off(name, fn)
                 }
             }
-            this.on(name,fn1)
+            this.on(name, fn1)
 
         }
     }
@@ -724,26 +724,26 @@ const date = new Date();
 //观察者模式
 {
     class Notifier {
-        constructor(){
+        constructor() {
             this.observerList = []
         }
-        add(obj){
+        add(obj) {
             this.observerList.push(obj)
         }
-        remove(obj){
-            this.observerList =  this.observerList.filter(o => o !== obj)
+        remove(obj) {
+            this.observerList = this.observerList.filter(o => o !== obj)
         }
-        notify(){
-            this.observerList.forEach((obj)=>{
+        notify() {
+            this.observerList.forEach((obj) => {
                 obj.update()
             })
         }
     }
     class Observer {
-        constructor(name){
+        constructor(name) {
             this.name = name
         }
-        update(){
+        update() {
             console.log('收到通知了');
         }
     }
@@ -753,7 +753,73 @@ const date = new Date();
     // notifier.remove(oberver1)
     // notifier.notify()
 }
+//es6继承
+{
+    class Parent {
+        constructor(value) {
+            this.val = value
+        }
+        getValue() {
+            console.log(333);
+        }
+    }
+    // class Child extends Parent {
+    //     constructor(value){
+    //         //看成 Parent.call(this, value)。
+    //         super(value)
 
+    //         this.val = value
+    //     }
+    // }
+    // let child = new Child(1)
+    // child.getValue()
+    // child instanceof Parent
+    // Parent.prototype.getValue()
+}
+//深拷贝
+{
+    //map = new Map()用来存储拷贝过的对象 
+    // 循环引用时 如果拷贝过 直接返回出去 没有拷贝过就继续拷贝
+    function DeepClone(target, map = new Map()) {
+        if (typeof target !== 'object') { return target }
+        //处理数组属性
+        let cloneTarteg = Array.isArray(target) ? [] : {}
+        if (map.get(target)) {
+            return map.get(target)
+        }
+        map.set(target, cloneTarteg)
+
+        for (const key in target) {
+            if (Object.hasOwnProperty.call(target, key)) {
+                if (target[key] instanceof Date) {
+                    cloneTarteg[key] = new Date(target[key].getTime())
+                }else if(target[key] instanceof RegExp){
+                    cloneTarteg[key] = new RegExp(target[key])
+                }else{
+                    // 当元素属于对象（排除 Date、RegExp、DOM）类型时递归拷贝
+                    cloneTarteg[key] = (typeof target[key] === 'object') ? DeepClone(target[key],map) : target[key];
+                }
+
+            }
+        }
+        return cloneTarteg
+
+    }
+    const target = {
+        field1: 1,
+        field2: /\d/,
+        field3: 'ConardLi',
+        field4: {
+            child: 'child',
+            child2: {
+                child2: 'child2'
+            }
+        },
+        field5: [1, 2, 3]
+    };
+    target.target = target
+    console.log(DeepClone(target));
+}
 
 
 

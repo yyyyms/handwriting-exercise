@@ -74,3 +74,43 @@ let str = 'yms'
     arr[0] = 0
     // console.log(test);
 }
+{
+    function f1(params) {
+        let a = 1
+        function f2(params) {
+            console.log(a);
+        }
+        return f2
+    }
+
+    const fn =  f1()
+
+    function test(fn) {
+        let a = 2
+        fn()
+    }
+    // test(fn)
+}
+{
+    // for (let i = 0; i < 10; i++) {
+    //     (function (j) {
+    //         setTimeout(() => {
+    //             console.log(j);
+    //         }, 1000);
+    //     })(i)
+    // }
+}
+{
+    const obj = {
+        a : 1,
+        b : {
+            c : 1 
+        }
+    }
+    
+    const newobj =  Object.assign(obj)
+    newobj.b.c = 2
+    // console.log(obj);
+}
+
+

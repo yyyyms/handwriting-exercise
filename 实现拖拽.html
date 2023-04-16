@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin:  0;
+            padding: 0;
+        }
+        .box {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+        .box1 {
+            position: absolute;
+            top: 30px;
+            left: 400px;
+            width: 200px;
+            height: 200px;
+            background-color: rgb(26, 19, 19);
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <div ondragend="dragEnd(event)" ondrop="drop(event)" ondragstart="dragStart(event)" draggable="true" class="box1"></div>
+
+    <script>
+        //结论: 盒子移动后的位置 = 鼠标移动后在页面的位置 - 鼠标在盒子中的位置
+        let box = document.querySelector(".box")
+        box.onmousedown = ()=>{
+            //获取按下鼠标时,盒子与页面的距离
+            let originBoxX = box.offsetLeft;
+            let originBoxY = box.offsetTop;
+            //获取按下鼠标时,鼠标与页面的距离
+            let mouseX = event.pageX;
+            let mouseY = event.pageY;
+            //页面上移动
+            window.onmousemove = function () {
+                //鼠标滑动的距离 = 鼠标移动后 - 按下鼠标时的位置
+                let distanceX = event.pageX - mouseX
+                let distanceY = event.pageY - mouseY
+                box.style.left = originBoxX + distanceX + 'px'
+                box.style.top = originBoxY + distanceY + 'px'
+            }
+            //鼠标松开
+            
+        }
+        box.onmouseup = function () {
+                // 解绑在页面上滚动的事件
+                window.onmousemove = null;
+            }
+    </script>
+    <script>
+
+function dragStart(e){
+   //拖拽前操作
+   ev.dataTransfer.setData("Text", ev.target.id);
+}
+ 
+//拖拽移动
+function drop(e){
+    e.preventDefault();
+}
+ 
+//结束拖拽
+function dragEnd(e){
+    e.preventDefault();
+    var data = ev.dataTransfer.getData("Text");
+    ev.target.appendChild(document.getElementById(data));
+}
+    </script>
+</body>
+</html>

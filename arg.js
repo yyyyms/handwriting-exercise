@@ -526,6 +526,41 @@ function uniquePaths(m,n) {
         }
         return dp[m-1][n-1]
     }
-    console.log(minPathSum(grid));
+    // console.log(minPathSum(grid));
+}
+//遍历拿到节点的name
+{
+    const tree = {
+        name: 'root',
+        children: [
+            {
+                name: 'c1',
+                children: [
+                    {
+                            name: 'c11',
+                        children: []		
+                        },
+                        {
+                            name: 'c12',
+                        children: []		
+                    }
+                ]
+            },
+            {
+                name: 'c2',
+                children: [
+                    {
+                            name: 'c21',
+                        children: []		
+                        },
+                        {
+                            name: 'c22',
+                        children: []		
+                    }
+                ]
+            }
+        ]
+    }
+    
 }
 
