@@ -112,5 +112,22 @@ let str = 'yms'
     newobj.b.c = 2
     // console.log(obj);
 }
-
-
+{
+    const obj = {
+        value:10,
+        test:1
+    }
+    // console.log({...obj});
+    const arr = [1,2,3,0]
+    let foo = {...arr}
+    // console.log(foo);
+    let res = arr.sort((a,b)=>a-b)
+    // console.log(arr === res);
+}
+{
+    const arr = new Array(5);
+    arr.map((item)=>{
+        return item+1
+    })
+    console.log(arr[0]);
+}
