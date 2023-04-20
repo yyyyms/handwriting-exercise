@@ -818,7 +818,86 @@ const date = new Date();
         field5: [1, 2, 3]
     };
     target.target = target
-    console.log(DeepClone(target));
+    // console.log(DeepClone(target));
+}
+//发布订阅
+{
+    class EventEmit {
+        constructor(){
+            this.cache = {
+            }
+        }
+        emit(name,...args){
+            if (this.cache[name]) {
+                const tasks = this.cache[name].slice()
+                for (const cb of tasks) {
+                    cb(...args)
+                }
+            }
+        }
+        on(name,fn){
+            if (this.cache[name]) {
+                this.cache[name].push(fn)
+            }else {
+                this.cache[name] = [fn]
+            }
+        }
+        off(name,fn){
+            if (this.cache[name]) {
+                this.cache[name] = this.cache[name].filter((item)=>{
+                    return item!==fn
+                })
+            }else {
+                return 
+            }
+        }
+        once(name,fn){
+            let fn1 = function(){
+                fn()
+                this.off(name,fn1)
+            }
+            this.on(name,fn1)
+        }
+    }
+    const ev = new EventEmit();
+    function fun1(params) {
+        console.log(params);
+    }
+    // ev.on('say', fun1);
+    // ev.emit('say','visa','yms');
+    // ev.off('say', fun1);
+    // ev.once('say', fun1)
+}
+{
+    //观察者模式
+    class Notify {
+        constructor(){
+            this.watcherlist = []
+        }
+        add(watcher){
+            this.watcherlist.push(watcher)
+        }
+        move(watcher){
+            this.watcherlist = this.watcherlist.filter((w)=>w!==watcher)
+        }
+        notify(){
+            this.watcherlist.forEach((w)=>{
+                w.update()
+            })
+        }
+    }
+    class watche {
+        constructor(name){
+            this.name = name
+        }
+        update(){
+            console.log('收到通知了');
+        }
+    }
+    const a = new watche('yms');
+    const n = new Notify();
+    // n.add(a)
+    // n.notify()
 }
 
 

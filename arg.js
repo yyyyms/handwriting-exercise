@@ -260,33 +260,33 @@ function parseStr(params) {
 }
 //分发饼干
 {
-    let g = [1,2,3], s = [1,1]
-    function findContentChildren(g,s) {
-       g = g.sort((a,b)=>a-b)
-       s = s.sort((a,b)=>a-b)
-       let [num,i,j ] = [0,0,0]
-       while (i<g.length && j<s.length) {
-        console.log(11111);
-        if (s[j]>=g[i]) {
-            num++
-            j++
-            i++
-        }else if(s[j]<g[i]){
+    let g = [1, 2, 3], s = [1, 1]
+    function findContentChildren(g, s) {
+        g = g.sort((a, b) => a - b)
+        s = s.sort((a, b) => a - b)
+        let [num, i, j] = [0, 0, 0]
+        while (i < g.length && j < s.length) {
+            console.log(11111);
+            if (s[j] >= g[i]) {
+                num++
+                j++
+                i++
+            } else if (s[j] < g[i]) {
 
-            j++
+                j++
+            }
         }
-       }
-       return num
+        return num
     }
     // console.log(findContentChildren(g,s)); 
 }
 //购买股票的时机 (不含手续费)
 {
-    let prices = [7,1,3,5,6,7,9]
-    function maxProfit (prices) {
+    let prices = [7, 1, 3, 5, 6, 7, 9]
+    function maxProfit(prices) {
         let sum = 0
         for (let i = 1; i < prices.length; i++) {
-          sum += Math.max(0,prices[i] - prices[i-1])
+            sum += Math.max(0, prices[i] - prices[i - 1])
         }
         return sum
     }
@@ -295,19 +295,19 @@ function parseStr(params) {
 // 购买股票的时机 含手续费
 {
     //核心贪心思想:当我们卖出一支股票时，我们就立即获得了以相同价格并且免除手续费买入一支股票的权利
-    let prices = [1,3,7,5,10,3]
+    let prices = [1, 3, 7, 5, 10, 3]
     let fee = 3
-    function maxProfit(prices,fee) {
+    function maxProfit(prices, fee) {
         let buy = prices[0] + fee
         let profit = 0
         for (let i = 1; i < prices.length; i++) {
-            if (prices[i]+fee<buy) {
-                buy = prices[i]+fee
-            }else if(prices[i] > buy){
-                profit+=prices[i]-buy
+            if (prices[i] + fee < buy) {
+                buy = prices[i] + fee
+            } else if (prices[i] > buy) {
+                profit += prices[i] - buy
                 buy = prices[i]
             }
-            
+
         }
         return profit
     }
@@ -318,30 +318,30 @@ function parseStr(params) {
     function validPalindrome(str) {
         let len = str.length
         let l = 0
-        let r = len-1
+        let r = len - 1
         let flat = true
-        while (l<=r) {
-            if (str[l]==str[r]) {
+        while (l <= r) {
+            if (str[l] == str[r]) {
                 l++
                 r--
-            }else {
+            } else {
                 if (flat === true) {
                     flat = false
-                    return Palindrome(str,l+1,r) || Palindrome(str,l,r-1)
-                }else {
+                    return Palindrome(str, l + 1, r) || Palindrome(str, l, r - 1)
+                } else {
                     return false
                 }
             }
         }
         return true
-        function Palindrome(s,l,r) {
+        function Palindrome(s, l, r) {
             // console.log('进来');
-            while(l<=r) {
+            while (l <= r) {
                 // console.log(s[l],s[r]);
                 if (s[l] === s[r]) {
                     l++
                     r--
-                }else {
+                } else {
                     return false
                 }
             }
@@ -349,24 +349,24 @@ function parseStr(params) {
         }
 
 
-    } 
+    }
     // console.log(validPalindrome("atbbga")); 
 }
 //跳跃游戏II
 //贪的是找到能跳到的范围内中的最大步子
 {
-    let arr = [2,1,4,5,5,4,3,2]
+    let arr = [2, 1, 4, 5, 5, 4, 3, 2]
     function jump(arr) {
         let end = 0
         let maxposition = 0
         let steps = 0
         let len = arr.length
-        for (let i = 0; i < len-1; i++) {
-            maxposition = Math.max(maxposition,i+arr[i])
+        for (let i = 0; i < len - 1; i++) {
+            maxposition = Math.max(maxposition, i + arr[i])
             if (i == end) {
                 end = maxposition
                 steps++
-                if (maxposition>=len-1) {
+                if (maxposition >= len - 1) {
                     break
                 }
             }
@@ -377,22 +377,22 @@ function parseStr(params) {
 //跳跃游戏 能否跳出去
 //只关心此位置能不能跳到 然后范围内能不能跳出去 否则前移
 {
-   let nums = [2,3,1,5,0,1]
-   function canJump(nums) {
-    let maxposition = 0
-    for (let i = 0; i < nums.length; i++) {
-        if (i <= maxposition) {
-            maxposition = Math.max(maxposition , i + nums[i]) 
-            let jump = i + nums[i]
-            if (jump>=nums.length-1) {
-                return true
+    let nums = [2, 3, 1, 5, 0, 1]
+    function canJump(nums) {
+        let maxposition = 0
+        for (let i = 0; i < nums.length; i++) {
+            if (i <= maxposition) {
+                maxposition = Math.max(maxposition, i + nums[i])
+                let jump = i + nums[i]
+                if (jump >= nums.length - 1) {
+                    return true
+                }
             }
+
+
         }
-       
-        
+        return false
     }
-    return false
-   }
 }
 
 
@@ -410,18 +410,18 @@ function parseStr(params) {
 //打家劫舍
 //当前位置n可盗窃的最大值 dp[i] = max(dp[i-1],dp[i-2]+nums[i])
 {
-    let arr = [1,2,3,1]
+    let arr = [1, 2, 3, 1]
     function rob(nums) {
-       let len = nums.length
-        if(len == 0)return 0
-        if(len == 1)return nums[0]
-        let dp = new Array(len+1)
+        let len = nums.length
+        if (len == 0) return 0
+        if (len == 1) return nums[0]
+        let dp = new Array(len + 1)
         dp[0] = 0
         dp[1] = nums[0]
         for (let i = 2; i <= len; i++) {
-            dp[i] = Math.max(dp[i-1],dp[i-2]+nums[i-1]) 
+            dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i - 1])
         }
-      return dp[len]
+        return dp[len]
     }
     // console.log(rob(arr));
 }
@@ -429,14 +429,14 @@ function parseStr(params) {
 {
     // dp[i] 是爬上当前的最小花费
     // dp[i] = Math.min(dp[i-1]+ cost[i-1] , dp[i-2]+ cost[i-2])
-    let cost = [10,15,10]
+    let cost = [10, 15, 10]
     function minCostClimbingStairs(cost) {
         let len = cost.length
-        const dp = new Array(len+1)
+        const dp = new Array(len + 1)
         dp[0] = 0
         dp[1] = 0
         for (let i = 2; i <= len; i++) {
-            dp[i] = Math.min(dp[i-1]+ cost[i-1] , dp[i-2]+ cost[i-2])
+            dp[i] = Math.min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2])
 
         }
         return dp[len]
@@ -447,29 +447,29 @@ function parseStr(params) {
 {
     let m = 3, n = 7
     // dp[i][j] = dp[i-1][j] + dp[i][j-1]
-function uniquePaths(m,n) {
-    const dp = new Array(m).fill(0).map(() => new Array(n).fill(0)); //初始dp数组
-    for (let i = 0; i < m; i++) {
-        for (let j = 0; j < n; j++) {
-            if (j===0 && i===0 || j===0 && i!==0 || j!==0 && i===0) {
-                dp[i][j] = 1
-            }else if (j!==0&&i!==0) {
-                dp[i][j] = dp[i-1][j] + dp[i][j-1]   
+    function uniquePaths(m, n) {
+        const dp = new Array(m).fill(0).map(() => new Array(n).fill(0)); //初始dp数组
+        for (let i = 0; i < m; i++) {
+            for (let j = 0; j < n; j++) {
+                if (j === 0 && i === 0 || j === 0 && i !== 0 || j !== 0 && i === 0) {
+                    dp[i][j] = 1
+                } else if (j !== 0 && i !== 0) {
+                    dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+                }
             }
         }
-    }
-    // for (let i = 0; i < m; i++) {
-    //     for (let j = 0; j < n; j++) {
-    //       if (i === 0 && j === 0 || i === 0 && j !== 0 || i !== 0 && j === 0) {
-    //         dp[i][j] = 1
-    //       } else if (i !== 0 && j !== 0) {
-    //         dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
-    //       }
-    //     }
-    //   }
+        // for (let i = 0; i < m; i++) {
+        //     for (let j = 0; j < n; j++) {
+        //       if (i === 0 && j === 0 || i === 0 && j !== 0 || i !== 0 && j === 0) {
+        //         dp[i][j] = 1
+        //       } else if (i !== 0 && j !== 0) {
+        //         dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+        //       }
+        //     }
+        //   }
 
-    return dp[m-1][n-1]
-}
+        return dp[m - 1][n - 1]
+    }
     // console.log(uniquePaths(m,n));
 }
 //小孩上楼梯 1阶 2阶 或者3阶
@@ -482,9 +482,9 @@ function uniquePaths(m,n) {
         dp[2] = 2
         dp[3] = 4
         for (let i = 4; i <= n; i++) {
-            dp[i] = dp[i-3] + dp[i-2] + dp[i-1]
+            dp[i] = dp[i - 3] + dp[i - 2] + dp[i - 1]
         }
-        return dp[n]%1000000007
+        return dp[n] % 1000000007
     }
     // console.log(waysToStep(n));
 }
@@ -496,35 +496,35 @@ function uniquePaths(m,n) {
         let dp = []
         dp[0] = nums[0]
         for (let i = 1; i < len; i++) {
-            dp[i] = Math.max((dp[i-1]+nums[i]),nums[i])
+            dp[i] = Math.max((dp[i - 1] + nums[i]), nums[i])
         }
-        return Math.max(...dp) 
+        return Math.max(...dp)
     }
-    let arr = [-2,1,-3,4,-1,2,1,-5,4]
+    let arr = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
     // console.log(maxSubArray(arr));
 }
 //机器人最短路径
 {
-    let grid = [[1,3,1],[1,5,1],[4,2,1]]
+    let grid = [[1, 3, 1], [1, 5, 1], [4, 2, 1]]
     function minPathSum(grid) {
         let m = grid.length
         let n = grid[0].length
-        let dp = new Array(m).fill(0).map(()=>new Array(n).fill(0))
+        let dp = new Array(m).fill(0).map(() => new Array(n).fill(0))
         dp[0][0] = grid[0][0]
 
         for (let i = 0; i < m; i++) {
             for (let j = 0; j < n; j++) {
-                if (i==0&&j>0) {
-                    dp[0][j] = dp[0][j-1] + grid[0][j]
-                }else if(j==0&&i>0){
-                    dp[i][0] = dp[i-1][0] + grid[i][0]
-                }else if (i>0&&j>0) {
-                    dp[i][j] = Math.min(dp[i-1][j],dp[i][j-1]) + grid[i][j]
+                if (i == 0 && j > 0) {
+                    dp[0][j] = dp[0][j - 1] + grid[0][j]
+                } else if (j == 0 && i > 0) {
+                    dp[i][0] = dp[i - 1][0] + grid[i][0]
+                } else if (i > 0 && j > 0) {
+                    dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j]
                 }
-                console.log(dp[i][j],i,j);
+                console.log(dp[i][j], i, j);
             }
         }
-        return dp[m-1][n-1]
+        return dp[m - 1][n - 1]
     }
     // console.log(minPathSum(grid));
 }
@@ -537,12 +537,12 @@ function uniquePaths(m,n) {
                 name: 'c1',
                 children: [
                     {
-                            name: 'c11',
-                        children: []		
-                        },
-                        {
-                            name: 'c12',
-                        children: []		
+                        name: 'c11',
+                        children: []
+                    },
+                    {
+                        name: 'c12',
+                        children: []
                     }
                 ]
             },
@@ -550,20 +550,208 @@ function uniquePaths(m,n) {
                 name: 'c2',
                 children: [
                     {
-                            name: 'c21',
-                        children: []		
-                        },
-                        {
-                            name: 'c22',
-                        children: []		
+                        name: 'c21',
+                        children: []
+                    },
+                    {
+                        name: 'c22',
+                        children: []
                     }
                 ]
             }
         ]
     }
-    
+
+}
+//机器人的运动范围
+{
+    function movingCount(m, n, k) {
+        const visited = Array(m).fill(0).map(() => Array(n).fill(false))
+
+        function sum(n) {
+            let res = 0
+            while (n) {
+                res += n % 10
+                n = Math.floor(n / 10)
+            }
+            return res
+        }
+
+        function dfs(x, y) {
+            //终值条件
+            if (sum(x) + sum(y) > k || x >= m || y >= n || visited[x][y]) {
+                return 0
+            } else {
+                visited[x][y] = true
+                return 1 + dfs(x + 1, y) + dfs(x, y + 1)
+            }
+        }
+        return dfs(0, 0)
+    }
+    // movingCount()
 }
 {
-    
+    //二分查找
+    function searchInsert(nums, target) {
+        let middle
+        let l = 0
+        let r = nums.length - 1
+        while (l <= r) {
+            middle = l + ((r - l) >> 1)
+            if (nums[middle] > target) {
+                r = middle - 1
+            } else if (nums[middle] < target) {
+                l = middle + 1
+            } else {
+                return middle
+            }
+            console.log(l, r);
+        }
+
+        return l
+    }
+    let nums = [1, 3, 5, 6]
+    let target = 7
+    // console.log(searchInsert(nums,target)); 
 }
+{
+    //二分进阶
+    function searchRange(nums, target) {
+        let l = 0, r = nums.length - 1, middle
+        let left = 0, right = 0
+        let count1 = -1
+        let count2 = -1
+        let is = false
+        while (l <= r) {
+            middle = l + ((r - l) >> 1)
+            console.log(middle);
+
+            if (nums[middle] < target) {
+                l = middle + 1
+            } else if (nums[middle] > target) {
+                r = middle - 1
+            } else if (nums[middle] == target) {
+                count1 = middle
+                count2 = middle
+                is = true
+                break
+            } else {
+                break
+            }
+        }
+        if (is == true) {
+            while (nums[count1 + 1] == nums[count1]) {
+                count1++
+                right = count1
+
+            }
+            while (nums[count2 - 1] == nums[count2]) {
+                // console.log(count1,count2);
+
+                count2--
+                left = count2
+            }
+        }
+        return [count2, count1]
+    }
+    let nums = [1]
+    let target = 1
+    // console.log(searchRange(nums,target)); 
+}
+{
+    //判断两个区间是否重叠 并且 合并
+    function isOverlapped(first, second) {
+        first.strat > second.start ? [first, second] = [second, first] : ''
+        if (second.start <= first.end) return true
+        return false
+    }
+    const a = { start: 3, end: 5 };
+    const b = { start: 9, end: 10 };
+    const c = { start: 4, end: 6 };
+    const d = { start: 5, end: 8 };
+    // console.log(isOverlapped(c, d));
+
+    function merge(interval) {
+        interval = interval.sort((a, b) => {
+            if (a.strat === b.start) {
+                return a.end - b.end
+            }
+            return a.start - b.start
+        })
+        console.log(interval);
+        const res = [];
+
+        let now = interval[0];
+        for (let i = 1; i < interval.length; i++) {
+            if (isOverlapped(now, interval[i])) {
+                now.end = interval[i].end > now.end ? interval[i].end : now.end
+            } else {
+                res.push(now);
+                now = interval[i];
+            }
+        }
+        res.push(now);
+        return res;
+    }
+    const e = [
+        { start: 2, end: 5 },
+        { start: 9, end: 10 },
+        { start: 3, end: 4 },
+        { start: 5, end: 8 },
+        { start: 10, end: 12 },
+        { start: 11, end: 14 },
+      ];
+      
+      const f = [
+        { start: 4, end: 7 },
+        { start: 6, end: 9 },
+        { start: 1, end: 3 },
+        { start: 8, end: 10 },
+      ];
+      const g = [
+        { start: 4, end: 7 },
+        { start: 9, end: 10 },
+        { start: 7, end: 9 },
+      ];
+    //   console.log(merge(e));
+
+}
+{
+    var sortedSquares = function(nums) {
+        let res =[]
+        let len = nums.length
+        let l = 0,r = len - 1
+            while(l<=r){
+                let left = nums[l]*nums[l]
+                let right = nums[r]*nums[r]
+                console.log(left,right);
+               if(Math.abs(left) < Math.abs(right)) {
+                   res.unshift(right)
+                   r--
+               }else {
+                res.unshift(left)
+                l++
+               }
+            }
+        return res
+    };  
+    // console.log(sortedSquares([-4,-1,0,3,10]));
+}
+{
+    function backspaceCompare(s,t) {
+        function check(str) {
+            while(str.indexOf('#')!==-1){
+                str = str.replace(/.?\#/,'')
+            }
+            return str
+        }
+        return check(s) === check(t)
+    }
+    let s = "ab#c"
+    let t = "ad#c"
+    console.log(backspaceCompare(s,t)); 
+}
+
+
+  
 
