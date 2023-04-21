@@ -899,6 +899,48 @@ const date = new Date();
     // n.add(a)
     // n.notify()
 }
+//手写深拷贝
+{
+   
+    function deepClone(target,map = new Map()) {
+        if (typeof target !== 'object')  return target
+        const cloneTarteg = Array.isArray(target) ? [] : {}
+        if (map.get(target)) {
+            return map.get(target)
+        }
+        map.set(target,cloneTarteg)
+
+        for (const key in target) {
+            if (Object.hasOwnProperty.call(target, key)) {
+                const element = target[key];
+                if (element instanceof Date) {
+                    cloneTarteg[key] = new Date(element.getTime())
+                }
+                else if (element instanceof RegExp) {
+                    cloneTarteg[key] = new RegExp(element)
+                }else {
+                    cloneTarteg[key] = (typeof element === 'object') ? DeepClone(element,map) : element;
+                }
+
+            }
+        }
+        return cloneTarteg
+    }
+    // let obj = {
+    //     a:'1',
+    //     b:2,
+    //     c:/\d/,
+    //     d: new Date(),
+    //     e:{
+    //         f:{
+    //             g:[1,2,3,4]
+    //         }
+    //     }
+    // }
+    // obj.obj = obj
+    // let newobj =  deepClone(obj)
+    // console.log(newobj.obj);
+}
 
 
 

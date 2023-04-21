@@ -700,48 +700,48 @@ function parseStr(params) {
         { start: 5, end: 8 },
         { start: 10, end: 12 },
         { start: 11, end: 14 },
-      ];
-      
-      const f = [
+    ];
+
+    const f = [
         { start: 4, end: 7 },
         { start: 6, end: 9 },
         { start: 1, end: 3 },
         { start: 8, end: 10 },
-      ];
-      const g = [
+    ];
+    const g = [
         { start: 4, end: 7 },
         { start: 9, end: 10 },
         { start: 7, end: 9 },
-      ];
+    ];
     //   console.log(merge(e));
 
 }
 {
-    var sortedSquares = function(nums) {
-        let res =[]
+    var sortedSquares = function (nums) {
+        let res = []
         let len = nums.length
-        let l = 0,r = len - 1
-            while(l<=r){
-                let left = nums[l]*nums[l]
-                let right = nums[r]*nums[r]
-                console.log(left,right);
-               if(Math.abs(left) < Math.abs(right)) {
-                   res.unshift(right)
-                   r--
-               }else {
+        let l = 0, r = len - 1
+        while (l <= r) {
+            let left = nums[l] * nums[l]
+            let right = nums[r] * nums[r]
+            console.log(left, right);
+            if (Math.abs(left) < Math.abs(right)) {
+                res.unshift(right)
+                r--
+            } else {
                 res.unshift(left)
                 l++
-               }
             }
+        }
         return res
-    };  
+    };
     // console.log(sortedSquares([-4,-1,0,3,10]));
 }
 {
-    function backspaceCompare(s,t) {
+    function backspaceCompare(s, t) {
         function check(str) {
-            while(str.indexOf('#')!==-1){
-                str = str.replace(/.?\#/,'')
+            while (str.indexOf('#') !== -1) {
+                str = str.replace(/.?\#/, '')
             }
             return str
         }
@@ -749,9 +749,78 @@ function parseStr(params) {
     }
     let s = "ab#c"
     let t = "ad#c"
-    console.log(backspaceCompare(s,t)); 
+    // console.log(backspaceCompare(s,t)); 
+}
+//搜索旋转排序数组
+{
+    function search(nums, target) {
+        // 初始化左指针为0，右指针为数组最后一个元素
+        let left = 0, right = nums.length - 1;
+        // 当左指针超过右指针，证明遍历完成，跳出循环
+        while (left <= right) {
+            // 寻找中间值
+            let middle = Math.floor((left + right) / 2);
+            // 如果中间值等于目标值，直接返回索引
+            if (nums[middle] == target) return middle;
+
+            // 找到有顺序的一半数组（无论如何分割数组，总有一半是全为升序的）
+            // 如果nums[left]<=nums[middle]证明[left,middle]该区间全为升序
+            if (nums[left] <= nums[middle]) {
+                // 如果目标值不在该区间值的范围内，则去掉区间[left,middle]从
+                // [middle+1,right]区间继续遍历
+                if (target < nums[left] || target > nums[middle]) left = (middle + 1);
+                // 否则目标值在区间[left,middle]中，则去掉[middle,right]区间
+                // 从[left,middle-1]继续遍历
+                else right = (middle - 1);
+            }
+            // 否则[middle,right]区间全为升序
+            else {
+                // 如果目标值不在该区间值的范围内，则去掉区间[middle,right]从
+                // [left,middle-1]区间继续遍历
+                if (target < nums[middle] || target > nums[right]) right = (middle - 1);
+                // 否则目标值在区间[middle,right]中，则去掉[left,middle]区间
+                // 从[middle+1,right]继续遍历
+                else left = (middle + 1);
+            }
+        }
+        // 遍历完数组元素后仍未找到目标值，直接返回-1
+        return -1;
+    }
+}
+//搜索二维矩阵
+{
+    var searchMatrix = function (matrix, target) {
+        let low = matrix.length
+
+        let count
+       for (let i = 0; i < low; i++) {
+            if (matrix[i][0]<=target ) {
+                count = i
+            }
+       }
+       let l = 0,r = matrix[count].length-1
+       let middle
+       console.log(count);
+       while(l<=r){
+        console.log(l,r);
+        middle = l+ Math.floor((r-l)/2)
+        if (matrix[count][middle]===target) {
+            return true
+        }else if(matrix[count][middle]>target){
+            r = middle -1 
+        }else if(matrix[count][middle]<target){
+            l = middle +1
+        }
+       }
+       return false
+
+    }
+    let matrix = [[-10,-8,-6,-4,-3],[0,2,3,4,5],[8,9,10,10,12]]
+    
+    let target  = 0
+    console.log(searchMatrix(matrix,target));
 }
 
 
-  
+
 

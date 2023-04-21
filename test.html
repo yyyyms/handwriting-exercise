@@ -33,13 +33,21 @@
       </style>
 </head>
 <body>
-    <body>
         <div class="parent">
+          
           <div class="header"></div>
+          
           <div class="content"></div>
+          <script>
+            let dom = document.getElementsByClassName('content')
+            console.log(dom);
+            dom[0].innerHTML = '你好'
+            for (let i = 0; i < 10000; i++) {
+              console.log(1111);
+            }
+            </script>
           <div class="footer"></div>
         </div>
-      </body>
       <script>
         function Sup(name, age) {
         this.color = ['red', 'green', 'blue']
@@ -134,6 +142,11 @@
 }
 }
 }
+
       </script>
+      <script>
+      
+      </script>
+  <h1>nini</h1>
 </body>
 </html>
