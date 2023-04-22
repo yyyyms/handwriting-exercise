@@ -129,5 +129,19 @@ let str = 'yms'
     arr.map((item)=>{
         return item+1
     })
-    console.log(arr[0]);
+    // console.log(arr[0]);
+}
+{
+   const p = new Promise((resolve, reject) => {
+        resolve('ok')
+        throw new Error('test')
+
+    })
+    p.then((res)=>{
+        return 1
+    }).then((res)=>{
+        console.log(res);
+    }).catch((err)=>{
+        console.log(err,'11');
+    })
 }

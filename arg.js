@@ -818,7 +818,25 @@ function parseStr(params) {
     let matrix = [[-10,-8,-6,-4,-3],[0,2,3,4,5],[8,9,10,10,12]]
     
     let target  = 0
-    console.log(searchMatrix(matrix,target));
+    // console.log(searchMatrix(matrix,target));
+}
+//长度最小的子数组 滑动窗口
+{
+    function minSubArrayLen (target,nums) {
+        let len = nums.length,l = 0,r = 0
+        let sum = 0
+        let ans = Infinity
+        while (r<len) {
+            sum+= nums[r]
+            while (sum>=target) {
+                ans = Math.min(ans,r-l+1)
+                sum-= nums[l]
+                l++
+            }
+            end++
+        }
+        return ans
+    }
 }
 
 

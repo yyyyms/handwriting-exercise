@@ -1,9 +1,18 @@
 const http = require('http')
-
-const server = http.createServer((require,respose)=>{
-    console.log('有客户端请求数据');
-    respose.end('success')
+const url = require('url')
+const server = http.createServer((req,res)=>{
+    const params = url.parse(req.url,true)
+    console.log(params);
+    res.write('hello')
+    res.end('world')
+})
+server.on('close',()=>{
+    console.log('服务关闭了');
+})
+server.on('error',(e)=>{
+    console.log(e);
 })
 server.listen(3000,()=>{
-    console.log('服务启动成功');
+    console.log('启动在3000了');
+    // server.close()
 })

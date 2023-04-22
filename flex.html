@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .flex-container {
+            display: flex;
+            width: 600px;
+            height: 350px;
+            background-color: lightgrey;
+        }
+
+        .flex-item {
+            background-color: cornflowerblue;
+            margin: 20px;
+        }
+
+        .item1 {
+            width: 100px
+        }
+
+        .item2 {
+            /* flex: auto; */
+            width: 100px;
+            flex-basis: 20px;
+        }
+
+        .item3 {
+            /* flex: auto; */
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="flex-container">
+        <div class="flex-item item1">item 1</div>
+        <div class="flex-item item2">item 2</div>
+        <div class="flex-item item3">item 3</div>  
+      </div>
+</body>
+
+</html>
