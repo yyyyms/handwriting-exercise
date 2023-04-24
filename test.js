@@ -140,8 +140,33 @@ let str = 'yms'
     p.then((res)=>{
         return 1
     }).then((res)=>{
-        console.log(res);
+        // console.log(res);s
     }).catch((err)=>{
-        console.log(err,'11');
+        // console.log(err,'11');
     })
+}
+{
+    const arr = [{a:1},{b:2},{c:3}]
+     arr.forEach(element => {
+        if (element.a) {
+            element.a = 0
+        }
+    });
+    // console.log(arr);
+}
+//拷贝数组
+{
+    const arr = [1,2,3]
+    const res = arr.concat()
+    // const res =  Object.assign({},obj)
+    arr[0] = 0
+    // console.log(res);
+
+    const res1 = arr.slice()
+    arr[0] = 1
+    // console.log(res1);
+}
+{
+    // console.log(2=== true);
+    console.log(!!'1');
 }
