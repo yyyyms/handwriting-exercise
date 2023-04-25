@@ -168,5 +168,37 @@ let str = 'yms'
 }
 {
     // console.log(2=== true);
-    console.log(!!'1');
+    // console.log(!!'1');
+}
+{
+    let arr = [1,2,5]
+    let obj = {
+        a:1,
+        b:2,
+        c:3
+    }
+}
+{
+    class Person{
+        constructor(name,age){
+            this.name = name;
+            this.age = age;
+            console.log(1);
+        }
+        getName(){
+            return this.name;
+        }
+        getAge(){
+            return this.age; 
+        }
+    }
+    class Student extends Person{
+        constructor(name){
+            super()
+            console.log(name);
+        }
+    }
+    let stu1 = new Student('有鱼');
+    // console.log(stu1.getName());// 我覆盖了父级的方法,有鱼
+    // console.log(stu1.getAge());//2
 }
