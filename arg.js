@@ -838,7 +838,86 @@ function parseStr(params) {
         return ans
     }
 }
-
+//四数相加
+{
+    let nums1 = [1,2], nums2 = [-2,-1], nums3 = [-1,2], nums4 = [0,2]
+    function fourSumCount(A,B,C,D) {
+        let res = 0
+        const MapAB = new Map();
+        for (const a of A) {
+            for (const b of B) {
+                if (MapAB.has(a+b)) {
+                    MapAB.set(a+b,MapAB.get(a+b)+1)
+                }else {
+                    MapAB.set(a+b,1)
+                }
+            }
+        }
+        for (const c of C) {
+            for (const d of D) {
+                if (MapAB.has(-c-d)) {
+                    res+= MapAB.get(-c-d)
+                }
+            }
+        }
+        return res
+    }
+    // console.log(fourSumCount(nums1,nums2,nums3,nums4));
+}
+//赎金信
+{
+    function canConstruct(S,T) {
+        const arr = Array(26).fill(0)
+        let base = 'a'.charCodeAt()
+        for (const t of T) {
+            arr[t.charCodeAt()-base]++
+        }
+        for (const s of S) {
+            const index = s.charCodeAt()-base
+            if(!arr[index])return false
+            arr[index]--
+        }
+        return true
+    }
+    let ransomNote = "aa", magazine = "aab"
+    // console.log(canConstruct(ransomNote,magazine)); 
+}
+//三数之和
+{
+function threeSum(nums) {
+    let res = []
+    let num = nums.sort((a,b)=>{
+        return  a-b
+    })
+    let len = num.length
+    console.log(num);
+    for (let i = 0; i < num.length; i++) {
+        if(num[i] > 0) break
+        if(i>0 && num[i] == num[i-1])continue
+        let l = i+1,r = len-1
+        while(l < r){
+            const sum = num[i] + num[l] + num[r]
+            if (sum<0) {
+              l++
+            } else if (sum>0){
+              r--
+            } else{
+              res.push([num[i],num[l],num[r]])
+              while(l<r && num[l]==num[l+1]) l++
+              while(l<r && num[r]==num[r+1]) r--
+              l++
+              r--
+            }
+            
+      
+          }
+    
+    }
+    return res
+}
+let nums = [-1,0,1,2,-1,-4]
+// console.log(threeSum(nums)); 
+}
 
 
 
