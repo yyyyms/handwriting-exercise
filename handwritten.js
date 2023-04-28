@@ -941,6 +941,40 @@ const date = new Date();
     // let newobj =  deepClone(obj)
     // console.log(newobj.obj);
 }
+//手写10进制转其他进制
+{
+    function to_string(num, radix) {
+    let digits = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+        if (num == 0) return 0
+        if (!Number.isInteger(num)) {
+            console.log('目前不支持小数');
+            return
+        }
+        let res = '', rate, i
+        if (num < 0) {
+            res = +'-'
+            num = Math.abs(num)
+        }
+        //下面循环为了获得最高的幂数，比如上面的110转换为16进制为6e,其中i为1;也就是16**1*6中的1;
+        //获取最高的幂数是为了下面根据幂数来推算每一位的倍数和相应的字符
+        for (i = 0; i < num; i++) {
+            if (Math.pow(radix, i) <= num && num <= Math.pow(radix, i + 1)) {
+                break
+            }
+        }
+        console.log(i);
+        //一位一位看
+        while (i >= 0) {
+            rate = Math.floor(num / Math.pow(radix, i))
+            res += digits[rate]
+            num -= rate * Math.pow(radix, i)
+            i--
+        }
+        return res
+    }
+    // console.log(to_string(25,2)); 
+}
 
 
 

@@ -14,18 +14,18 @@ let str = 'yms'
 }
 {
     let obj = {
-        a: [1,2,3]
+        a: [1, 2, 3]
     }
     let obj1 = {
-        a:[1,2,3]
+        a: [1, 2, 3]
     }
-    let a = [1,2,3]
-    Object.defineProperty(a,'a',{
+    let a = [1, 2, 3]
+    Object.defineProperty(a, 'a', {
         // value:[1,2,4],
-        set(){
+        set() {
             console.log('obj发生变化');
         },
-        get(){
+        get() {
             console.log('obj被获取');
         },
     })
@@ -43,7 +43,7 @@ let str = 'yms'
     // name[0] = []
 }
 {
-    function Debounce(timeout,fn) {
+    function Debounce(timeout, fn) {
         let timer = null
         return function (params) {
             clearTimeout(timer)
@@ -55,15 +55,15 @@ let str = 'yms'
 }
 {
     let str = '5'
-    let res =  str.split('.')
+    let res = str.split('.')
     // console.log(res);
 }
 {
-    let arr = [1,2,3]
+    let arr = [1, 2, 3]
     let test = []
     for (let i = 0; i < arr.length; i++) {
-        Object.defineProperty(test,i,{
-            value:arr[i]
+        Object.defineProperty(test, i, {
+            value: arr[i]
             // get(){
             //     return arr[i];
             // }
@@ -83,7 +83,7 @@ let str = 'yms'
         return f2
     }
 
-    const fn =  f1()
+    const fn = f1()
 
     function test(fn) {
         let a = 2
@@ -102,52 +102,52 @@ let str = 'yms'
 }
 {
     const obj = {
-        a : 1,
-        b : {
-            c : 1 
+        a: 1,
+        b: {
+            c: 1
         }
     }
-    
-    const newobj =  Object.assign(obj)
+
+    const newobj = Object.assign(obj)
     newobj.b.c = 2
     // console.log(obj);
 }
 {
     const obj = {
-        value:10,
-        test:1
+        value: 10,
+        test: 1
     }
     // console.log({...obj});
-    const arr = [1,2,3,0]
-    let foo = {...arr}
+    const arr = [1, 2, 3, 0]
+    let foo = { ...arr }
     // console.log(foo);
-    let res = arr.sort((a,b)=>a-b)
+    let res = arr.sort((a, b) => a - b)
     // console.log(arr === res);
 }
 {
     const arr = new Array(5);
-    arr.map((item)=>{
-        return item+1
+    arr.map((item) => {
+        return item + 1
     })
     // console.log(arr[0]);
 }
 {
-   const p = new Promise((resolve, reject) => {
+    const p = new Promise((resolve, reject) => {
         resolve('ok')
         throw new Error('test')
 
     })
-    p.then((res)=>{
+    p.then((res) => {
         return 1
-    }).then((res)=>{
+    }).then((res) => {
         // console.log(res);s
-    }).catch((err)=>{
+    }).catch((err) => {
         // console.log(err,'11');
     })
 }
 {
-    const arr = [{a:1},{b:2},{c:3}]
-     arr.forEach(element => {
+    const arr = [{ a: 1 }, { b: 2 }, { c: 3 }]
+    arr.forEach(element => {
         if (element.a) {
             element.a = 0
         }
@@ -156,7 +156,7 @@ let str = 'yms'
 }
 //拷贝数组
 {
-    const arr = [1,2,3]
+    const arr = [1, 2, 3]
     const res = arr.concat()
     // const res =  Object.assign({},obj)
     arr[0] = 0
@@ -171,34 +171,41 @@ let str = 'yms'
     // console.log(!!'1');
 }
 {
-    let arr = [1,2,5]
+    let arr = [1, 2, 5]
     let obj = {
-        a:1,
-        b:2,
-        c:3
+        a: 1,
+        b: 2,
+        c: 3
     }
 }
 {
-    class Person{
-        constructor(name,age){
+    class Person {
+        constructor(name, age) {
             this.name = name;
             this.age = age;
             console.log(1);
         }
-        getName(){
+        getName() {
             return this.name;
         }
-        getAge(){
-            return this.age; 
+        getAge() {
+            return this.age;
         }
     }
-    class Student extends Person{
-        constructor(name){
+    class Student extends Person {
+        constructor(name) {
             super()
             console.log(name);
         }
     }
-    let stu1 = new Student('有鱼');
+    // let stu1 = new Student('有鱼');
     // console.log(stu1.getName());// 我覆盖了父级的方法,有鱼
     // console.log(stu1.getAge());//2
 }
+//10进制转
+{
+    let a = 255
+    // console.log(a.toString(16));
+    // console.log(parseInt('AF', 16));
+}
+
