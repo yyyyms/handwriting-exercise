@@ -793,44 +793,44 @@ function parseStr(params) {
         let low = matrix.length
 
         let count
-       for (let i = 0; i < low; i++) {
-            if (matrix[i][0]<=target ) {
+        for (let i = 0; i < low; i++) {
+            if (matrix[i][0] <= target) {
                 count = i
             }
-       }
-       let l = 0,r = matrix[count].length-1
-       let middle
-       console.log(count);
-       while(l<=r){
-        console.log(l,r);
-        middle = l+ Math.floor((r-l)/2)
-        if (matrix[count][middle]===target) {
-            return true
-        }else if(matrix[count][middle]>target){
-            r = middle -1 
-        }else if(matrix[count][middle]<target){
-            l = middle +1
         }
-       }
-       return false
+        let l = 0, r = matrix[count].length - 1
+        let middle
+        console.log(count);
+        while (l <= r) {
+            console.log(l, r);
+            middle = l + Math.floor((r - l) / 2)
+            if (matrix[count][middle] === target) {
+                return true
+            } else if (matrix[count][middle] > target) {
+                r = middle - 1
+            } else if (matrix[count][middle] < target) {
+                l = middle + 1
+            }
+        }
+        return false
 
     }
-    let matrix = [[-10,-8,-6,-4,-3],[0,2,3,4,5],[8,9,10,10,12]]
-    
-    let target  = 0
+    let matrix = [[-10, -8, -6, -4, -3], [0, 2, 3, 4, 5], [8, 9, 10, 10, 12]]
+
+    let target = 0
     // console.log(searchMatrix(matrix,target));
 }
 //长度最小的子数组 滑动窗口
 {
-    function minSubArrayLen (target,nums) {
-        let len = nums.length,l = 0,r = 0
+    function minSubArrayLen(target, nums) {
+        let len = nums.length, l = 0, r = 0
         let sum = 0
         let ans = Infinity
-        while (r<len) {
-            sum+= nums[r]
-            while (sum>=target) {
-                ans = Math.min(ans,r-l+1)
-                sum-= nums[l]
+        while (r < len) {
+            sum += nums[r]
+            while (sum >= target) {
+                ans = Math.min(ans, r - l + 1)
+                sum -= nums[l]
                 l++
             }
             end++
@@ -840,23 +840,23 @@ function parseStr(params) {
 }
 //四数相加
 {
-    let nums1 = [1,2], nums2 = [-2,-1], nums3 = [-1,2], nums4 = [0,2]
-    function fourSumCount(A,B,C,D) {
+    let nums1 = [1, 2], nums2 = [-2, -1], nums3 = [-1, 2], nums4 = [0, 2]
+    function fourSumCount(A, B, C, D) {
         let res = 0
         const MapAB = new Map();
         for (const a of A) {
             for (const b of B) {
-                if (MapAB.has(a+b)) {
-                    MapAB.set(a+b,MapAB.get(a+b)+1)
-                }else {
-                    MapAB.set(a+b,1)
+                if (MapAB.has(a + b)) {
+                    MapAB.set(a + b, MapAB.get(a + b) + 1)
+                } else {
+                    MapAB.set(a + b, 1)
                 }
             }
         }
         for (const c of C) {
             for (const d of D) {
-                if (MapAB.has(-c-d)) {
-                    res+= MapAB.get(-c-d)
+                if (MapAB.has(-c - d)) {
+                    res += MapAB.get(-c - d)
                 }
             }
         }
@@ -866,15 +866,15 @@ function parseStr(params) {
 }
 //赎金信
 {
-    function canConstruct(S,T) {
+    function canConstruct(S, T) {
         const arr = Array(26).fill(0)
         let base = 'a'.charCodeAt()
         for (const t of T) {
-            arr[t.charCodeAt()-base]++
+            arr[t.charCodeAt() - base]++
         }
         for (const s of S) {
-            const index = s.charCodeAt()-base
-            if(!arr[index])return false
+            const index = s.charCodeAt() - base
+            if (!arr[index]) return false
             arr[index]--
         }
         return true
@@ -884,41 +884,177 @@ function parseStr(params) {
 }
 //三数之和
 {
-function threeSum(nums) {
-    let res = []
-    let num = nums.sort((a,b)=>{
-        return  a-b
-    })
-    let len = num.length
-    console.log(num);
-    for (let i = 0; i < num.length; i++) {
-        if(num[i] > 0) break
-        if(i>0 && num[i] == num[i-1])continue
-        let l = i+1,r = len-1
-        while(l < r){
-            const sum = num[i] + num[l] + num[r]
-            if (sum<0) {
-              l++
-            } else if (sum>0){
-              r--
-            } else{
-              res.push([num[i],num[l],num[r]])
-              while(l<r && num[l]==num[l+1]) l++
-              while(l<r && num[r]==num[r+1]) r--
-              l++
-              r--
+    function threeSum(nums) {
+        let res = []
+        let num = nums.sort((a, b) => {
+            return a - b
+        })
+        let len = num.length
+        console.log(num);
+        for (let i = 0; i < num.length; i++) {
+            if (num[i] > 0) break
+            if (i > 0 && num[i] == num[i - 1]) continue
+            let l = i + 1, r = len - 1
+            while (l < r) {
+                const sum = num[i] + num[l] + num[r]
+                if (sum < 0) {
+                    l++
+                } else if (sum > 0) {
+                    r--
+                } else {
+                    res.push([num[i], num[l], num[r]])
+                    while (l < r && num[l] == num[l + 1]) l++
+                    while (l < r && num[r] == num[r + 1]) r--
+                    l++
+                    r--
+                }
+
+
             }
-            
-      
-          }
-    
+
+        }
+        return res
     }
-    return res
+    let nums = [-1, 0, 1, 2, -1, -4]
+    // console.log(threeSum(nums)); 
 }
-let nums = [-1,0,1,2,-1,-4]
-// console.log(threeSum(nums)); 
+//排序 
+{   //冒泡排序
+    //比较相邻的元素 交换位置
+    let arr = [2, 9, 6, 7, 4, 3, 1, 7]
+    function BubbleSort(arr, flat = 0) {
+        let isOrder = false
+        let len = arr.length
+        for (let i = 0; i < len - 1; i++) {
+            isOrder = true
+            for (let j = 0; j < len - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
+                    isOrder = false
+                }
+
+            }
+            if (isOrder) {
+                break
+            }
+
+        }
+        return arr
+    }
+
+    // console.log(BubbleSort(arr));
+    // 计数排序
+    // 1.计算出差值d,最小值小于0,加上本身add
+    // 2.创建统计数组并统计对应元素个数
+    // 3.统计数组做变形，后面的元素等于前面的元素之和,也就是排名数组
+    // 4.遍历原始数组,从统计数组中找到正确位置,输出到结果数组
+    function countingSort(arr) {
+        let min = arr[0], max = arr[0], len = arr.length
+        //求最大最小值
+        for (let i = 0; i < len - 1; i++) {
+            max = Math.max(arr[i], max)
+            min = Math.min(arr[i], min)
+        }
+        //1.计算出差值d，最小值小于0，加上本身add
+        let d = max - min,
+            add = min < 0 ? -min : 0
+        //2.统计数组并统计对应元素个数
+        let countArray = new Array(d + 1 + add).fill(0)
+        for (let i = 0; i < len; i++) {
+            let demp = arr[i] - min + add
+            countArray[demp] += 1
+        }
+        //3.统计数组做变形，后面的元素等于前面的元素之和，也就是排名数组
+        let sum = 0
+        //这里需要遍历的是countArray数组的长度
+        for (let i = 0; i < d + 1 + add; i++) {
+            sum += countArray[i]
+            countArray[i] = sum
+        }
+        let res = new Array(len)
+        //4.遍历原始数组，从统计数组中找到正确位置
+        for (let i = 0; i < len; i++) {
+            let demp = arr[i] - min + add
+            res[countArray[demp] - 1] = arr[i]
+            countArray[demp]--
+
+        }
+        return res
+    }
+    // console.log(countingSort(arr));
 }
+//快速排序
+{
+    let arr = [2, 9, 6, 7, 4, 3, 1, 7]
+    let quickSort = function (arr) {
+        //递归出口就是数组长度为1
+        if (arr.length <= 1) return arr
+        //获取中间值得索引
+        let index = Math.floor(arr.length / 2)
+        //使用splice截取
+        //如果此处使用pivot=arr;那么将出现无限递归的错误
+        let pivot = arr.splice(index, 1)[0], left = [], right = []
+        for (let i = 0; i < arr.length; i++) {
+            if (pivot > arr[i]) {
+                left.push(arr[i])
+            } else {
+                right.push(arr[i])
+            }
 
+        }
+        return quickSort(left).concat([pivot], quickSort(right))
+    }
+    // console.log(quickSort(arr));
+}
+//插入排序
+{
+    let arr = [2, 9, 6, 7, 4, 3, 1, 7, 0, -1, -2]
+    let insertionSort = function (arr) {
+        let len = arr.length
 
+        for (let i = 0; i < len; i++) {
+            let preIndex = i - 1,
+                cur = arr[i];
+            while (preIndex >= 0 && arr[preIndex] > cur) {
+                arr[preIndex + 1] = arr[preIndex]
+                preIndex--;
+            }
+            arr[preIndex + 1] = cur
+        }
+        return arr
+    }
+    // console.log(insertionSort(arr));
+}
+{
+    //选择排序
+    let selectSort = function (arr, flag = 0) {
+        let len = arr.length,
+            temp = 0;
+
+        // 一共需要排序len-1次
+        for (let i = 0; i < len - 1; i++) {
+            temp = i;
+            for (let j = i + 1; j < len; j++) {
+                if (arr[j] < arr[temp])
+                    temp = j;
+            }
+            // 每一趟保证第i位为最小值
+            if (temp !== i) {
+                [arr[i], arr[temp]] = [arr[temp], arr[i]]
+            }
+        }
+
+        return flag ? arr.reverse() : arr
+    }
+    let arr = [2, 9, 6, 7, 4, 3, 1, 7, 0, -1, -2]
+    // console.log(selectSort(arr))
+}
+{
+    String.prototype.giveLydiaPizza = ()=>{
+        return 'Just give Lydia pizza already!'
+    }
+    const name = 'Lydia'
+    name.giveLydiaPizza()
+}
 
 

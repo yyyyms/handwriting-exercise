@@ -208,4 +208,30 @@ let str = 'yms'
     // console.log(a.toString(16));
     // console.log(parseInt('AF', 16));
 }
+{
+    function Person(firstName,lastName){
+        this.firstName = firstName
+        this.lastName = lastName
+    }
+    const lydia = new Person('Lydia','Hallie')
+    const sarah = Person('Sarah','Smith')
+    // console.log(lydia);
+    // console.log(sarah);
+}
+{
+    const obj = {
+        a:'one',
+        b:'two',
+        a:'three'
+    }
+    // console.log(obj);
+}
+{
+    const person = {name:'Lydia'}
+    function sayHi(age){
+        console.log(`${this.name} is ${age}`)
+    }
+    sayHi.call(person,21)
+    sayHi.bind(person,21)
 
+}

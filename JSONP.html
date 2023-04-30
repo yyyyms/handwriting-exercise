@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">获取数据</button>
+    <script>
+        const jsonp = function (url, params, cb) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script')
+                params = { ...params, cb: cb }
+                const arr = Object.keys(params).map(key =>
+                    `${key}=${params[key]}`
+                )
+                script.src = `${url}?${arr.join('&')}`
+                document.body.appendChild(script)
+                //后端返回一个字符串给前端 cb('我今年18岁')
+                window[cb] = function (data) {
+                    resolve(data)
+                }
+            })
+        }
+        let btn = document.querySelector('#btn')
+        btn.addEventListener('click', function () {
+            jsonp('http://localhost:8080/jsonp', { name: '蜗牛', age: 18 }, 'callback').then((res) => {
+                console.log(res);
+            })
+        })
+        String.prototype.giveLydiaPizza = ()=>{
+        return 'Just give Lydia pizza already!'
+    }
+    const name = 'Lydia'
+    // console.log(name.giveLydiaPizza()); name.giveLydiaPizza()
+    function Person(firstName,lastName){
+        this.firstName = firstName
+        this.lastName = lastName
+    }
+    const lydia = new Person('Lydia','Hallie')
+    const sarah = Person('Sarah','Smith')
+    // console.log(lydia);
+    // console.log(sarah);
+    const person = {name:'Lydia'}
+    function sayHi(age){
+        console.log(`${this.name} is ${age}`)
+    }
+    sayHi.call(person,21)
+    sayHi.bind(person,21)
+    </script>
+</body>
+
+</html>
