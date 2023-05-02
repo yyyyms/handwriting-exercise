@@ -231,7 +231,14 @@ let str = 'yms'
     function sayHi(age){
         console.log(`${this.name} is ${age}`)
     }
-    sayHi.call(person,21)
-    sayHi.bind(person,21)
+    // sayHi.call(person,21)
+    // sayHi.bind(person,21)
 
+}
+{
+    const set = new Set()
+    set.add('abc')
+    set.add('acb')
+    set.add('abc')
+    console.log(set);
 }

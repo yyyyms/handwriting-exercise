@@ -1050,11 +1050,121 @@ function parseStr(params) {
     // console.log(selectSort(arr))
 }
 {
-    String.prototype.giveLydiaPizza = ()=>{
+    String.prototype.giveLydiaPizza = () => {
         return 'Just give Lydia pizza already!'
     }
     const name = 'Lydia'
-    name.giveLydiaPizza()
+    // name.giveLydiaPizza()
+}
+//回溯
+{
+    //字符串排列
+    function permutation(s) {
+        //用path 一层一层去递归 直到递归到最后一层
+        let len = s.length
+        const visited = {}
+        const res = new Set()
+        function dfs(path) {
+            if (path.length === len) return res.add(path)
+            for (let i = 0; i < len; i++) {
+                if (visited[i]) continue
+                visited[i] = true
+                dfs(path + s[i])
+                visited[i] = false
+            }
+        }
+        dfs('')
+        return [...res]
+    }
+    // console.log(permutation('abc')); 
+}
+{
+    //回溯 二叉树中和为某一值的路径
+    var pathSum = function (root, target) {
+        const stack = []
+        const res = []
+        let targetSum = target
+        root && backTrack(root, stack, 0, res, targetSum)
+        return res
+    };
+    function backTrack(node, stack, sum, res, targetSum) {
+        stack.push(node.val)
+        sum += node.val
+        //判断是不是叶子节点 并且 和满足
+        if (node.left == null && node.right === null && sum == targetSum) {
+            res.push([...stack])
+        }
+        if (node.left !== null) backTrack(node.left, stack, sum, res, targetSum)
+        if (node.right !== null) backTrack(node.right, stack, sum, res, targetSum)
+        //回溯到上个节点
+        stack.pop()
+    }
+}
+{
+    //回溯
+    function combine(n, k) {
+        const path = []
+        const res = []
+        function backTrack(startIndex, path) {
+            if (path.length === k) {
+                return res.push([...path])
+            }
+            for (let i = startIndex; i <= n; i++) {
+                path.push(i)
+                backTrack(i + 1, path)
+                path.pop()
+            }
+        }
+        backTrack(1, path)
+        return res
+    }
+    // console.log(combine(4,2));
+}
+{
+    //回溯 所有子集
+    function subsets(nums) {
+        let res = []
+        let path = []
+        let len = nums.length
+        function backTrack(nums, path, startIndex) {
+            res.push([...path])
+            for (let i = startIndex; i < len; i++) {
+                path.push(nums[i])
+                backTrack(nums, path, i + 1)
+                path.pop()
+            }
+        }
+        backTrack(nums, path, 0)
+        return res
+    }
+    // console.log(subsets([1,2,3]));
+}
+{
+    //回溯 全排列
+    function permute(nums) {
+        let len = nums.length
+        let visited = []
+        const res = []
+        const path = []
+        function backTrack(visited, path,nums,len) {
+            if (path.length === len) {
+            console.log(path);
+                res.push([...path])
+                return
+            }
+            for (let i = 0; i < len; i++) {
+                if (visited[i]== false) continue
+                path.push(nums[i])
+                visited[i] = false
+                backTrack(visited, path,nums,len)
+                path.pop()
+                visited[i] = true
+            }
+        }
+        backTrack(visited, path,nums,len)
+        return res
+    }
+    console.log(permute([1, 2, 3]));
 }
 
 
