@@ -95,5 +95,38 @@ var instance2 = new Son("lxy", 23);
 // console.log(instance1);
 
     </script>
+    <script>
+        function _promiseAll(args) {
+        let result = []
+        let arr = Array.from(args)
+        let len = arr.length
+        let count = 0
+        return new Promise((resolve, reject) => {
+            for (let i = 0; i < len; i++) {
+                Promise.resolve(arr[i]).then(res => {
+                    result[i] = res
+                    count++
+                    if (count == len) {
+                        resolve(result)
+                    }
+                }).catch(err => reject(err)
+                )
+
+            }
+        })
+
+    }
+
+    const p1 = new Promise((resolve, reject) => {
+        resolve('1')
+    })
+    const p2 = new Promise((resolve, reject) => {
+        reject('3')
+    })
+    const p3 = 3
+    _promiseAll([p1, p2, p3]).then(res=>{
+        console.log(res);
+    })
+    </script>
 </body>
 </html>

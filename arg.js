@@ -1164,7 +1164,42 @@ function parseStr(params) {
         backTrack(visited, path,nums,len)
         return res
     }
-    console.log(permute([1, 2, 3]));
+    // console.log(permute([1, 2, 3]));
 }
+{
+    //求n个 2-32的不重复的随机数
+    // console.log(res);
+    function random(n) {
+        let set = new Set()
+        while (set.size<n) {
+            set.add(Math.floor(2+Math.random()*30))
+        }
+        console.log(set);
+        const res = [...set]
+        return res
+    }
+    // console.log(random(5)); 
+}
+{
+    //打乱数组顺序 不在原来的位置
+    function shuffle(arr) {
+        let newArr = arr.slice(0)
+        let len = newArr.length
+        let indexArr = []
+        for (let i = 0; i < len; i++) {
+            if (indexArr[i]) {
+                continue
+            }
+            let random = parseInt(Math.random()*len) 
+            while (random===i) {
+                random = parseInt(Math.random()*len) 
+            }
+            indexArr[i] = indexArr[random] = true
+            [newArr[i],newArr[random]] = [newArr[random],newArr[i]]
 
+        }
+        return newArr
+    }
+    // console.log(shuffle([1,2,3,4,5,6,7,8,9,10]));
+}
 

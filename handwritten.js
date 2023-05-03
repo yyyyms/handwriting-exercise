@@ -793,11 +793,11 @@ const date = new Date();
             if (Object.hasOwnProperty.call(target, key)) {
                 if (target[key] instanceof Date) {
                     cloneTarteg[key] = new Date(target[key].getTime())
-                }else if(target[key] instanceof RegExp){
+                } else if (target[key] instanceof RegExp) {
                     cloneTarteg[key] = new RegExp(target[key])
-                }else{
+                } else {
                     // 当元素属于对象（排除 Date、RegExp、DOM）类型时递归拷贝
-                    cloneTarteg[key] = (typeof target[key] === 'object') ? DeepClone(target[key],map) : target[key];
+                    cloneTarteg[key] = (typeof target[key] === 'object') ? DeepClone(target[key], map) : target[key];
                 }
 
             }
@@ -823,11 +823,11 @@ const date = new Date();
 //发布订阅
 {
     class EventEmit {
-        constructor(){
+        constructor() {
             this.cache = {
             }
         }
-        emit(name,...args){
+        emit(name, ...args) {
             if (this.cache[name]) {
                 const tasks = this.cache[name].slice()
                 for (const cb of tasks) {
@@ -835,28 +835,28 @@ const date = new Date();
                 }
             }
         }
-        on(name,fn){
+        on(name, fn) {
             if (this.cache[name]) {
                 this.cache[name].push(fn)
-            }else {
+            } else {
                 this.cache[name] = [fn]
             }
         }
-        off(name,fn){
+        off(name, fn) {
             if (this.cache[name]) {
-                this.cache[name] = this.cache[name].filter((item)=>{
-                    return item!==fn
+                this.cache[name] = this.cache[name].filter((item) => {
+                    return item !== fn
                 })
-            }else {
-                return 
+            } else {
+                return
             }
         }
-        once(name,fn){
-            let fn1 = function(){
+        once(name, fn) {
+            let fn1 = function () {
                 fn()
-                this.off(name,fn1)
+                this.off(name, fn1)
             }
-            this.on(name,fn1)
+            this.on(name, fn1)
         }
     }
     const ev = new EventEmit();
@@ -871,26 +871,26 @@ const date = new Date();
 {
     //观察者模式
     class Notify {
-        constructor(){
+        constructor() {
             this.watcherlist = []
         }
-        add(watcher){
+        add(watcher) {
             this.watcherlist.push(watcher)
         }
-        move(watcher){
-            this.watcherlist = this.watcherlist.filter((w)=>w!==watcher)
+        move(watcher) {
+            this.watcherlist = this.watcherlist.filter((w) => w !== watcher)
         }
-        notify(){
-            this.watcherlist.forEach((w)=>{
+        notify() {
+            this.watcherlist.forEach((w) => {
                 w.update()
             })
         }
     }
     class watche {
-        constructor(name){
+        constructor(name) {
             this.name = name
         }
-        update(){
+        update() {
             console.log('收到通知了');
         }
     }
@@ -901,14 +901,14 @@ const date = new Date();
 }
 //手写深拷贝
 {
-   
-    function deepClone(target,map = new Map()) {
-        if (typeof target !== 'object')  return target
+
+    function deepClone(target, map = new Map()) {
+        if (typeof target !== 'object') return target
         const cloneTarteg = Array.isArray(target) ? [] : {}
         if (map.get(target)) {
             return map.get(target)
         }
-        map.set(target,cloneTarteg)
+        map.set(target, cloneTarteg)
 
         for (const key in target) {
             if (Object.hasOwnProperty.call(target, key)) {
@@ -918,8 +918,8 @@ const date = new Date();
                 }
                 else if (element instanceof RegExp) {
                     cloneTarteg[key] = new RegExp(element)
-                }else {
-                    cloneTarteg[key] = (typeof element === 'object') ? DeepClone(element,map) : element;
+                } else {
+                    cloneTarteg[key] = (typeof element === 'object') ? DeepClone(element, map) : element;
                 }
 
             }
@@ -944,7 +944,7 @@ const date = new Date();
 //手写10进制转其他进制
 {
     function to_string(num, radix) {
-    let digits = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        let digits = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
         if (num == 0) return 0
         if (!Number.isInteger(num)) {
@@ -975,7 +975,123 @@ const date = new Date();
     }
     // console.log(to_string(25,2)); 
 }
+{
+    //手写call
+    Function.prototype._call = function (ctx, ...args) {
+        const context = ctx == undefined ? window : Object(ctx)
+        //给context新增一个唯一的属性避免覆盖原属性
+        const key = Symbol()
+        context[key] = this
+        //执行
+        const res = context[key](...args)
+        //删除这个属性
+        delete context[key]
+        return res
+    }
+    const obj = {}
+    function test(name) {
+        console.log(name);
+    }
+    // test._call(obj,'yms')
+}
+{
+    //手写bind
+    Function.prototype._bind = function (ctx, ...args) {
+        const _self = this
+        //返回一个函数
+        const newFn = function (...rest) {
+            return _self.call(ctx, ...args, ...rest)
+        }
+        if (_self.prototype) {
+            newFn.prototype = Object.create(_self.prototype)
+        }
+        return newFn
+    }
+    function test(param1, param2) {
+        console.log(param1, param2);
+    }
+    const obj = {}
+    const res = test._bind(obj, 'yms')
+    // res('jwd')
+}
+{
 
+    //手写promiseAll
+    function _promiseAll(args) {
+        let result = []
+        let arr = Array.from(args)
+        let len = arr.length
+        let count = 0
+        return new Promise((resolve, reject) => {
+            for (let i = 0; i < len; i++) {
+                Promise.resolve(arr[i]).then(res => {
+                    result[i] = res
+                    count++
+                    if (count == len) {
+                        resolve(result)
+                    }
+                }).catch(err => {
+                    reject(err)
+                }
+                )
+
+            }
+        })
+
+    }
+
+    // const p1 = new Promise((resolve, reject) => {
+    //     resolve('1')
+    // })
+    // const p2 = new Promise((resolve, reject) => {
+    //     reject('2')
+    // })
+    // const p3 = 3
+    // _promiseAll([p1, p2, p3]).then(res=>{
+    //     // console.log(res);
+    //     console.log(11);
+    // }).catch(err=>{
+    //     console.log(err);
+    // })
+}
+{
+    //对象数组去重
+    const arr = [{ a: 2 }, { a: 2 }, { a: 2, b: 1 }, { a: { b: 1, c: { a: 1 } } }, { a: { b: 1, c: { a: 1 } } }]
+    //判断两个对象是否完全一样
+    function isSame(obj1, obj2) {
+        if (obj1 === obj2) {
+            return true
+        }
+        const keys1 = Object.keys(obj1)
+        const keys2 = Object.keys(obj2)
+        if (keys1.length !== keys2.length) {
+            return false
+        }
+        for (const key in obj1) {
+            if (Object.prototype.toString.call(obj1[key]) == '[object Object]' || Object.prototype.toString.call(obj2[key]) == '[object Object]') {
+                if (isSame(obj1[key], obj2[key]) == false) {
+                    return false
+                }
+            } else if (obj1[key] !== obj2[key]) {
+                return false
+            }
+        }
+        return true
+    }
+    let obj1 = {
+        b: { c: { d: 1 } },
+        a: 1,
+    }
+    let obj2 = {
+        b: { c: { d: 1 } },
+        a: 2
+    }
+    console.log(isSame(obj1, obj2));
+
+
+    // console.log(isObjectValueEqual(obj1, obj2)) // false
+
+}
 
 
 

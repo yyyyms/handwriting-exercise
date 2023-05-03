@@ -240,5 +240,16 @@ let str = 'yms'
     set.add('abc')
     set.add('acb')
     set.add('abc')
-    console.log(set);
+    // console.log(set);
+}
+{
+    const map = new Map();
+    const s =  Symbol('1');
+    map.set(s,'yms')
+    map.set(s, 'jwd')
+    // console.log(map);
+    const set = new Set();
+    set.add(s)
+    set.add(s)
+    // console.log(set);
 }
