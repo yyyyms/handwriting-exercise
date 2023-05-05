@@ -1202,4 +1202,26 @@ function parseStr(params) {
     }
     // console.log(shuffle([1,2,3,4,5,6,7,8,9,10]));
 }
+{
+    //二分法
+    function dichotomy(arr,target) {
+        let len = arr.length
+        let l = 0,r = len-1
+        while (l<=r) {
+            let middle = l + Math.floor((r-l)>>1)
+            if (arr[middle]  == target) {
+                return middle
+            }
+            if (arr[middle]>target) {
+                r = middle - 1
+            }
+            if (arr[middle]<target) {
+                l = middle + 1
+            }
+        }
+        return -1
+    }
+    let arr = [1,2,6,4,8,7]
+    // console.log(dichotomy(arr,9)); 
+}
 

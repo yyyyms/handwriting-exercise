@@ -8,30 +8,29 @@
     <title>Document</title>
     <style>
         .flex-container {
-            display: flex;
-            width: 600px;
-            height: 350px;
+            /* display: flex; */
             background-color: lightgrey;
+            position: relative;
         }
 
         .flex-item {
             background-color: cornflowerblue;
-            margin: 20px;
+            /* margin: 20px; */
         }
 
         .item1 {
-            width: 100px
+            /* flex-basis: 200px; */
+            width: 200px;
+            height: 100px;
+            position: absolute;
+            /* float: left; */
         }
 
         .item2 {
             /* flex: auto; */
-            width: 100px;
-            flex-basis: 20px;
-        }
-
-        .item3 {
-            /* flex: auto; */
-            width: 100px;
+            height: 100px;
+            margin-left: 210px;
+            /* flex: 1; */
         }
     </style>
 </head>
@@ -39,9 +38,8 @@
 <body>
     <div class="flex-container">
         <div class="flex-item item1">item 1</div>
-        <div class="flex-item item2">item 2</div>
-        <div class="flex-item item3">item 3</div>  
-      </div>
+        <div class="flex-item item2">item 2</div> 
+    </div>
 </body>
 
 </html>

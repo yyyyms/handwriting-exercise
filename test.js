@@ -253,3 +253,31 @@ let str = 'yms'
     set.add(s)
     // console.log(set);
 }
+{
+    let arr = [{a:1},{b:2},{c:2}]
+    // console.log(arr.slice(-1)[0]);
+    // console.log(arr.splice(-1,1));
+    // console.log(arr.at(-1));
+}
+{
+    let arr = [{a:1},{b:2},{c:2}]
+    function testFn(params) {
+        params[0].a = 0
+    }
+    const test = [...arr]
+    testFn(test)
+    // console.log(arr);
+    // console.log(test);
+}
+{
+    let obj = {id:'1',name:'zhangsan',child:{
+        a:1
+    }}
+   let br = {...obj}
+   function test(params) {
+    params.child.a = 2
+   }
+// br.child.a = 2
+   test(br)
+   console.log(obj);
+}
