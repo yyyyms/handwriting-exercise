@@ -2,7 +2,7 @@ const http = require('http')
 const url = require('url')
 const server = http.createServer((req,res)=>{
     const params = url.parse(req.url,true)
-    console.log(params);
+    console.log(params)
     res.write('hello')
     res.end('world')
 })

@@ -1011,7 +1011,7 @@ const date = new Date();
         console.log(param1, param2);
     }
     const obj = {}
-    const res = test._bind(obj, 'yms')
+    // const res = test._bind(obj, 'yms')
     // res('jwd')
 }
 {
@@ -1086,11 +1086,126 @@ const date = new Date();
         b: { c: { d: 1 } },
         a: 2
     }
-    console.log(isSame(obj1, obj2));
+    // console.log(isSame(obj1, obj2));
 
 
     // console.log(isObjectValueEqual(obj1, obj2)) // false
 
+}
+
+{
+    //Promise.retry
+    function PromiseRetry(fn, time, delay) {
+        return new Promise((resolve, reject) => {
+            let index = 1
+            let attemp = function () {
+                fn().then(res => {
+                    console.log('第' + index + '次成功值为' + res);
+                }).catch(err => {
+                    if (time == 0) {
+                        reject(err)
+                    } else {
+                        console.log('第' + index + '次失败' + '再次尝试');
+                        time--
+                        index++
+                        setTimeout(() => {
+                            attemp()
+
+                        }, delay);
+                    }
+                })
+            }
+            attemp(resolve, reject)
+        })
+    }
+
+    function getUrl() {
+        return new Promise((resolve, reject) => {
+            let count = Math.random()
+            if (count > 0.5) {
+                resolve(count)
+            } else {
+                reject('失败')
+            }
+        })
+    }
+    // PromiseRetry(getUrl, 5, 1000)
+}
+{
+    //节流 时间戳版
+    function throttle(fn, delay) {
+        let last = 0
+        return function () {
+            const context = this
+            const args = arguments
+            const now = new Date();
+            if (now - last > delay) {
+                fn.call(context, args)
+                last = now
+            }
+        }
+    }
+}
+{
+    //节流 定时器版
+    function throttle(fn, delay) {
+        let flat
+        return function () {
+            const context = this
+            const args = arguments
+            if (!flat) {
+                flat = true
+                setTimeout(() => {
+                    fn.call(context, args)
+                    flat = false
+                }, delay);
+            }
+        }
+    }
+}
+{
+    //深拷贝
+    function DeepClone(target, map = new Map()) {
+        if (typeof target !== 'object') {
+            return target
+        }
+        let newobj = Array.isArray(target) ? [] : {}
+        if (map.has(target)) {
+            return map.get(target)
+        } else {
+            map.set(target, newobj)
+        }
+        for (const key in target) {
+            if (Object.hasOwnProperty.call(target, key)) {
+                const element = target[key];
+                if (element instanceof Date) {
+
+                }
+                if (element instanceof RegExp) {
+
+                }
+                if (element instanceof Symbol) {
+
+                }
+                else {
+                    newobj[key] = typeof element === 'object' ? deepClone(element,map) : element
+                }
+            }
+        }
+    }
+}
+{
+
+    function test(params) {
+        let a = 1
+        console.log(11);
+        return function test1(params) {
+            let a = 2
+            console.log(a);
+            console.log(this);
+        }
+    }
+    // test()()
 }
 
 

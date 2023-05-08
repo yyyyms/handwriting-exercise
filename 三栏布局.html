@@ -1,51 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        .container {
-         border: 1px solid red;
-         display: flex;
-       }
-       
-     /*  流体布局,先绘制左右栏 */
-     
-       .left {
-        /* flex: 0 1 200px; */
-         /* float: left; */
-         width: 200px;
-         height: 200px;
-         background-color: aqua;
-       }
-       .right { 
-        /* flex: 0 1 200px; */
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- <style>
+    /* 左右浮动 中间margin */
+    /* 注意盒子顺序 左右中 不能为左中右 因为先中 没浮动的中已经占据整行 右会换行 */
+    .container {
+      width: 100%;
+      height: 200px;
+      /* background-color: pink; */
+    }
 
-         /* float: right; */
-         width: 200px;
-         height: 200px;
-         background-color: aquamarine;
-       }
-       .mid {
-        flex-grow: 1;
-         height: 200px;
-         background-color: cadetblue;
-         margin-left: 220px;
-         margin-right: 220px;
-       } 
-      
-     
-     </style>
+    .left {
+      float: left;
+      width: 200px;
+      height: 200px;
+      background-color: red;
+    }
 
+    .right {
+      float: right;
+      width: 200px;
+      height: 200px;
+      background-color: blue;
+    }
+
+    .mid {
+      height: 200px;
+      background-color: aqua;
+      margin-left: 210px;
+      margin-right: 210px;
+    }
+  </style> -->
+  <!-- <style>
+    /* 左右浮动 中触发bfc */
+    .container {
+      width: 100%;
+      height: 200px;
+    }
+
+    .left {
+      width: 200px;
+      height: 200px;
+      float: left;
+      background-color: aquamarine;
+    }
+
+    .right {
+      width: 200px;
+      height: 200px;
+      background-color: red;
+      float: right;
+    }
+
+    .mid {
+      overflow: hidden;
+      background-color: black;
+      height: 200px;
+      /* margin-left: 200px;
+      margin-right: 200px; */
+    }
+  </style> -->
+  <!-- <style>
+    /* flex布局 */
+    .container {
+      display: flex;
+      width: 100%;
+      height: 200px;
+    }
+
+    .left {
+      /* flex-grow: 1; */
+      width: 200px;
+      height: 200px;
+      background-color: red;
+    }
+
+    .right {
+      /* flex-grow: 1; */
+      width: 200px;
+      height: 200px;
+      background-color: rgb(83, 78, 78);
+    }
+
+    .mid {
+      flex-grow: 1;
+      height: 200px;
+      /* width: 200px; */
+      background-color: #945353;
+    }
+  </style> -->
+  <style>
+    /* 左右两个盒子 绝对定位 相对 父盒子(相对定位) left 0 right 0  */
+    .container {
+      height: 200px;
+      position: relative;
+    }
+
+    .left {
+      position: absolute;
+      /* flex-grow: 1; */
+      left: 0;
+      width: 200px;
+      height: 200px;
+      background-color: red;
+    }
+
+    .right {
+      /* flex-grow: 1; */
+      position: absolute;
+      right: 0;
+      width: 200px;
+      height: 200px;
+      background-color: rgb(83, 78, 78);
+    }
+
+    .mid {
+      flex-grow: 1;
+      height: 200px;
+      margin-left: 200px;
+      margin-right: 200px;
+      /* width: 200px; */
+      background-color: #945353;
+    }
+  </style>
 </head>
-<body>
-    <div class="container">
-        <div class="left">left</div>
-        <div class="mid">mid</div>
 
-        <div class="right">right</div>
-      </div>
+<body>
+  <div class="container">
+    <div class="left">left</div>
+    <div class="right">right</div>
+    <div class="mid">mid</div>
+  </div>
 </body>
+
 </html>
