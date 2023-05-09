@@ -349,9 +349,17 @@ let str = "yms";
       console.log(this);
     };
   }
-  console.log(test);
-  const test1 = new test();
-  console.log(test1);
+  // console.log(test);
+  // const test1 = new test();
+  // console.log(test1);
   // test1.b = 1;
   // test1.a();
+}
+{
+  // console.log(typeof new Function());
+  const set = new Set();
+  const symbol = Symbol();
+  set.add(NaN);
+  set.add(NaN);
+  // console.log(set);
 }

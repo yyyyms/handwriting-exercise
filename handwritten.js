@@ -1217,5 +1217,22 @@ const date = new Date();
   let test = /img\d?\d?\.(suankuai|meituan|)\.com/;
   let str = "img..com";
 
-  console.log(test.test(str));
+  // console.log(test.test(str));
+}
+{
+  let url = "http://www.baidu.com?user=%E9%98%BF%E9%A3%9E&age=16";
+  function getUrl(url) {
+    const res = [];
+    if (url.includes("?")) {
+      const str = url.split("?")[1];
+      const arr = str.split("&");
+      arr.forEach((element) => {
+        let key = element.split("=")[0];
+        let value = element.split("=")[1];
+        res[key] = decodeURIComponent(value);
+      });
+    }
+    return res;
+  }
+  // console.log(getUrl(url));
 }

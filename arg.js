@@ -1315,5 +1315,33 @@ function parseStr(params) {}
     }
     return index;
   }
-  console.log(test(str));
+  // console.log(test(str));
+}
+{
+  //有效的括号
+  function isValid(str) {
+    let sta = [];
+    const map = new Map([
+      [")", "("],
+      ["}", "{"],
+      ["]", "["],
+    ]);
+    for (const c of str) {
+      if (c == "(" || c == "{" || c == "[") {
+        sta.push(c);
+      } else {
+        if (sta.length && map.get(c) === sta[sta.length - 1]) {
+          sta.pop();
+        } else {
+          return false;
+        }
+      }
+    }
+    if (sta.length !== 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  console.log(isValid("()[]{}"));
 }
