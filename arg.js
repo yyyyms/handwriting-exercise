@@ -1295,5 +1295,25 @@ function parseStr(params) {}
   }
   let arr = [1, 5, 8, 21, 585, 74];
   // let arr = [464, 64, 8, 8, 9];
-  console.log(quickSort(arr));
+  // console.log(quickSort(arr));
+}
+{
+  let str = "11222333";
+  function test(str) {
+    let index = 0;
+    let l = 0,
+      len = str.length;
+    while (l < len) {
+      if ((str[l] === str[l + 1]) === str[l + 2]) {
+        index++;
+        str[l + 1] = "8";
+      } else if (str[l] == str[l + 1] && str[l + 1] !== str[l + 2]) {
+        index++;
+        str[l] = "8";
+      }
+      l++;
+    }
+    return index;
+  }
+  console.log(test(str));
 }
