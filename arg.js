@@ -1343,5 +1343,5 @@ function parseStr(params) {}
       return true;
     }
   }
-  console.log(isValid("()[]{}"));
+  // console.log(isValid("()[]{}"));
 }

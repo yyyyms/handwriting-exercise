@@ -363,3 +363,12 @@ let str = "yms";
   set.add(NaN);
   // console.log(set);
 }
+{
+  // ?????
+  const res = [1, 2, 3].map(parseInt);
+  // console.log(res);
+}
+{
+  let str = "1234567";
+  function name(params) {}
+}
