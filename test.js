@@ -368,7 +368,25 @@ let str = "yms";
   const res = [1, 2, 3].map(parseInt);
   // console.log(res);
 }
+//千分位
 {
-  let str = "1234567";
-  function name(params) {}
+  let num = "1234567890";
+  function test(num) {
+    // num.toString().replace(/(\d)(?=(\d{3})+$)/g);
+    let reg = /(\d)(?=(\d{3})+$)/g;
+    let res = num.replace(reg, ($1) => {
+      return $1 + ",";
+    });
+    console.log(res);
+  }
+  function test1(num) {
+    let str = num + "";
+    return str
+      .split("")
+      .reverse()
+      .reduce((pre, cur, index) => {
+        return (index % 3 ? cur : cur + ",") + pre;
+      });
+  }
+  console.log(test1(num));
 }

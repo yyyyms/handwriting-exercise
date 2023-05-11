@@ -1345,3 +1345,36 @@ function parseStr(params) {}
   }
   // console.log(isValid("()[]{}"));
 }
+{
+  //最大子序列和
+  //求每个下标作为结束点时的最大和
+  //动态转换方程
+  // dp[i] = Math.max(nums[i],nums[i]+dp[i-1])
+  let arr = [-2, 1, -3, 4, -1, 2, 1, -5, 4];
+  function maxSubArray(arr) {
+    let len = arr.length;
+    let dp = Array(len).fill(0);
+    dp[0] = arr[0];
+    let max = dp[0];
+
+    for (let i = 1; i < len; i++) {
+      dp[i] = Math.max(arr[i], arr[i] + dp[i - 1]);
+      max = Math.max(dp[i], max);
+    }
+    return max;
+  }
+  // console.log(maxSubArray(arr));
+}
+{
+  //跳台阶
+  function numWays(n) {
+    if (n == 0 || n == 1) return 1;
+    else return numWays(n - 1) + numWays(n - 2);
+  }
+  // console.log(numWays(7));
+}
+{
+  //两个YYYYMMDD是否在同一周
+  let stringTime = "2012-10-12";
+  // console.log(Date.parse(new Date(stringTime)));
+}

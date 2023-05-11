@@ -1236,3 +1236,7 @@ const date = new Date();
   }
   // console.log(getUrl(url));
 }
+{
+  //手写instanceof
+  function _instanceof(obj, fn) {}
+}
