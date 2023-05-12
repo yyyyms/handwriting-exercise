@@ -1378,3 +1378,60 @@ function parseStr(params) {}
   let stringTime = "2012-10-12";
   // console.log(Date.parse(new Date(stringTime)));
 }
+{
+  //股票一
+  //贪心
+  function maxProfit(arr) {
+    if (arr.length === 0) {
+      return 0;
+    }
+    let max = 0;
+    let min = arr[0];
+    for (const p of arr) {
+      min = Math.min(min, p);
+      max = Math.max(max, p - min);
+    }
+    return max;
+  }
+  let arr = [7, 1, 5, 3, 6, 4];
+  // console.log(maxProfit(arr));
+  //动态规划
+  function _maxProfit(arr) {
+    let len = arr.length;
+    const dp = Array(len).fill(new Array(2));
+    console.log(dp);
+    dp[0][0] = 0;
+    dp[0][1] = -7;
+    dp[1][0] = Math.max(arr[1] - dp[0][1], dp[0][0]);
+    dpp[1][1] = Math.max(dp[0][1], dp[0][0]);
+  }
+  // console.log(_maxProfit(arr));
+}
+{
+  //‘rgrgr’r表示红色，g表示绿色，可以对其颜色进行反转，使其满足红色全在绿色的左侧，找出次数最小是多少？
+  // dp[i]表示从i处开始左边是红 右边是绿
+  function minSwaps(s) {
+    let count = 0; //某个点开始 后面需要r变g的个数
+    for (const item of s) {
+      if (item == "r") {
+        count++;
+      }
+    }
+    let minNum = Infinity;
+    let len = s.length;
+    // let dp = Array(len).fill(0); //最小操作数
+    // dp[0] = count;
+    let gcount = 0;
+    for (let i = 1; i < len; i++) {
+      const element = s[i];
+      if (element == "r") {
+        minNum = Math.min(minNum, count + gcount);
+      } else {
+        minNum = Math.min(minNum, --count + gcount);
+        gcount++;
+      }
+    }
+    return minNum;
+  }
+  console.log(minSwaps("rgrgrgr"));
+}

@@ -600,7 +600,7 @@ const date = new Date();
     }
   }
   let obj = {};
-  // console.log(_instanceof(obj,Object));
+  // console.log(_instanceof(obj, Array));
   // console.log(obj.__proto__.prototype);
 }
 //获取URL参数
@@ -1238,5 +1238,89 @@ const date = new Date();
 }
 {
   //手写instanceof
-  function _instanceof(obj, fn) {}
+  function _instanceof(obj, fn) {
+    if (typeof obj !== "object" || obj === null) {
+      return false;
+    }
+    let __proto__ = Object.getPrototypeOf(obj);
+    while (true) {
+      if (__proto__ === null) {
+        return false;
+      }
+      if (__proto__ === fn.prototype) {
+        return true;
+      } else {
+        __proto__ = Object.getPrototypeOf(__proto__);
+      }
+    }
+  }
+  let obj = {};
+  // console.log(_instanceof(obj, Array));
+}
+{
+  //手写发布订阅
+  class EventEmit {
+    constructor() {
+      this.cache = {};
+    }
+    on(name, fn) {
+      if (this.cache[name]) {
+        this.cache[name].push(fn);
+      } else {
+        this.cache[name] = [];
+        this.cache[name].push(fn);
+      }
+    }
+    off(name, fn) {
+      if (this.cache[name]) {
+        this.cache[name] = this.cache[name].filter((item) => {
+          return item !== fn;
+        });
+      }
+    }
+    once(name, fn) {
+      let fn1 = function (params) {
+        fn();
+        this.off(name);
+      };
+      this.on(fn1);
+    }
+    emit(name, ...args) {
+      if (this.cache[name]) {
+        let tasks = this.cache[name].slice();
+        for (const fn of tasks) {
+          fn(...args);
+        }
+      }
+    }
+  }
+}
+{
+  //观察者模式
+  class Notify {
+    constructor(watcher) {
+      this.watcherlist = [];
+    }
+    add(watcher) {
+      this.watcherlist.push(watcher);
+    }
+    move(watcher) {
+      this.watcherlist = this.watcherlist.filter((item) => {
+        return item !== watcher;
+      });
+    }
+    notify() {
+      for (const watcher of this.watcherlist) {
+        watcher.update();
+      }
+    }
+  }
+  class watch {
+    constructor(name) {
+      this.name = name;
+    }
+    update() {
+      console.log("收到通知了");
+    }
+  }
 }

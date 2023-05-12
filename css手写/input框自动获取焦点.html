@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!-- 方法1 在input 里面增加属性autofocus  -->
+<!-- 方法2 使用js的focus方法 -->
+
+<body>
+    <div>
+        <input autofocus="autofocus" type="text">
+        <input id="input" autofocus="autofocus" type="text">
+
+    </div>
+</body>
+<script>
+    document.getElementById('input').focus()
+</script>
+
+</html>

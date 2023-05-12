@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- label的for属性 是点击时聚焦到该input上 -->
+    <!-- 将一个 <label> 和一个 <input> 元素相关联 -->
+    <!-- label 的for 和 input 的id 存在隐式关联 -->
+    <form id="Form" action="">
+        你对以下内容满意吗
+        <div>
+            <input type="radio" name="a" id="a">
+            <label for="a">非常满意</label>
+        </div>
+        <div>
+            <input type="radio" name="a" id="b">
+            <label for="b">满意</label>
+        </div>
+        <div>
+            <input type="radio" name="a" id="c">
+            <label for="c">不满意</label>
+        </div>
+    </form>
+    <form action="">
+        <div>
+            <label for="Carrots">Carrots</label>
+            <input type="checkbox" id="Carrots" name="vegetable" value="carrots">
+        </div>
+        <div>
+            <label for="Peas">Peas</label>
+            <input type="checkbox" id="Peas" name="vegetable" value="peas">
+        </div>
+        <div>
+            <label for="Cabbage">Cabbage</label>
+            <input type="checkbox" id="Cabbage" name="vegetable" value="cabbage">
+        </div>
+    </form>
+</body>
+<script>
+    const Form = document.querySelector('#Form')
+    Form.onchange = function (params) {
+        const tools = document.getElementsByName('a')
+        console.log(tools);
+    }
+    console.log(Form);
+</script>
+
+</html>
