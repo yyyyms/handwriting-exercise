@@ -1433,5 +1433,24 @@ function parseStr(params) {}
     }
     return minNum;
   }
-  console.log(minSwaps("rgrgrgr"));
+  // console.log(minSwaps("rgrgrgr"));
+}
+{
+  //不含重复字符的最长子字符串
+  function lengthOfLongestSubstring(s) {
+    let len = s.length;
+    const dp = Array(len).fill(0);
+    dp[0] = 1;
+    let max = 0;
+    const map = new Map();
+    for (let i = 0; i < len; i++) {
+      if (i > 0) {
+        dp[i] = map.has(s[i]) ? Math.min(i - map.get(s[i]), dp[i - 1] + 1) : dp[i - 1] + 1;
+      }
+      map.set(s[i], i);
+      max = max > dp[i] ? max : dp[i];
+    }
+    return max;
+  }
+  console.log(lengthOfLongestSubstring("abba"));
 }

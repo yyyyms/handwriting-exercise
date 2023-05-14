@@ -388,5 +388,27 @@ let str = "yms";
         return (index % 3 ? cur : cur + ",") + pre;
       });
   }
-  console.log(test1(num));
+  // console.log(test1(num));
+}
+{
+  //catch
+  const p = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("成功");
+    }, 1000);
+  });
+  // p.then(res)
+  //   .then(
+  //     (res) => {
+  //       console.log(res);
+  //       return res;
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //       return err;
+  //     }
+  //   )
+  //   .finally(() => {
+  //     console.log(1111);
+  //   });
 }
