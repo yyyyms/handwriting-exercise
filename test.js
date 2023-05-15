@@ -412,3 +412,7 @@ let str = "yms";
   //     console.log(1111);
   //   });
 }
+{
+  //Etag 是由Last-Modified 和 connect-length的十六进制组合成的
+  // console.log(new Date(parseInt("5dde6f80", 16) * 1000));
+}
