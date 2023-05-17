@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    :root {
+      --main-color: yellow
+    }
+
+    .h1 {
+      color: var(--main-color);
+    }
+
+    .parent {
+      display: flex;
+      flex-direction: column;
+      height: 600px;
+      width: 300px;
+      background: yellow;
+    }
+
+    div {
+      width: 100%;
+    }
+
+    .header {
+      height: 200px;
+      background: red;
+
+    }
+
+    .content {
+      height: 100%;
+      background: blue;
+      flex: 1;
+    }
+
+    .footer {
+      height: 200px;
+      background: black;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="parent">
+
+    <div class="header"></div>
+
+    <div class="content"></div>
+    <script>
+      let dom = document.getElementsByClassName('content')
+      console.log(dom);
+      dom[0].innerHTML = '你好'
+      for (let i = 0; i < 10000; i++) {
+        // console.log(1111);
+      }
+    </script>
+    <div class="footer"></div>
+  </div>
+  <script>
+    function Sup(name, age) {
+      this.color = ['red', 'green', 'blue']
+      this.name = name
+      this.age = age
+    }
+    Sup.prototype.sayname = function () {
+      // console.log(this.name);
+    }
+    let obj = Object.create(Sup.prototype)
+    // console.log(obj.__proto__);
+    {
+      const obj = {
+        a: undefined,
+        b: function test(params) {
+          console.log(params);
+        },
+        c: 2,
+        d: new Date(),
+        e: /\d/,
+        f: NaN
+
+      }
+      Object.defineProperty(obj, 'c', {
+        enumerable: false
+      })
+      // console.log(obj.c);
+      // console.log(JSON.parse(JSON.stringify(obj)));
+      {
+        let obj = {
+          a: 1,
+          b: {
+            c: 2
+          }
+        }
+        let obj1 = {}
+        obj1 = structuredClone(obj)
+        // Object.assign(obj1,obj)
+        // obj1.b.c = 1
+        // console.log(obj);
+        {
+          // let arr = {
+          //   a:[1,2,3,4]
+          // } 
+          // Object.defineProperty(arr,{
+          //     get(){
+          //         console.log('obj被获取');
+          //     }
+          // })
+          // const obj1 = new Proxy(obj,{
+          //   get(){
+          //         console.log('obj被获取');
+          //   },
+          //   set(){
+          //     console.log('obj发生变化');
+          //   }
+          // });
+          // console.log(arr.a); 
+
+        }
+        {
+          let obj = [1, 2, 3]
+
+          let obj1 = {
+            a: [1, 2, 3]
+          }
+
+          // Object.defineProperty(obj,'a',{
+          //     // value:[1,2,4],
+          //     set(){
+          //         console.log('obj发生变化');
+          //     },
+          //     get(){
+          //         console.log('obj被获取');
+          //     },
+          // })
+          const name = new Proxy(obj, {
+            set(obj, params) {
+              console.log(params, 'a发生变化');
+              return params
+            },
+            get(obj) {
+              console.log('a被获取');
+              return obj
+            },
+          });
+          // console.log(name[0]);
+          // name = Array.from(name)
+          // name = JSON.parse(JSON.stringify(name))
+          name[1] = []
+          // name.a = []
+        }
+      }
+    }
+
+  </script>
+  <script>
+    let obj1 = { id: '1', name: 'zhangsan' }
+    // console.log(...obj1);
+
+  </script>
+  <h1 class="h1">nini</h1>
+  <script>
+    {
+      function test(params) {
+        let a = 1
+        console.log(11);
+        return function test1(params) {
+          let a = 2
+          console.log(a);
+          console.log(this);
+        }
+      }
+      // test()()
+    }
+    {
+      class test {
+        constructor() { }
+        a = () => {
+          console.log(this);
+        };
+      }
+      const test1 = new test();
+
+      console.log(test1);
+
+    }
+  </script>
+
+</body>
+
+</html>

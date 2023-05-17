@@ -416,3 +416,47 @@ let str = "yms";
   //Etag 是由Last-Modified 和 connect-length的十六进制组合成的
   // console.log(new Date(parseInt("5dde6f80", 16) * 1000));
 }
+{
+  class Father {
+    constructor(name, age) {
+      this.name = name;
+      this.age = age;
+    }
+    running() {
+      console.log(this.name + "在跑步");
+    }
+  }
+  class Son extends Father {
+    constructor(name, age) {
+      super();
+      this.name = name;
+    }
+  }
+  //只需要一个extends 关键字即可轻松实现继承父类中的constructor属性
+  //!!!注意：在子类（派生类）的构造函数中使用this或者返回默认对象之前，必须先通过super调用父类的构造函数！
+
+  // super的使用位置有三个：
+
+  // 子类的构造函数
+  // 实例方法
+  // 静态方法
+  const p1 = new Son("yms", 20);
+  // console.log(p1);
+  // p1.running();s
+}
+{
+  var a = 1;
+  function fa() {
+    a = 2;
+    // console.log("a1:", a); //2
+  }
+  fa(); //2
+  setTimeout(() => {
+    let a = 3;
+    // console.log("a2:", this); //1
+    // console.log("a3:", a); //3
+  }, 0);
+  Promise.resolve().then(() => {
+    // console.log("a4:", a); //2
+  });
+}

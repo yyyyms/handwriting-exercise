@@ -1452,5 +1452,8 @@ function parseStr(params) {}
     }
     return max;
   }
-  console.log(lengthOfLongestSubstring("abba"));
+  // console.log(lengthOfLongestSubstring("abba"));
+}
+{
+  // 1.有一批货物需要抽检，抽检从第一个或者第二个开始，依次从第i+1个，或者i+2个抽检，问抽检的最短时间？
 }
