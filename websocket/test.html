@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    fetch('http://localhost:8080/demo', {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      credentials: 'include'
+    }).then((res) => {
+      // console.log(res);
+      return res.text()
+    }).then((res) => {
+      console.log(res);
+      console.log(document.cookie);
+    })
+    // fetch('http://localhost:8080/sub',{
+    //   method:'POST',
+    //   data:'yms',
+    //   headers:{'Content-type' : 'application/json'},
+    //   credentials: 'include',
+    // }).then((res)=>{
+    //   return res.text()
+    // }).then((res)=>{
+    //   console.log(res,'提交后');
+    // })
+    //通用埋点
+    let res = navigator.sendBeacon('http://localhost:8080/sub', 'yms埋点')
+    // console.log(res);
+
+
+    // let a = document.createElement('script')
+    // a.src = 'http://localhost:8080/demo'
+    // document.body.appendChild(a)  
+
+  </script>
+
+</body>
+
+</html>

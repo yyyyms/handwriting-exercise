@@ -27,7 +27,7 @@
                     console.log(div);
                 }
             } else {
-                console.log('失败');
+                // console.log('失败');
             }
         }
         // var a = 1;
@@ -46,31 +46,57 @@
         // });
     </script>
     <script>
-        //数组转树
-        const arr = [
-            { id: 1, name: "部门A", parentId: 0 }, // 0 代表顶级节点，无父节点
-            { id: 2, name: "部门B", parentId: 1 },
-            { id: 3, name: "部门C", parentId: 1 },
-            { id: 4, name: "部门D", parentId: 2 },
-            { id: 5, name: "部门E", parentId: 2 },
-            { id: 6, name: "部门F", parentId: 3 },
+        const data = [
+            { id: 0, name: "name0", pid: -1 },
+            { id: 10, name: "name10", pid: 7 },
+            { id: 1, name: "name1", pid: 0 },
+            { id: 2, name: "name2", pid: 0 },
+            { id: 3, name: "name3", pid: 0 },
+            { id: 4, name: "name4", pid: 1 },
+            { id: 5, name: "name5", pid: 2 },
+            { id: 6, name: "name6", pid: 3 },
+            { id: 7, name: "name7", pid: 4 },
+            { id: 8, name: "name8", pid: 5 },
+            { id: 9, name: "name9", pid: 6 },
         ];
         function toTree(arr) {
-            if (!arr) return;
-            let len = arr.length;
-            for (let i = 0; i < len; i++) {
-                const element = arr[i];
-                if (element.parentId !== 0) {
-                    let res = arr.find((item) => {
-                        return item.id == element.parentId;
-                    });
-                    res.children = [];
-                    res.children.push(element);
+            const list = JSON.parse(JSON.stringify(arr));
+            const objs = {};
+            let root = null;
+            while (list.length > 0) {
+                //从头往前依次弹出
+                let item = list.shift();
+                //如果objs中没有这一项 则放入
+                if (!objs[item.id]) {
+                    objs[item.id] = item;
+                }
+                //处理树根
+                if (item.pid === -1 && !root) {
+                    root = item;
+                    continue;
+                }
+                const parent = objs[item.pid];
+                if (!parent) {
+                    list.push(item); //应对乱序 拿出来如果现在还没有父节点 还是push回去
+                } else {
+                    //该父节点有没有子节点数组
+                    parent.children = parent.children ? parent.children.concat(item) : [item];
                 }
             }
-            return arr[0];
+            return root;
         }
-        console.log(toTree(arr));
+        // console.log(toTree(data));
+
+    </script>
+    <script>
+        var _e = 1;
+        Object.defineProperty(this, "e", {
+            get: function () {
+                return _e++;
+            },
+        });
+        console.log(e === 1 && e === 2 && e === 3);
+
     </script>
 </body>
 

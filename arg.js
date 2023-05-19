@@ -1194,11 +1194,12 @@ function parseStr(params) {}
       while (random === i) {
         random = parseInt(Math.random() * len);
       }
-      indexArr[i] = indexArr[random] = true[(newArr[i], newArr[random])] = [newArr[random], newArr[i]];
+      indexArr[i] = indexArr[random] = true;
+      [newArr[i], newArr[random]] = [newArr[random], newArr[i]];
     }
     return newArr;
   }
-  // console.log(shuffle([1,2,3,4,5,6,7,8,9,10]));
+  // console.log(shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
 }
 {
   //二分法
@@ -1456,4 +1457,36 @@ function parseStr(params) {}
 }
 {
   // 1.有一批货物需要抽检，抽检从第一个或者第二个开始，依次从第i+1个，或者i+2个抽检，问抽检的最短时间？
+}
+{
+  //打乱数组顺序，要求每个元素不在原来的位置
+  function shuffle(arr) {
+    var newArr = arr.slice(0),
+      indexArr = [];
+    let len = newArr.length;
+    for (let i = 0; i < len; i++) {
+      if (indexArr[i]) {
+        continue;
+      }
+      let random = parseInt(Math.random() * len);
+      while (random === i) {
+        random = parseInt(Math.random() * len);
+      }
+      indexArr[i] = indexArr[random] = true;
+      [newArr[i], newArr[random]] = [newArr[random], newArr[i]];
+      return newArr;
+    }
+  }
+  //可能还在原来的位置
+  function shuffle1(arr) {
+    let res = arr.sort((a, b) => {
+      return Math.random() - 0.5;
+    });
+    return res;
+  }
+  // console.log(shuffle1([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
+}
+{
+  //合并两个有序数组
+  function merge(arr1, m, arr2, n) {}
 }

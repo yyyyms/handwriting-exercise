@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick="openWs()">开启Websocket</button>
+    <button onclick="send('你好')">客户端发送消息</button>
+    <button onclick="closeWs()">关闭WebSocket</button>
+    <!-- <button onclick="">服务端推送的消息数组</button> -->
+</body>
+<script>
+    let messageArr = []
+    let socket
+    function openWs() {
+         socket = new WebSocket('ws://localhost:8080/mySocketUrl')
+        socket.onopen = function (e) {
+            console.log('连接成功');
+        }
+        //监听服务端的推送  
+        socket.onmessage = (wsObj) => {
+        console.log(wsObj, 'wsObj');
+        messageArr.push(wsObj.data)
+    }
+    }
+   
+    function send(msg) {
+        socket.send(msg)
+    }
+    function closeWs() {
+        // console.log(socket);
+        socket.onclose = function (e) {
+            console.log('关闭成功');
+        }
+        socket.close()
+    }
+    function showMsgs() {
+        console.log(messageArr, 'messageArr');
+    }
+</script>
+
+</html>

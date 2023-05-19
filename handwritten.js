@@ -1352,8 +1352,8 @@ const date = new Date();
 {
   //手写ajax
 }
+//数组转树 较优
 {
-  //数组转树
   const data = [
     { id: 0, name: "name0", pid: -1 },
     { id: 1, name: "name1", pid: 0 },
@@ -1372,6 +1372,110 @@ const date = new Date();
     const list = JSON.parse(JSON.stringify(arr));
     const objs = {};
     let root = null;
+    // list.forEach((item) => {
+    //   if (item.pid === -1 && !root) {
+    //     root = item;
+    //   }
+    //   objs[item.id] = item;
+    // });
+    // console.log(objs);
+    while (list.length > 0) {
+      //从头往前依次弹出
+      let item = list.shift();
+      //如果objs中没有这一项 则放入
+      if (!objs[item.id]) {
+        objs[item.id] = item;
+      }
+      //处理树根
+      if (item.pid === -1 && !root) {
+        root = item;
+        continue;
+      }
+      const parent = objs[item.pid];
+      if (!parent) {
+        list.push(item); //没看懂
+      } else {
+        //该父节点有没有子节点数组
+        parent.children = parent.children ? parent.children.concat(item) : [item];
+      }
+    }
+    return root;
   }
-  console.log(toTree(data));
+  // console.log(toTree(data));
+}
+{
+  //数组转树
+  // 递归
+  const currentArray = [
+    { id: "01", name: "张大大", pid: "", job: "项目经理" },
+    { id: "02", name: "小亮", pid: "01", job: "产品leader" },
+    { id: "03", name: "小美", pid: "01", job: "UIleader" },
+    { id: "04", name: "老马", pid: "01", job: "技术leader" },
+    { id: "05", name: "老王", pid: "01", job: "测试leader" },
+    { id: "06", name: "老李", pid: "01", job: "运维leader" },
+    { id: "07", name: "小丽", pid: "02", job: "产品经理" },
+    { id: "08", name: "大光", pid: "02", job: "产品经理" },
+    { id: "09", name: "小高", pid: "03", job: "UI设计师" },
+    { id: "10", name: "小刘", pid: "04", job: "前端工程师" },
+    { id: "11", name: "小华", pid: "04", job: "后端工程师" },
+    { id: "12", name: "小李", pid: "04", job: "后端工程师" },
+    { id: "13", name: "小赵", pid: "05", job: "测试工程师" },
+    { id: "14", name: "小强", pid: "05", job: "测试工程师" },
+    { id: "15", name: "小涛", pid: "06", job: "运维工程师" },
+  ];
+  function arrToTree(list, pid) {
+    let flag = list.filter((item) => item.pid === pid);
+    return flag.length === 0
+      ? []
+      : flag.map((i) => {
+          let obj = { label: i.name, children: arrToTree(list, i.id) };
+          return obj.children.length === 0 ? { label: obj.label } : obj;
+        });
+  }
+  // console.log(arrToTree(currentArray, ""));
+}
+{
+  //a==1 && a==2 && a==3
+  //a === 1 && a=== 2 && a===3
+  //重写
+  //== 隐式转换判断时先会调用valueof函数 数组调用valueof后返回的还是数组本身就会再调用tostring
+  // 1.对象
+  let a = {
+    i: 1,
+    valueOf: function () {
+      return this.i++;
+      // 或
+      // return a.i++;
+    },
+  };
+  // console.log(a == 1 && a == 2 && a == 3);
+  // 2.数组
+  let b = [1, 2, 3];
+  b.toString = b.shift;
+  // console.log(b.valueOf().toString());
+  // console.log(b.valueOf().toString());
+  // console.log(b.valueOf().toString());
+  // console.log(b == 1 && b == 2 && b == 3);
+  //直接改写valueOf方法也一样
+  let c = [1, 2, 3];
+  c.valueOf = c.shift;
+  // console.log(c == 1 && c == 2 && c == 3);
+  let d = {
+    value: [3, 2, 1],
+    valueOf: function (params) {
+      return this.value.pop();
+    },
+  };
+  // console.log(d == 1 && d == 2 && d == 3);
+
+  //代理
+  // 1.Object.defineProperty()
+  var _e = 1;
+  Object.defineProperty(this, "e", {
+    get: function () {
+      return _e++;
+    },
+  });
+  // console.log(e === 1 && e === 2 && e === 3);
+  // 2.Proxy
 }
