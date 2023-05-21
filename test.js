@@ -460,3 +460,6 @@ let str = "yms";
     // console.log("a4:", a); //2
   });
 }
+{
+  console.log(!undefined);
+}
