@@ -1479,3 +1479,49 @@ const date = new Date();
   // console.log(e === 1 && e === 2 && e === 3);
   // 2.Proxy
 }
+{
+  //驼峰命名转化为_
+  let a = "aTextHello";
+  function translate(str) {
+    //判断是否是大写
+    let arr = str.split("");
+
+    function isA(s) {
+      if (s === s.toLocaleUpperCase()) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    console.log(arr);
+    arr.forEach((element, index) => {
+      if (isA(element)) {
+        // console.log(111);
+        arr[index] = "_" + element.toLocaleLowerCase();
+      }
+    });
+    return arr.join("");
+  }
+  // console.log(translate(a));
+  //正则
+  function translateReg(str) {
+    let reg = /[(A-Z)]/g;
+    return str.replace(reg, function (param) {
+      console.log(param);
+      return "_" + param.toLocaleLowerCase();
+    });
+  }
+  // console.log(translateReg(a));
+}
+{
+  //_转驼峰命名
+  let s = "a_text_hello";
+  function translate(str) {
+    let reg = /_[a-z]/g;
+    return str.replace(reg, function (match) {
+      console.log(match);
+      return match.slice(1).toLocaleUpperCase();
+    });
+  }
+  // console.log(translate(s));
+}
