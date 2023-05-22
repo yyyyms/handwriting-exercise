@@ -1490,3 +1490,63 @@ function parseStr(params) {}
   //合并两个有序数组
   function merge(arr1, m, arr2, n) {}
 }
+{
+  //求交集 去重版
+  function intersection(nums1, nums2) {
+    const set = new Set();
+    const res = nums1.reduce((pre, cur) => {
+      nums2.indexOf(cur) === -1 ? "" : pre.add(cur);
+      return pre;
+    }, set);
+    return Array.from(res);
+  }
+  // console.log(intersection([1, 2, 2, 1], [2, 2]));
+  //多数组求交集
+  function intersectNoRepeatTwice(arrs) {
+    return arrs.reduce((pre, cur) => {
+      return Array.from(new Set(cur.filter((item) => pre.includes(item))));
+    });
+  }
+  // console.log(
+  //   intersectNoRepeatTwice([
+  //     [1, 2, 3, 5],
+  //     [2, 5, 6],
+  //     [2, 3, 5],
+  //   ])
+  // );
+  {
+    //算法题 给定字符串Str, 待求重复的子串的长度Num, 找出所有的重复子串  如输入abcab，输出a ab b
+    function maxRepOpt(str) {
+      let result = [];
+      if (str.length <= 1) {
+        return result;
+      }
+      let len = str.length;
+      for (let i = 0; i < len; i++) {
+        let s = str.slice(i);
+        console.log(s, "s");
+        let l = s.length;
+        while (l > 0) {
+          t = s.slice(0, l);
+          let reg = new RegExp(t, "gi");
+          let res = s.match(reg);
+          if (res[1] && res[1] !== "") {
+            result.push(res[1]);
+          }
+          l--;
+        }
+      }
+      return result;
+    }
+    // console.log(maxRepOpt("abcab"));
+  }
+  {
+    //堆排序
+  }
+  {
+    //归并排序
+  }
+  {
+    //快排
+  }
+}
