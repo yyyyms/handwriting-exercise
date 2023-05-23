@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width= , initial-scale=1.0">
     <title>图片懒加载</title>
 </head>
+
 <body>
-    <div id="test" style="margin-top: 1000px;">图片</div>
+    <div id="test" style="margin-top: 1000px; margin-bottom: 1000px; background-color: red;">图片</div>
     <script>
         //scroll 监听与用户滚动行为相关的scroll
         //在scroll 事件处理程序中利用 Element.getBoundingClientRect() 方法判断目标元素与视口的交叉状态
@@ -15,18 +17,19 @@
         //判断元素是否出现在视口区域内
 
         function isElementInViewport(el) {
-            const {top,height,left,width} = el.getBoundingClientRect()
+            const { top, height, left, width } = el.getBoundingClientRect()
+            console.log(top, height, left, width);
             const w = window.innerWidth || document.documentElement.clientWidth
             const h = window.innerHeight || document.documentElement.clientHeight
-            return (top <= h && (top + height)>= 0 && left <= w && (left + width)>= 0)
+            return (top <= h && (top + height) >= 0 && left <= w && (left + width) >= 0)
         }
-        window.addEventListener('scroll',cb,false)
-        function cb(){
+        window.addEventListener('scroll', cb, false)
+        function cb() {
             let dom = document.querySelector('#test')
-            
-            if(isElementInViewport(dom)){
-                // console.log('出现了');
-                //todo
+
+            if (isElementInViewport(dom)) {
+                console.log('出现了');
+                todo
             }
         }
         // IntersectionObserver 接口，
@@ -37,7 +40,8 @@
         //root：所监听对象的具体祖先元素，默认是 viewport;
         // rootMargin：计算交叉状态时，将 margin 附加到祖先元素上，从而有效的扩大或者缩小祖先元素判定区域；
         //threshold：设置一系列的阈值，当交叉状态达到阈值时，会触发回调函数。
-        
+
     </script>
 </body>
+
 </html>

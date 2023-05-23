@@ -461,5 +461,9 @@ let str = "yms";
   });
 }
 {
-  console.log(!undefined);
+  // console.log(!undefined);
+}
+{
+  let arr = [1, "a", 2, "c", 4, 3];
+  console.log(arr.sort());
 }

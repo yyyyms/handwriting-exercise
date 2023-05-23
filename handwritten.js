@@ -1525,3 +1525,6 @@ const date = new Date();
   }
   // console.log(translate(s));
 }
+{
+  //a^b
+}
