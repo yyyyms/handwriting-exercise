@@ -465,5 +465,24 @@ let str = "yms";
 }
 {
   let arr = [1, "a", 2, "c", 4, 3];
-  console.log(arr.sort());
+  // console.log(arr.sort());
+}
+{
+  //劫持数组方法
+  const arrProto = Array.prototype;
+  const newProto = Object.create(arrProto);
+  Object.defineProperty(newProto, "push", {
+    value: function (params) {
+      function test(params) {
+        console.log(11111);
+      }
+      return test;
+    },
+    configurable: true,
+    writable: true,
+    enumerable: true,
+  });
+  let test = [1, 2, 3];
+  test.__proto__ = newProto;
+  test.push()();
 }

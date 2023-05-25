@@ -1528,3 +1528,27 @@ const date = new Date();
 {
   //a^b
 }
+{
+  //手写instanceOf
+  function _instanceof(obj, fn) {
+    if (typeof obj !== "object" || obj === null) {
+      return false;
+    }
+    let testPrototype = fn.prototype;
+    let __proto__ = Object.getPrototypeOf(obj);
+    while (true) {
+      if (__proto__ === testPrototype) {
+        return true;
+      } else if (__proto__ === null) {
+        return false;
+      } else {
+        __proto__ = Object.getPrototypeOf(__proto__);
+      }
+    }
+  }
+  const name = new Function();
+  console.log(_instanceof(name, Function));
+  // console.log(Function.prototype.constructor === Function);
+  // console.log(name.__proto__ === Function.prototype);
+  // console.log(name instanceof Function);
+}

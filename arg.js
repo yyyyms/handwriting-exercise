@@ -1541,6 +1541,14 @@ function parseStr(params) {}
   }
   // console.log(maxRepOpt("abcab"));
 }
+//判断回文
+{
+  function isPalindrome(str) {
+    return str === str.split("").reverse().join("") ? true : false;
+  }
+  // console.log(isPalindrome("abbac"));
+  function isPalindrome(str) {} //中心扩散
+}
 {
   //堆排序
 }
@@ -1549,4 +1557,7 @@ function parseStr(params) {}
 }
 {
   //快排
+}
+{
+  //插入排序
 }
