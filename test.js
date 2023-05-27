@@ -118,7 +118,7 @@ let str = "yms";
   };
   // console.log({...obj});
   const arr = [1, 2, 3, 0];
-  let foo = { ...arr };
+  // let foo = { ...arr };
   // console.log(foo);
   let res = arr.sort((a, b) => a - b);
   // console.log(arr === res);
@@ -484,5 +484,11 @@ let str = "yms";
   });
   let test = [1, 2, 3];
   test.__proto__ = newProto;
-  test.push()();
+  // test.push()();
 }
+
+var foo = null;
+function foo(params) {
+  console.log("foo3");
+}
+// console.log(foo);

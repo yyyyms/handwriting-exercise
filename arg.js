@@ -1277,8 +1277,8 @@ function parseStr(params) {}
     }
     const pivot = arr.splice(0, 1);
     let low = [],
-      hight = [],
-      pivotArr = [];
+      hight = [];
+
     for (let i = 0; i < arr.length; i++) {
       const element = arr[i];
       if (element < pivot) {
@@ -1549,15 +1549,58 @@ function parseStr(params) {}
   // console.log(isPalindrome("abbac"));
   function isPalindrome(str) {} //中心扩散
 }
-{
-  //堆排序
-}
+
 {
   //归并排序
+  function mergeSort(arr) {
+    if (arr.length <= 1) {
+      return arr;
+    }
+    let middle = Math.floor(arr.length / 2);
+    let left = arr.slice(0, middle);
+    let right = arr.slice(middle);
+    return merge(mergeSort(left), mergeSort(right));
+  }
+  function merge(left, right) {
+    const res = [];
+    while (left.length && right.length) {
+      if (left[0] < right[0]) {
+        res.push(left.shift());
+      } else {
+        res.push(right.shift());
+      }
+    }
+    return res.concat(left, right);
+  }
+  // console.log(mergeSort([3, 1, 4, 1, 5, 9, 2, 6, 5]));
 }
 {
-  //快排
+  //快速排序
+  function quickSort(arr) {
+    if (arr.length < 2) {
+      return arr;
+    }
+    let pivot = arr[0];
+    let low = []; //比基准值小
+    let hight = []; //比基准值大
+    let middle = []; //和基准值一样大
+    arr.forEach((element) => {
+      if (element > pivot) {
+        hight.push(element);
+      } else if (element < pivot) {
+        low.push(element);
+      } else {
+        middle.push(element);
+      }
+    });
+    return quickSort(low).concat(middle).concat(quickSort(hight));
+  }
+  // console.log(quickSort([1, 5, 6, 2, 3, 8, 4, 9]));
 }
 {
   //插入排序
 }
+{
+  //堆排序
+}
+
