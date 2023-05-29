@@ -1148,7 +1148,7 @@ function parseStr(params) {}
     const path = [];
     function backTrack(visited, path, nums, len) {
       if (path.length === len) {
-        console.log(path);
+        // console.log(path);
         res.push([...path]);
         return;
       }
@@ -1678,4 +1678,123 @@ function parseStr(params) {}
     return res;
   }
   // console.log(combinationSum3(3, 9));
+}
+//组合总和
+{
+  function combinationSum(candidates, target) {
+    let res = [];
+    let path = [];
+    let sum = 0;
+    let startIndex = 0;
+    function backTrack(path, sum, startIndex) {
+      // console.log(path);
+      if (sum > target) {
+        return;
+      }
+      if (sum === target) {
+        res.push([...path]);
+        return;
+      }
+      for (let i = startIndex; i < candidates.length; i++) {
+        path.push(candidates[i]);
+        sum += candidates[i];
+        backTrack(path, sum, i);
+        sum -= candidates[i];
+        path.pop();
+      }
+    }
+    backTrack(path, sum, startIndex);
+    return res;
+  }
+  // console.log(combinationSum([2, 3, 6, 7], 7));
+}
+//组合总和ii //排序再去重 因为排序后相同的只可能相邻
+{
+  function combinationSum2(candidates, target) {
+    candidates.sort((a, b) => a - b);
+    let res = [],
+      path = [],
+      sum = 0,
+      visited = {};
+    startIndex = 0;
+    function backTrack(path, sum, startIndex) {
+      if (sum > target) {
+        return;
+      }
+      if (sum === target) {
+        res.push([...path]);
+        return;
+      }
+      for (let i = startIndex; i < candidates.length; i++) {
+        if (i > startIndex && candidates[i] === candidates[i - 1]) {
+          //若当前元素和前一个元素相等
+          //则本次循环结束，防止出现重复组合
+          continue;
+        }
+        path.push(candidates[i]);
+        sum += candidates[i];
+        backTrack(path, sum, i + 1);
+        path.pop();
+        sum -= candidates[i];
+      }
+    }
+    backTrack(path, sum, startIndex);
+    return res;
+  }
+  // console.log(combinationSum2([2, 5, 2, 1, 2], 5));
+}
+//全排列ii
+{
+  var permuteUnique = function (nums) {
+    nums.sort((a, b) => {
+      return a - b;
+    });
+    let result = [];
+    let path = [];
+
+    function backtracing(used) {
+      if (path.length === nums.length) {
+        result.push([...path]);
+        return;
+      }
+      for (let i = 0; i < nums.length; i++) {
+        if (i > 0 && nums[i] === nums[i - 1] && !used[i - 1]) {
+          continue;
+        }
+        if (!used[i]) {
+          used[i] = true;
+          path.push(nums[i]);
+          backtracing(used);
+          path.pop();
+          used[i] = false;
+        }
+      }
+    }
+    backtracing([]);
+    return result;
+  };
+  // console.log(permuteUnique([1, 1, 2]));
+}
+//子集ii
+{
+  function subsets(nums) {
+    let res = [];
+    let path = [];
+    let len = nums.length;
+    nums.sort((a, b) => a - b);
+    function backTrack(nums, path, startIndex) {
+      res.push([...path]);
+      for (let i = startIndex; i < len; i++) {
+        if (i > startIndex && nums[i] === nums[i - 1]) {
+          continue;
+        }
+        path.push(nums[i]);
+        backTrack(nums, path, i + 1);
+        path.pop();
+      }
+    }
+    backTrack(nums, path, 0);
+    return res;
+  }
+  // console.log(subsets([1, 2, 2]));
 }
