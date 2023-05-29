@@ -492,3 +492,13 @@ function foo(params) {
   console.log("foo3");
 }
 // console.log(foo);
+{
+  let arr = [
+    { name: "云牧", age: 28 },
+    { name: "许嵩", age: 30 },
+  ];
+  arr.forEach((item) => {
+    item.age = 0;
+  });
+  console.log(arr);
+}

@@ -436,7 +436,7 @@ const date = new Date();
     let timer = null;
     return function () {
       clearTimeout(timer);
-      setTimeout(() => {
+      timer = setTimeout(() => {
         fn.call(this);
       }, time);
     };
@@ -448,7 +448,7 @@ const date = new Date();
     let flat = true;
     if (!flat) return;
     return function () {
-      let flat = false;
+      flat = false;
       setTimeout(() => {
         fn(this);
         flat = true;
@@ -1547,8 +1547,130 @@ const date = new Date();
     }
   }
   const name = new Function();
-  console.log(_instanceof(name, Function));
+  // console.log(_instanceof(name, Function));
   // console.log(Function.prototype.constructor === Function);
   // console.log(name.__proto__ === Function.prototype);
   // console.log(name instanceof Function);
+}
+{
+  //节流
+  function throttle(fn, time) {
+    let flag = true;
+    return function (params) {
+      const context = this;
+      const args = arguments;
+      if (!flag) return;
+      flag = false;
+      setTimeout(() => {
+        fn().call(context, args);
+        flag = true;
+      }, time);
+    };
+  }
+}
+{
+  //防抖
+  function debounce(fn, time) {
+    let timer = null;
+    return function () {
+      clearTimeout(timer);
+      const context = this;
+      const args = arguments;
+      timer = setTimeout(() => {
+        fn.call(context, args);
+      }, time);
+    };
+  }
+}
+//promise实现一秒打印一个数字
+{
+  function PromiseNum(num) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log(num);
+        resolve();
+      }, 1000);
+    });
+  }
+  // 1.利用then链式调用
+  let promise = Promise.resolve();
+  for (let i = 0; i <= 5; i++) {
+    // promise = promise.then(() => PromiseNum(i));
+  }
+  // 2.利用 async
+  async function test(params) {
+    for (let i = 0; i < 5; i++) {
+      await PromiseNum(i);
+    }
+  }
+  // test();
+}
+//promise实现红绿灯
+{
+  // 1.只用settimeot 三个灯互相调用
+
+  function red() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log("红");
+        green();
+      }, 2000);
+    });
+  }
+  function green() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log("绿");
+        yellow();
+      }, 2000);
+    });
+  }
+  function yellow() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log("黄");
+        red();
+      }, 2000);
+    });
+  }
+  // red();
+  //2.利用链式调用 + finall方法
+  function red() {
+    console.log("红灯亮");
+  }
+  function yellow() {
+    console.log("黄灯亮");
+  }
+  function green() {
+    console.log("绿灯亮");
+  }
+  function light(cb, time) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        cb && cb();
+        resolve();
+      }, time);
+    });
+  }
+  function start() {
+    light(red, 3000)
+      .then(() => {
+        return light(yellow, 2000);
+      })
+      .then(() => {
+        return light(green, 1000);
+      })
+      .finally(() => {
+        start();
+      });
+  }
+  // start();
+  // 3.还是利用async 实现延迟
+  async function lightStep() {
+    await light(red, 3000);
+    await light(yellow, 2000);
+    await light(green, 1000);
+    await lightStep();
+  }
+  // lightStep();
 }

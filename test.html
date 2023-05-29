@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
+    <!-- <style>
         .test2 {
             margin-top: 200px;
             width: 100px;
@@ -30,37 +30,115 @@
             clip-path: polygon(0 0, 100% 0, 0 100%);
 
         }
+    </style> -->
+    <style>
+        .container {
+            overflow: hidden;
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+
+        .test1 {
+            height: 20px;
+            margin: 10px 0;
+            background-color: green;
+        }
+
+        .test2 {
+            height: 20px;
+            margin: 20px 0;
+            background-color: green;
+        }
+
+        .bfc {
+            overflow: hidden;
+        }
+
+        .column:nth-of-type(1) {
+            float: left;
+            width: 200px;
+            height: 300px;
+            margin-right: 10px;
+            background-color: purple;
+        }
+
+        .column:nth-of-type(3) {
+            /* width: 200px; */
+            overflow: hidden;
+            height: 300px;
+            background-color: red;
+        }
+
+        .column:nth-of-type(2) {
+            margin-left: 10px;
+            width: 200px;
+            float: right;
+            height: 300px;
+            background-color: rgb(42, 36, 36);
+        }
+
+        .fa {
+            background-color: #a01111;
+            overflow: hidden;
+            width: 200px;
+        }
+
+        .son {
+            width: 100px;
+            height: 100px;
+            float: left;
+            background-color: #412f2f;
+        }
     </style>
 </head>
 
 <body>
-    <div style="width: 200px;height: 200px; background-color: #191515;">
-        <div id="test" style="width: 100px;height: 100px; margin-left: 100px; background-color: #c01b1b;"></div>
+    <div class="fa">
+        <div class="son"></div>
     </div>
-    <div class="test1">
+    <script src="./test1.js" type="module"></script>
+    <!-- <div class="column">
+
+    </div>
+    <div class="column">
+
+    </div>
+    <div class="column"></div> -->
+    <!-- <div class="container">
+        <div class="test1"></div>
+        <div class="bfc">
+            <div class="test2"></div>
+
+        </div>
+    </div> -->
+    <!-- <div style="width: 200px;height: 200px; background-color: #191515;">
+        <div id="test" style="width: 100px;height: 100px; margin-left: 100px; background-color: #c01b1b;"></div>
+    </div> -->
+    <!-- <div class="test1">
 
     </div>
     <div class="test2">
         圆形
-    </div>
+    </div> -->
     <script>
-        console.log(111);
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://43.138.24.119:81/api')
-        xhr.send()
-        xhr.onreadystatechange = function () {
-            console.log(1111);
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    console.log(xhr.responseText);
-                    let div = document.getElementById('test')
-                    div.innerText = xhr.responseText
-                    console.log(div);
-                }
-            } else {
-                // console.log('失败');
-            }
-        }
+        // console.log(111);
+        // let xhr = new XMLHttpRequest();
+        // xhr.open('GET', 'http://43.138.24.119:81/api')
+        // xhr.send()
+        // xhr.onreadystatechange = function () {
+        //     console.log(1111);
+        //     if (xhr.readyState === 4) {
+        //         if (xhr.status === 200) {
+        //             console.log(xhr.responseText);
+        //             let div = document.getElementById('test')
+        //             div.innerText = xhr.responseText
+        //             console.log(div);
+        //         }
+        //     } else {
+        //         // console.log('失败');
+        //     }
+        // }
         // var a = 1;
         // function fa() {
         //     a = 2;
@@ -77,55 +155,55 @@
         // });
     </script>
     <script>
-        const data = [
-            { id: 0, name: "name0", pid: -1 },
-            { id: 10, name: "name10", pid: 7 },
-            { id: 1, name: "name1", pid: 0 },
-            { id: 2, name: "name2", pid: 0 },
-            { id: 3, name: "name3", pid: 0 },
-            { id: 4, name: "name4", pid: 1 },
-            { id: 5, name: "name5", pid: 2 },
-            { id: 6, name: "name6", pid: 3 },
-            { id: 7, name: "name7", pid: 4 },
-            { id: 8, name: "name8", pid: 5 },
-            { id: 9, name: "name9", pid: 6 },
-        ];
-        function toTree(arr) {
-            const list = JSON.parse(JSON.stringify(arr));
-            const objs = {};
-            let root = null;
-            while (list.length > 0) {
-                //从头往前依次弹出
-                let item = list.shift();
-                //如果objs中没有这一项 则放入
-                if (!objs[item.id]) {
-                    objs[item.id] = item;
-                }
-                //处理树根
-                if (item.pid === -1 && !root) {
-                    root = item;
-                    continue;
-                }
-                const parent = objs[item.pid];
-                if (!parent) {
-                    list.push(item); //应对乱序 拿出来如果现在还没有父节点 还是push回去
-                } else {
-                    //该父节点有没有子节点数组
-                    parent.children = parent.children ? parent.children.concat(item) : [item];
-                }
-            }
-            return root;
-        }
+        // const data = [
+        //     { id: 0, name: "name0", pid: -1 },
+        //     { id: 10, name: "name10", pid: 7 },
+        //     { id: 1, name: "name1", pid: 0 },
+        //     { id: 2, name: "name2", pid: 0 },
+        //     { id: 3, name: "name3", pid: 0 },
+        //     { id: 4, name: "name4", pid: 1 },
+        //     { id: 5, name: "name5", pid: 2 },
+        //     { id: 6, name: "name6", pid: 3 },
+        //     { id: 7, name: "name7", pid: 4 },
+        //     { id: 8, name: "name8", pid: 5 },
+        //     { id: 9, name: "name9", pid: 6 },
+        // ];
+        // function toTree(arr) {
+        //     const list = JSON.parse(JSON.stringify(arr));
+        //     const objs = {};
+        //     let root = null;
+        //     while (list.length > 0) {
+        //         //从头往前依次弹出
+        //         let item = list.shift();
+        //         //如果objs中没有这一项 则放入
+        //         if (!objs[item.id]) {
+        //             objs[item.id] = item;
+        //         }
+        //         //处理树根
+        //         if (item.pid === -1 && !root) {
+        //             root = item;
+        //             continue;
+        //         }
+        //         const parent = objs[item.pid];
+        //         if (!parent) {
+        //             list.push(item); //应对乱序 拿出来如果现在还没有父节点 还是push回去
+        //         } else {
+        //             //该父节点有没有子节点数组
+        //             parent.children = parent.children ? parent.children.concat(item) : [item];
+        //         }
+        //     }
+        //     return root;
+        // }
         // console.log(toTree(data));
 
     </script>
     <script>
-        var _e = 1;
-        Object.defineProperty(this, "e", {
-            get: function () {
-                return _e++;
-            },
-        });
+        // var _e = 1;
+        // Object.defineProperty(this, "e", {
+        //     get: function () {
+        //         return _e++;
+        //     },
+        // });
         // console.log(e === 1 && e === 2 && e === 3);
 
     </script>
@@ -148,14 +226,14 @@
         //     }
         //     foo();
         // }
-        var foo = function (params) {
-            console.log("foo1");
-        };
-        foo();
-        function foo(params) {
-            console.log("foo2");
-        }
-        foo();
+        // var foo = function (params) {
+        //     console.log("foo1");
+        // };
+        // foo();
+        // function foo(params) {
+        //     console.log("foo2");
+        // }
+        // foo();
     </script>
 </body>
 
