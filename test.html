@@ -91,12 +91,29 @@
             background-color: #412f2f;
         }
     </style>
+    <style>
+        .semicircle {
+            width: 50px;
+            height: 100px;
+            background-color: #0e0d0d;
+            border-radius: 0 50px 50px 0;
+        }
+
+        .clip {
+            width: 100px;
+            height: 100px;
+            background-color: #3c10cd;
+            clip-path: circle(50px at 100px 50px);
+        }
+    </style>
 </head>
 
 <body>
-    <div class="fa">
+    <div class="clip"></div>
+    <div class="semicircle"></div>
+    <!-- <div class="fa">
         <div class="son"></div>
-    </div>
+    </div> -->
     <script src="./test1.js" type="module"></script>
     <!-- <div class="column">
 

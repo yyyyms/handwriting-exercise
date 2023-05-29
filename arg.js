@@ -1603,4 +1603,79 @@ function parseStr(params) {}
 {
   //堆排序
 }
-
+//全排列 回溯
+{
+  let nums = [1];
+  function permute(nums) {
+    let res = [];
+    let len = nums.length;
+    let visited = {};
+    let path = [];
+    function backTrack(path, visited, nums, len) {
+      if (path.length === len) {
+        res.push([...path]);
+      }
+      for (let i = 0; i < nums.length; i++) {
+        if (visited[nums[i]]) {
+          continue;
+        } else {
+          path.push(nums[i]);
+          visited[nums[i]] = true;
+          backTrack(path, visited, nums, len);
+          visited[nums[i]] = false;
+          path.pop();
+        }
+      }
+    }
+    backTrack(path, visited, nums, len);
+    return res;
+  }
+  // console.log(permute(nums));
+}
+//组合
+{
+  function combine(n, k) {
+    let path = [];
+    let res = [];
+    function backTrack(startIndex, path) {
+      if (path.length === k) {
+        res.push([...path]);
+      }
+      for (let i = startIndex; i <= n; i++) {
+        path.push(i);
+        backTrack(i + 1, path);
+        path.pop();
+      }
+    }
+    backTrack(1, path);
+    return res;
+  }
+  // console.log(combine(1, 1));
+}
+{
+  //组合总和iii
+  function combinationSum3(k, n) {
+    let sum = 0,
+      path = [],
+      res = [];
+    function backTrack(startIndex, path, sum) {
+      console.log(path, sum, "check");
+      if (sum > n || path.length > k) {
+        return;
+      }
+      if (path.length === k && sum === n) {
+        res.push([...path]);
+      }
+      for (let i = startIndex; i <= 9; i++) {
+        path.push(i);
+        sum += i;
+        backTrack(i + 1, path, sum);
+        path.pop();
+        sum -= i;
+      }
+    }
+    backTrack(1, path, sum);
+    return res;
+  }
+  // console.log(combinationSum3(3, 9));
+}
