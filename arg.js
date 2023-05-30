@@ -1600,9 +1600,7 @@ function parseStr(params) {}
 {
   //插入排序
 }
-{
-  //堆排序
-}
+
 //全排列 回溯
 {
   let nums = [1];
@@ -1797,4 +1795,110 @@ function parseStr(params) {}
     return res;
   }
   // console.log(subsets([1, 2, 2]));
+}
+//堆排序
+{
+  //建立大顶堆
+  function buildMaxHeap(arr, len) {
+    let i,
+      iParent = Math.floor((len - 1) / 2); //最后一个叶子节点的父节点
+    for (i = iParent; i >= 0; i--) {
+      heapify(arr, i, len);
+    }
+  }
+  //堆调整
+  function heapify(arr, i, len) {
+    let left = 2 * i + 1;
+    let right = 2 * i + 2;
+    let largest = i;
+    //判断左子节点比当前节点更大
+    if (left < len && arr[largest] < arr[left]) {
+      largest = left;
+    }
+    //判断右子节点比当前节点更大
+    if (right < len && arr[largest] < arr[right]) {
+      largest = right;
+    }
+    //如果发生过交换
+    if (largest !== i) {
+      swap(arr, i, largest);
+      heapify(arr, largest, len);
+    }
+  }
+  function swap(arr, i, j) {
+    let temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+  function heapSort(arr) {
+    let len = arr.length;
+    buildMaxHeap(arr, len);
+    for (let i = len - 1; i > 0; i--) {
+      swap(arr, 0, i); //交换后
+      //调整
+      heapify(arr, 0, i);
+    }
+  }
+}
+//topK 堆排序
+{
+  function findKthLargest(nums, k) {
+    let len = nums.length;
+    buildMaxHeap(nums, len);
+    for (let i = len - 1; i >= len - k + 1; i--) {
+      swap(nums, 0, i); //交换后
+      //调整
+      heapify(nums, 0, i);
+    }
+    return nums[0];
+    //建立大顶堆
+    function buildMaxHeap(arr, len) {
+      let iParent = Math.floor(len - 1 / 2);
+      for (let i = iParent; i >= 0; i--) {
+        heapify(arr, i, len);
+      }
+    }
+    function heapify(arr, i, len) {
+      let left = 2 * i + 1;
+      let right = 2 * i + 2;
+      let largest = i;
+      if (left < len && arr[largest] < arr[left]) {
+        largest = left;
+      }
+      if (right < len && arr[largest] < arr[right]) {
+        largest = right;
+      }
+      if (largest !== i) {
+        swap(arr, i, largest);
+        heapify(arr, largest, len);
+      }
+    }
+    function swap(arr, i, j) {
+      let temp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = temp;
+    }
+  }
+  let arr = [1, 3, 4, 5, 6, 7];
+  // console.log(findKthLargest(arr, 3));
+}
+//topK 快排 ？？
+{
+  function findKthLargest(nums, k) {
+    let targetIdex = nums.length - k;
+    let start = 0,
+      end = nums.length - 1;
+    let index = partition(nums, start, end);
+
+    function partition(nums, startIndex, endIdex) {
+      let pivot = nums[startIndex];
+      let mark = startIndex; //指针用来记录最后分区完的界限
+      for (let i = startIndex + 1; i <= endIdex; i++) {
+        const element = nums[i];
+        if (element) {
+        }
+      }
+    }
+  }
+  let nums = [3, 2, 1, 5, 6, 4];
 }

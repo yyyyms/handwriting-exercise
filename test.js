@@ -500,5 +500,55 @@ function foo(params) {
   arr.forEach((item) => {
     item.age = 0;
   });
-  console.log(arr);
+  // console.log(arr);
+}
+{
+  // new Promise((res, rej) => {
+  //   res(1);
+  // })
+  //   .then((v) => {
+  //     console.log(v);
+  //     throw new Error("error");
+  //   })
+  //   .then(() => {
+  //     console.log(2);
+  //   })
+  //   .catch(() => {
+  //     console.log(3);
+  //   })
+  //   .then(() => {
+  //     console.log(4);
+  //   });
+}
+{
+  async function test(params) {
+    let res = await 123;
+    console.log(res);
+    // return new Promise((resolve, reject) => {
+    //   reject("错误");
+    // });
+  }
+  // test()
+  //   .then((res) => {
+  //     console.log(res, "res");
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+}
+{
+  // function A() {}
+  // const a = new A();
+  // console.log(a.constructor === A); //A
+  // console.log(Object.prototype.__proto__); //Objext
+  // console.log(a.__proto__ === A.prototype); //A.prototype
+  // console.log(A.prototype.constructor === A); //A
+}
+{
+  let value = 21;
+  function get() {
+    console.log(typeof value);
+    var value = "john";
+  }
+  get();
 }

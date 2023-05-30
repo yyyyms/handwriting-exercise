@@ -154,9 +154,49 @@
             height: 200px;
         }
     </style> -->
+    <!-- <style>
+        .div {
+            /* margin: 10px; */
+            /* padding: 10px; */
+            border: 0;
+            height: 10px;
+        }
+    </style> -->
+    <style>
+        .container {
+            height: 500px;
+            width: 400px;
+            background-color: red;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flex1 {
+            /* height: 200px; */
+            background-color: aqua;
+            width: fit-content;
+        }
+
+        .flex2 {
+            background-color: blue;
+            flex-grow: 1;
+
+        }
+    </style>
 </head>
 
 <body>
+    <div class="flex1">11111111111111111111111111111111</div>
+
+    <div class="container">
+        <div class="flex2">2</div>
+    </div>
+    <!-- <div>
+        <div class="div">
+        </div>
+        <div class="div">
+        </div>
+    </div> -->
     <!-- <div class="container">
         <div class="test">
             6666
