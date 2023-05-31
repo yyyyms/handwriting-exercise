@@ -1902,3 +1902,19 @@ function parseStr(params) {}
   }
   let nums = [3, 2, 1, 5, 6, 4];
 }
+//两数之和
+{
+  function twoSum(arr, target) {
+    const map = new Map();
+    for (let i = 0; i < arr.length; i++) {
+      const element = arr[i];
+
+      if (map.has(target - element)) {
+        return [map.get(target - element), i];
+      } else {
+        map.set(element, i);
+      }
+    }
+  }
+  // console.log(twoSum([2, 7, 11, 15], 9));
+}

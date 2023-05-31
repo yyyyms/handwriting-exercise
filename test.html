@@ -162,7 +162,7 @@
             height: 10px;
         }
     </style> -->
-    <style>
+    <!-- <style>
         .container {
             height: 500px;
             width: 400px;
@@ -182,15 +182,92 @@
             flex-grow: 1;
 
         }
+    </style> -->
+    <style>
+        .test {
+            height: 200px;
+            width: 200px;
+            background-color: #792626;
+            /* overflow: hidden;
+
+            text-overflow: ellipsis;
+            white-space: nowrap; */
+        }
+
+        /* .test {
+            position: relative;
+            line-height: 18px;
+            height: 36px;
+            overflow: hidden;
+        } */
+
+        /* 
+        .test::after {
+            content: "...";
+            font-weight: bold;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding: 0 20px 1px 45px;
+        } */
+
+        /* p {
+            word-wrap: break-word;
+        } */
+        p {
+            position: relative;
+            line-height: 18px;
+            height: 36px;
+            overflow: hidden;
+        }
+
+        p::after {
+            content: "...";
+            font-weight: bold;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            /* padding: 0 20px 1px 45px; */
+            /* background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), to(white), color-stop(50%, white));
+            background: -moz-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+            background: -o-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+            background: -ms-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white); */
+        }
     </style>
 </head>
 
 <body>
-    <div class="flex1">11111111111111111111111111111111</div>
+    <input id="file" type="file" value="File">
+    <img id="preview" src="" style="display: block; ">
+    <div class="test">
+        <p>我是相对定位的段落，并且稍微调整了我的位置我是相对定位的段落，并且稍微调整了我的位置我是相对定位的段落，并且稍微调整了我的位置</p>
+    </div>
+    <script>
+        let input = document.querySelector('#file')
+        let img = document.querySelector('#preview')
+        input.onchange = (event) => {
+            console.log(event.target.files[0]);
+            event.target.files[0]
+            let reader = new FileReader();
+            //异步请求 以text文本的形式读取
+            reader.readAsDataURL(event.target.files[0], 'UTF-8')
+            reader.onload = (e) => {
+                console.log(e.target.result);
+                img.src = e.target.result
+
+            }
+            img.src = window.URL.createObjectURL(event.target.files[0]);
+            //   移除input 元素
+            input.remove();
+        }
+
+    </script>
+    <!-- <div class="flex1">11111111111111111111111111111111</div>
 
     <div class="container">
         <div class="flex2">2</div>
-    </div>
+    </div> -->
     <!-- <div>
         <div class="div">
         </div>
