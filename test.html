@@ -184,16 +184,17 @@
         }
     </style> -->
     <style>
-        .test {
+        /* .test {
             height: 200px;
             width: 200px;
             background-color: #792626;
-            /* overflow: hidden;
+
+        } */
+
+        /* overflow: hidden;
 
             text-overflow: ellipsis;
             white-space: nowrap; */
-        }
-
         /* .test {
             position: relative;
             line-height: 18px;
@@ -214,7 +215,7 @@
         /* p {
             word-wrap: break-word;
         } */
-        p {
+        /* p {
             position: relative;
             line-height: 18px;
             height: 36px;
@@ -227,23 +228,70 @@
             position: absolute;
             bottom: 0;
             right: 0;
-            /* padding: 0 20px 1px 45px; */
-            /* background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), to(white), color-stop(50%, white));
-            background: -moz-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
-            background: -o-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
-            background: -ms-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
-            background: linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white); */
+
+        } */
+    </style>
+    <style>
+        * {
+            margin: 0;
+        }
+
+        /* html {
+            height: 100vh;
+            width: 100vw;
+        } */
+
+        body {
+            height: 100%;
+            width: 100%;
+        }
+
+        .container {
+            height: 100%;
+            width: 100%;
+            background-color: #fff;
+
+        }
+
+        .test {
+            margin: auto;
+            width: 200px;
+            height: 1600px;
+            background-color: #14a0e1;
+        }
+
+        #test {
+            position: fixed;
+            right: 100px;
+            top: 200px;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
 
 <body>
-    <input id="file" type="file" value="File">
+    <div style="height: 50px;" id="topAnchor">描点</div>
+    <!-- <a  href="#topAnchor"></a> -->
+    <button id="test">点击</button>
+    <div class="container">
+        <div class="test"></div>
+    </div>
+    <script>
+        let button = document.querySelector('#test')
+        button.onclick = () => {
+            // console.log(document.documentElement.scrollTop);
+            document.body.scrollTop = document.documentElement.scrollTop = 0
+        }
+    </script>
+    <!-- <input id="file" type="file" value="File">
     <img id="preview" src="" style="display: block; ">
     <div class="test">
         <p>我是相对定位的段落，并且稍微调整了我的位置我是相对定位的段落，并且稍微调整了我的位置我是相对定位的段落，并且稍微调整了我的位置</p>
-    </div>
-    <script>
+    </div> -->
+    <!-- <script>
         let input = document.querySelector('#file')
         let img = document.querySelector('#preview')
         input.onchange = (event) => {
@@ -262,7 +310,7 @@
             input.remove();
         }
 
-    </script>
+    </script> -->
     <!-- <div class="flex1">11111111111111111111111111111111</div>
 
     <div class="container">

@@ -1674,3 +1674,50 @@ const date = new Date();
   }
   // lightStep();
 }
+{
+  //手写深拷贝
+  let obj = {
+    a: "1",
+    b: 2,
+    c: /\d/,
+    d: new Date(),
+    e: {
+      f: {
+        g: [1, 2, 3, 4],
+      },
+    },
+  };
+  function deepClone(target) {
+    if (typeof target !== "object") return target;
+    let newobj = Array.isArray(obj) ? [] : {};
+    for (const key in target) {
+      if (Object.hasOwnProperty.call(target, key)) {
+        const element = target[key];
+        if (element instanceof RegExp) {
+          newobj[element] = new RegExp(element);
+        } else if (element instanceof Date) {
+          newobj[element] = new Date(element.getTime());
+        } else {
+          newobj[element] = typeof element === "object" ? deepClone(element) : element;
+        }
+      }
+    }
+    return newobj;
+  }
+  let newobj = deepClone(obj);
+  // console.log(newobj);
+}
+//实现一个sleep函数
+{
+  function sleep(delay) {
+    let start = new Date().getTime();
+    while (new Date().getTime() - start < delay) {
+      continue;
+    }
+    console.log("freeze结束");
+  }
+  sleep(5000);
+  //定时器
+  //promise + 定时器
+  //async + 定时器
+}

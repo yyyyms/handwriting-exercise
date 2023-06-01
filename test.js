@@ -550,5 +550,20 @@ function foo(params) {
     console.log(typeof value);
     var value = "john";
   }
-  get();
+  // get();
+}
+//判断某个对象中是否是某个属性
+{
+  function hasProperty(obj, key) {
+    console.log(Object.keys(obj));
+    // console.log(key in obj);
+  }
+  const obj = {
+    a: 1,
+  };
+  // Object.defineProperty(obj, "c", {
+  //   value: 2,
+  //   enumerable: false,
+  // });
+  hasProperty(obj, "c");
 }

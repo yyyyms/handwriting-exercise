@@ -1918,3 +1918,28 @@ function parseStr(params) {}
   }
   // console.log(twoSum([2, 7, 11, 15], 9));
 }
+//最长回文子串
+{
+  function longestPalindrome(s) {
+    let len = s.length;
+    let max = "";
+    for (let i = 0; i < len; i++) {
+      helper(i, i);
+      helper(i, i + 1);
+    }
+    return max;
+    function helper(l, r) {
+      while (l >= 0 && r < len) {
+        if (s[l] === s[r]) {
+          l--;
+          r++;
+        } else {
+          break;
+        }
+      }
+      max = r - 1 - (l + 1) + 1 > max.length ? s.slice(l + 1, r) : max;
+    }
+  }
+  let s = "cbbd";
+  // console.log(longestPalindrome(s));
+}

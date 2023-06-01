@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,35 +12,45 @@
             margin: 0 auto;
             overflow: hidden;
         }
-        .box{
+
+        .box {
             display: flex;
-            animation: move 4s  infinite;
+            animation: move 4s infinite;
         }
+
         img {
             width: 200px;
             height: 300px;
         }
+
         @keyframes move {
             0% {
-                transform: translate(0,0);
+                transform: translate(0, 0);
             }
+
             100% {
-                transform: translate(-800px,0);
+                transform: translate(-800px, 0);
             }
         }
     </style>
 </head>
+
 <body>
     <div id="app">
-    <div class="box">
-        <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4c7b4883c1704286a9365575a2a1c05f~tplv-k3u1fbpfcp-watermark.image?">
+        <div class="box">
+            <img
+                src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4c7b4883c1704286a9365575a2a1c05f~tplv-k3u1fbpfcp-watermark.image?">
 
-        <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0acae783691649c9b36fa6bd64aa31d2~tplv-k3u1fbpfcp-watermark.image?">
-    
-        <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9c266e0576fd4632bec39228d81534e4~tplv-k3u1fbpfcp-watermark.image?">
-    
-        <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5e4b66351ea64b55a329f636c255a55b~tplv-k3u1fbpfcp-watermark.image?">
-    </div>
+            <img
+                src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0acae783691649c9b36fa6bd64aa31d2~tplv-k3u1fbpfcp-watermark.image?">
+
+            <img
+                src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9c266e0576fd4632bec39228d81534e4~tplv-k3u1fbpfcp-watermark.image?">
+
+            <img
+                src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5e4b66351ea64b55a329f636c255a55b~tplv-k3u1fbpfcp-watermark.image?">
+        </div>
     </div>
 </body>
+
 </html>
