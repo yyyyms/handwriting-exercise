@@ -555,15 +555,20 @@ function foo(params) {
 //判断某个对象中是否是某个属性
 {
   function hasProperty(obj, key) {
+    // console.log(obj[key]);
+
     console.log(Object.keys(obj));
+    return Object.hasOwnProperty(obj, key);
     // console.log(key in obj);
   }
-  const obj = {
-    a: 1,
-  };
+  // const obj = {
+  //   a: 1,
+  // };
+  a === 1 && a === 2 && a === 3;
   // Object.defineProperty(obj, "c", {
   //   value: 2,
   //   enumerable: false,
   // });
-  hasProperty(obj, "c");
+  // console.log(hasProperty(obj, "c"));
+  // console.log(obj.c);
 }

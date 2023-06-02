@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <ul id="ul">
         <li>0</li>
@@ -14,30 +16,31 @@
         <li>3</li>
         <li>4</li>
         <li>5</li>
-</ul>
+    </ul>
     <button id="btn">点我添加一个li</button>
-<script>
-    var ul = document.getElementById("ul");
-    ul.onclick = function (event) {
-        event = event || window.event;
-        var target = event.target;
-        console.log(11);
-        // 获取目标元素
-        if (target.nodeName == 'LI') {
-            var li = document.createElement('li');
-        // 新增li的内容为ul当前子元素的个数
-        li.textContent = ul.children.length;
-        ul.appendChild(li);
+    <script>
+        var ul = document.getElementById("ul");
+        ul.onclick = function (event) {
+            event = event || window.event;
+            var target = event.target;
+            console.log(11);
+            // 获取目标元素
+            if (target.nodeName == 'LI') {
+                var li = document.createElement('li');
+                // 新增li的内容为ul当前子元素的个数
+                li.textContent = ul.children.length;
+                ul.appendChild(li);
+            }
         }
-    }
     // 为按钮绑定点击事件
-    var btn = document.getElementById('btn');
-    btn.onclick = function () {
-        var li = document.createElement('li');
-        // 新增li的内容为ul当前子元素的个数
-        li.textContent = ul.children.length;
-        ul.appendChild(li);
-    }
-</script>
+    // var btn = document.getElementById('btn');
+    // btn.onclick = function () {
+    //     var li = document.createElement('li');
+    //     // 新增li的内容为ul当前子元素的个数
+    //     li.textContent = ul.children.length;
+    //     ul.appendChild(li);
+    // }
+    </script>
 </body>
+
 </html>

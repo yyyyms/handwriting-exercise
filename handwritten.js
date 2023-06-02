@@ -1716,8 +1716,111 @@ const date = new Date();
     }
     console.log("freeze结束");
   }
-  sleep(5000);
+  // sleep(5000);
   //定时器
   //promise + 定时器
   //async + 定时器
+}
+//数组扁平
+{
+  //reduce递归
+  const flatten = (arr) => {
+    return arr.reduce((pre, cur) => {
+      return pre.concat(Array.isArray(cur) ? flatten(cur) : cur);
+    }, []);
+  };
+  const arr = [1, [2, [3, [4, 5]]], 6];
+  // const res4 = flatten(arr);
+  // console.log(res4);
+}
+//函数递归
+{
+  function flatten(arr) {
+    let res = [];
+    function fn(arr) {
+      for (let i = 0; i < arr.length; i++) {
+        const element = arr[i];
+        if (Array.isArray(element)) {
+          fn(element);
+        } else {
+          res.push(element);
+        }
+      }
+    }
+    fn(arr);
+    return res;
+  }
+  const arr = [1, [2, [3, [4, 5]]], 6];
+  // const res = flatten(arr);
+}
+//栈 扁平
+{
+  function stack(arr) {
+    let stack = [];
+    let res = [];
+    stack.push(arr);
+    while (stack.length > 0) {
+      let item = stack.shift();
+      if (Array.isArray(item)) {
+        stack.unshift(...item);
+      } else {
+        res.push(item);
+      }
+    }
+    return res;
+  }
+  const arr = [1, [2, [3, [4, 5]]], 6];
+  // console.log(stack(arr));
+}
+//手写call
+{
+  function _call(ctx, ...args) {
+    // console.log(this, "this");
+    let context = ctx === undefined ? window : Object(ctx);
+    let symbol = Symbol();
+    context[symbol] = this; //被借用的fn
+    let res = context[symbol](...args);
+    delete context[symbol];
+    return res;
+  }
+
+  const obj = {
+    a: 1,
+  };
+  Function.prototype._call = _call;
+  function test(params) {
+    console.log(this.a, params);
+  }
+  // test._call(obj, "yms");
+}
+//手写bind
+{
+  function _bind(ctx, ...args) {
+    let context = ctx === undefined ? window : Object(ctx);
+    let fn = this;
+    return function newFn(...fnArgs) {
+      // console.log(11111);
+      // console.log(this, "this");
+      // let res
+      if (this instanceof newFn) {
+        res = new fn(...args, ...fnArgs);
+      } else {
+        res = fn.call(context, ...args, ...fnArgs);
+      }
+      return res;
+    };
+  }
+  // function test(params) {
+  //   console.log(111, params);
+  // }
+  // let obj = {
+  //   a: 1,
+  // };
+  // Function.prototype._bind = _bind;
+  // let fn = test._bind(obj, "yms");
+  // // console.log(fn);
+  // let item = new fn();
+  // console.log(item);
+}
+{
 }

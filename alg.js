@@ -1943,3 +1943,63 @@ function parseStr(params) {}
   let s = "cbbd";
   // console.log(longestPalindrome(s));
 }
+// 算法，输入字符串：“3[a4[b]]” 输出字符串： “abbbbabbbbabbbb”
+{
+  function decodeString(s) {
+    let result = "";
+    let i = 0;
+    while (s.length > i) {
+      //如果不是数字
+      if (isNaN(s[i])) {
+        result += s[i];
+        i++;
+      } else {
+        let num = "";
+        while (!isNaN(s[i])) {
+          num += s[i];
+          i++;
+        }
+        num = parseInt(num);
+        //处理后面的
+        let sub = "";
+        i++;
+        let j = 1;
+        while (j > 0) {
+          if (s[i] == "[") {
+            j++;
+          } else if (s[i] == "]") {
+            j--;
+          }
+          if (j > 0) {
+            sub += s[i];
+          }
+          i++;
+        }
+        sub = decodeString(sub);
+        for (let k = 0; k < num; k++) {
+          result += sub;
+        }
+      }
+    }
+    return result;
+  }
+  const str = "3[a4[b]]";
+  // console.log(decodeString(str));
+}
+// 下面的arr中的时间进行求平均，比较简单，5分钟撕掉吧
+// 8分钟
+{
+  const arr = ["8:15", "6:35", "11:22"];
+
+  function averg(arr) {
+    let sum = arr.reduce((pre, cur) => {
+      let arr = cur.split(":");
+      return pre + arr[0] * 60 + arr[1] * 1;
+    }, 0);
+    sum = sum / 3;
+    let m = sum % 60;
+    let h = (sum - m) / 60;
+    console.log(h, m);
+  }
+  // console.log(averg(arr));
+}
