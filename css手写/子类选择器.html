@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container div {
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+        }
+
+        /* 选择第一个子元素 */
+        .container div:first-child,
+        .container div:first-of-type,
+        .container div:nth-of-type(1),
+        .container div:nth-child(1),
+        /* 选取前两个 */
+        .container div:nth-child(-n+2) {
+            background-color: #ce5858;
+        }
+
+        /* 选择第二个子元素 */
+        .container div:nth-of-type(2),
+        .container div:nth-child(2) {
+            background-color: #2a2a88;
+        }
+
+        /* 选择倒数第一个元素 */
+        .container div:last-child,
+        .container div:nth-last-child(1),
+        .container div:nth-last-of-type(1) {
+            background-color: #11c344;
+        }
+
+        /* 选择倒数第二个元素 */
+        .container div:nth-last-child(2),
+        .container div:nth-last-of-type(2) {
+            background-color: #c31179;
+        }
+
+        /* 选择倒数前两个 */
+        .container div:nth-last-child(-n+2) {
+            background-color: #c31179;
+        }
+    </style>
+    <style>
+        /* .test {
+            position: absolute;
+            width: calc(100%-100px);
+            top: 0;
+            left: 50px;
+            right: 50px;
+            bottom: 0;
+            aspect-ratio: 4/3;
+            background-color: red;
+
+        } */
+        .test {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: red;
+            height: 0;
+            margin: 0 50px;
+            padding-top: 75%;
+            /* aspect-ratio: 4/3; */
+
+            /* box-sizing: content-box; */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 尽可能的选择第一第二个倒数第一倒数第二个元素 -->
+    <!-- <div class="container">
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+    </div> -->
+    <div class="test"></div>
+</body>
+
+</html>

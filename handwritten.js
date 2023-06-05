@@ -1372,13 +1372,6 @@ const date = new Date();
     const list = JSON.parse(JSON.stringify(arr));
     const objs = {};
     let root = null;
-    // list.forEach((item) => {
-    //   if (item.pid === -1 && !root) {
-    //     root = item;
-    //   }
-    //   objs[item.id] = item;
-    // });
-    // console.log(objs);
     while (list.length > 0) {
       //从头往前依次弹出
       let item = list.shift();
@@ -1822,5 +1815,19 @@ const date = new Date();
   // let item = new fn();
   // console.log(item);
 }
+//数组转树
 {
+  const data = [
+    { id: 0, name: "name0", pid: -1 },
+    { id: 1, name: "name1", pid: 0 },
+    { id: 2, name: "name2", pid: 0 },
+    { id: 3, name: "name3", pid: 0 },
+    { id: 4, name: "name4", pid: 1 },
+    { id: 5, name: "name5", pid: 2 },
+    { id: 6, name: "name6", pid: 3 },
+    { id: 7, name: "name7", pid: 4 },
+    { id: 8, name: "name8", pid: 5 },
+    { id: 9, name: "name9", pid: 6 },
+    { id: 10, name: "name10", pid: 7 },
+  ];
 }

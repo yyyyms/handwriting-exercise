@@ -572,3 +572,19 @@ function foo(params) {
   // console.log(hasProperty(obj, "c"));
   // console.log(obj.c);
 }
+{
+  let obj = {
+    a: 1,
+    b: 2,
+  };
+  // const { x, y } = obj;
+  // console.log(...obj);
+  let obj1 = { ...obj };
+  // console.log(obj1);
+}
+{
+  // console.log(__filename);
+  const path = require("path");
+  // console.log(path.join(__dirname, "a", "test.js"));
+  console.log(path.resolve(__dirname, "a"));
+}
