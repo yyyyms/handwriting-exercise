@@ -1831,3 +1831,12 @@ const date = new Date();
     { id: 10, name: "name10", pid: 7 },
   ];
 }
+//手写new
+{
+  function _new(fn, ...args) {
+    if (typeof fn !== "function") return;
+    let newobj = Object.create(fn.prototype);
+    let res = fn.apply(newobj, args);
+    return (typeof res === "object" && res !== null) || typeof res === "function" ? res : newobj;
+  }
+}

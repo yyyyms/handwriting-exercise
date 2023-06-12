@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 100px;
+            height: 100px;
+            transition: all 0.5s linear;
+        }
+
+        .color1 {
+            background-color: blue;
+        }
+
+        .color2 {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container color1">
+        盒子
+    </div>
+    <script>
+        let div = document.querySelector('.container')
+        div.addEventListener('click', () => {
+            if (div.classList.contains('color1')) {
+                div.classList.remove('color1')
+                div.classList.add('color2')
+            } else {
+                div.classList.remove('color2')
+                div.classList.add('color1')
+            }
+        })
+    </script>
+</body>
+
+</html>

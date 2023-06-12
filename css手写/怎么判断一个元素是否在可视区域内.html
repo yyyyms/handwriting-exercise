@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+    }
+
+    .test {
+        background-color: red;
+        width: 100%;
+        height: 200px;
+    }
+
+    .container li:nth-child(2n) {
+        background-color: blue;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <li class="test">元素</li>
+        <li class="test">元素</li>
+        <li class="test">元素</li>
+        <li id="id" class="test">元素</li>
+        <li class="test">元素</li>
+        <li class="test">元素</li>
+        <li class="test">元素</li>
+        <li class="test">元素</li>
+        <li class="test">元素</li>
+        <li class="test">元素</li>
+        <li class="test">元素</li>
+        <li class="test">元素</li>
+        <li class="test">元素</li>
+
+    </div>
+    <script>
+        let li = document.querySelector('#id')
+        function isVis(node) {
+            const { top, left, height, width } = node.getBoundingClientRect()
+            let h = document.documentElement.clientHeight || window.clientHeight
+            let w = document.documentElement.clientWidth || window.clientWidth
+            return top <= h && (top + height) > 0 && left < w && (left + width) > 0
+        }
+        console.log(isVis(li));
+
+    </script>
+</body>
+
+</html>
