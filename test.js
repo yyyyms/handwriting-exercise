@@ -586,5 +586,15 @@ function foo(params) {
   // console.log(__filename);
   const path = require("path");
   // console.log(path.join(__dirname, "a", "test.js"));
-  console.log(path.resolve(__dirname, "a"));
+  // console.log(path.resolve(__dirname, "a"));
+}
+{
+  let data = new Date();
+  data = new RegExp(/\d/);
+  data = function (params) {
+    console.log(111);
+  };
+  data = undefined;
+  let res = JSON.parse(JSON.stringify(data));
+  console.log(res);
 }
