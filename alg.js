@@ -2016,4 +2016,45 @@ function parseStr(params) {}
   }
   // console.log(climbStairs(4));
 }
-
+{
+  // [1,0,1,1,0,0,1,0] 使其改变成[0,0,0,0,1,1,1,1]
+  // 零放前面，时间复杂度为O(n),空间复杂度为O(1)
+  function change(arr) {
+    let l = 0;
+    let r = arr.length - 1;
+    while (r - 1 > l) {
+      if (arr[r] == 0 && arr[l] == 1) {
+        arr[r] = 1;
+        arr[l] = 0;
+        r--;
+        l++;
+        continue;
+      } else if (arr[r] == 0 && arr[l] == 0) {
+        let test = l;
+        while (arr[test] == 0) {
+          test++;
+        }
+        arr[test] = 0;
+        arr[r] = 1;
+        l++;
+        r--;
+        continue;
+      } else if (arr[r] == 1 && arr[l] == 1) {
+        let test2 = r;
+        while (arr[test2] == 1) {
+          test2--;
+        }
+        arr[l] = 0;
+        arr[test2] = 1;
+        l++;
+        r--;
+        continue;
+      } else {
+        l++;
+        r--;
+      }
+    }
+    return arr;
+  }
+  // console.log(change([1, 0, 1, 1, 1, 0, 1, 0]));
+}

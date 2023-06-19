@@ -1283,7 +1283,7 @@ const date = new Date();
         fn();
         this.off(name);
       };
-      this.on(fn1);
+      this.on(name, fn1);
     }
     emit(name, ...args) {
       if (this.cache[name]) {
@@ -1838,5 +1838,111 @@ const date = new Date();
     let newobj = Object.create(fn.prototype);
     let res = fn.apply(newobj, args);
     return (typeof res === "object" && res !== null) || typeof res === "function" ? res : newobj;
+  }
+}
+{
+  //   类似与实现一个函数 find(obj, str)，满足:
+  // 如var obj = {a:{b:{c:1}}};
+  let obj = {
+    a: {
+      b: {
+        c: 1,
+      },
+    },
+  };
+  function get(key, obj) {
+    if (key in obj) {
+      return obj[key];
+    } else {
+      return false;
+    }
+  }
+  function find(obj, str) {
+    let arr = str.split(".");
+    let newObj = JSON.parse(JSON.stringify(obj));
+    while (arr.length) {
+      let key = arr.shift();
+      if (get(key, newObj) !== false) {
+        newObj = get(key, newObj);
+        continue;
+      } else {
+        return undefined;
+      }
+    }
+    return newObj;
+  }
+  // console.log(find(obj, "a.d.c"));
+
+  // find(obj, "a.d.c"); //undefined
+}
+{
+  // 手写订阅发布
+  class EventEmit {
+    constructor() {
+      this.cache = {};
+    }
+    on(name, fn) {
+      if (this.cache[name]) {
+        this.cache[name].push(fn);
+      } else {
+        this.cache[name] = [];
+        this.cache[name].push(fn);
+      }
+    }
+    off(name, fn) {
+      if (this.cache[name]) {
+        this.cache[name] = this.cache[name].filter((item) => {
+          return item !== fn;
+        });
+      } else {
+        return;
+      }
+    }
+    emit(name, ...args) {
+      if (this.cache[name]) {
+        let task = this.cache[name].slice();
+        for (const fn of task) {
+          fn(...args);
+        }
+      } else {
+        return;
+      }
+    }
+    once(name, fn) {
+      let fn1 = () => {
+        fn();
+        this.off(name);
+      };
+      this.on(name, fn1);
+    }
+  }
+}
+//手写观察者
+{
+  class watch {
+    constructor(name) {
+      this.name = name;
+    }
+    update() {
+      console.log("收到通知了");
+    }
+  }
+  class Notify {
+    constructor() {
+      this.watcherlist = [];
+    }
+    add(watcher) {
+      this.watcherlist.push(watcher);
+    }
+    off(watcher) {
+      this.watcherlist = this.watcherlist.filter((item) => {
+        return item !== watcher;
+      });
+    }
+    notify() {
+      this.watcherlist.forEach((element) => {
+        element.update();
+      });
+    }
   }
 }

@@ -596,5 +596,5 @@ function foo(params) {
   };
   data = undefined;
   let res = JSON.parse(JSON.stringify(data));
-  console.log(res);
+  // console.log(res);
 }
