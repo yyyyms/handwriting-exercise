@@ -595,6 +595,11 @@ function foo(params) {
     console.log(111);
   };
   data = undefined;
-  let res = JSON.parse(JSON.stringify(data));
+  // let res = JSON.parse(JSON.stringify(data));
   // console.log(res);
+}
+{
+  let str = "<template>？？？</template>";
+  console.log(typeof str);
+  console.log(typeof JSON.stringify(str));
 }
