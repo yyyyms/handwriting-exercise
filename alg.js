@@ -2058,3 +2058,103 @@ function parseStr(params) {}
   }
   // console.log(change([1, 0, 1, 1, 1, 0, 1, 0]));
 }
+//有效的括号
+{
+  function isValid(s) {
+    let len = s.length;
+    let map = new Map([
+      [")", "("],
+      ["}", "{"],
+      ["]", "["],
+    ]);
+    let stack = [];
+    for (let i = 0; i < len; i++) {
+      const element = s[i];
+      if (element == "(" || element == "{" || element == "[") {
+        stack.push(element);
+      } else {
+        let r = map.get(element);
+        let test = stack.pop();
+        if (r == test) {
+          continue;
+        } else {
+          return false;
+        }
+      }
+    }
+    console.log(stack);
+    if (stack.length === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  // console.log(isValid("()"));
+}
+//两数之和的改编
+{
+  const arr = [1, 2, 3, 4, 4];
+  const target = 5;
+  //得出 arr中有几对相加等于 target，不能复用数字
+  //比如这里答案是2  只有 1,4   2,3 （因为1不能复用给两个4）
+  function test(arr, target) {
+    let count = 0;
+    let len = arr.length;
+    let path = [];
+    let sum = 0;
+    arr = Array.from(new Set(arr));
+    let visited = {};
+    function backTrack(index, path, arr, visited, sum) {
+      if (sum === target) {
+        console.log(path, sum);
+        count++;
+      }
+      if (sum > target) {
+        return;
+      }
+      for (let i = index; i < len; i++) {
+        const element = arr[i];
+        if (visited[element]) {
+          continue;
+        } else {
+          path.push(element);
+          sum += element;
+          visited[element] = true;
+          backTrack(i + 1, path, arr, visited, sum);
+          path.pop();
+          sum -= element;
+          visited[element] = false;
+        }
+      }
+    }
+    backTrack(0, path, arr, visited, sum);
+    return count;
+  }
+  // console.log(test(arr, target));
+}
+{
+  function longestConsecutive(nums) {
+    if (nums.length === 0) {
+      return 0;
+    }
+    let len = nums.length;
+    nums = nums.sort((a, b) => a - b);
+    console.log(nums);
+    let max = 1;
+    let queue = [];
+    for (let i = 0; i < len; i++) {
+      if (i > 0 && nums[i] - nums[i - 1] == 0) {
+        continue;
+      } else if (i > 0 && nums[i] - nums[i - 1] > 1) {
+        max = queue.length > max ? queue.length : max;
+        queue = [];
+        console.log(i);
+      }
+      const element = nums[i];
+      queue.push(element);
+    }
+    max = queue.length > max ? queue.length : max;
+    return max;
+  }
+  console.log(longestConsecutive([9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6]));
+}

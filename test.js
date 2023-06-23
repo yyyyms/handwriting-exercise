@@ -600,6 +600,12 @@ function foo(params) {
 }
 {
   let str = "<template>？？？</template>";
-  console.log(typeof str);
-  console.log(typeof JSON.stringify(str));
+  // console.log(typeof str);
+  // console.log(typeof JSON.stringify(str));
+}
+{
+  let str = "尹";
+  // console.log(str.charCodeAt().toString());
+  let res = Buffer.from(str).toString("base64");
+  console.log(res);
 }
