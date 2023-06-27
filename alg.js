@@ -2156,5 +2156,40 @@ function parseStr(params) {}
     max = queue.length > max ? queue.length : max;
     return max;
   }
-  console.log(longestConsecutive([9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6]));
+  // console.log(longestConsecutive([9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6]));
+}
+{
+  //冒泡排序
+  let arr = [1, 6, 23, 9, 8, 7];
+  function BubbleSort(arr) {
+    let isOrder = false;
+    for (let i = 0; i < arr.length; i++) {
+      isOrder = true;
+      for (let j = 0; j < arr.length; j++) {
+        if (arr[j] > arr[j + 1]) {
+          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+          isOrder = false;
+        }
+      }
+      if (isOrder) {
+        break;
+      }
+    }
+    console.log(arr);
+  }
+  // BubbleSort(arr);
+}
+//斐波那契数列
+{
+  function fib(n) {
+    let dp = [];
+    dp[0] = 0;
+    dp[1] = 1;
+    for (let i = 2; i <= n; i++) {
+      dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    return dp[n] % 1000000007;
+    // console.log(dp[n]);
+  }
+  fib(2);
 }

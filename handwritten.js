@@ -1946,3 +1946,74 @@ const date = new Date();
     }
   }
 }
+//手写promiseall
+{
+  function myPromiseAll(iterable) {
+    let arr = Array.from(iterable);
+    let len = arr.length;
+    let count = 0;
+    let result = [];
+    return new Promise((resolve, reject) => {
+      for (let i = 0; i < array.length; i++) {
+        const element = arr[i];
+        Promise.resolve(element)
+          .then((res) => {
+            result[i] = res;
+            count++;
+            if (count === len) {
+              resolve(result);
+            }
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      }
+    });
+  }
+}
+{
+  function myPromiseRace(iterable) {
+    let arr = Array.from(iterable);
+    return new Promise((resolve, reject) => {
+      for (let i = 0; i < arr.length; i++) {
+        const element = arr[i];
+        Promise.resolve(element)
+          .then((res) => {
+            resolve(res);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      }
+    });
+  }
+}
+//防抖
+{
+  function debounce(fn, time) {
+    let timeout = null;
+    return function (params) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        fn.call(this);
+      }, time);
+    };
+  }
+}
+//节流
+{
+  function throttle(fn, time) {
+    let flat = true;
+    return function (params) {
+      if (!flat) {
+        return;
+      }
+      flat = false;
+      setTimeout(() => {
+        fn.call(this);
+        flat = true;
+      }, time);
+    };
+  }
+}
+

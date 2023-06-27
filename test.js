@@ -607,5 +607,12 @@ function foo(params) {
   let str = "尹";
   // console.log(str.charCodeAt().toString());
   let res = Buffer.from(str).toString("base64");
-  console.log(res);
+  // console.log(res);
+}
+{
+  function test(params) {
+    let a = 1;
+    console.log(this, "this");
+  }
+  test();
 }

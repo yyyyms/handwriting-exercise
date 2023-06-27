@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .main {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        span {
+            width: 140px;
+            height: 140px;
+            display: inline-block;
+            border-radius: 50%;
+            border-width: 5px;
+            border-style: solid;
+            border-color: black black black black;
+            animation: spin 3s infinite linear;
+            border-style: solid dashed dotted double;
+            /* •solid：边框为单实线。 •dashed：边框为虚线。 •dotted：边框为点线。 •double：边框为双实线。 */
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <span></span>
+    </div>
+</body>
+
+</html>
