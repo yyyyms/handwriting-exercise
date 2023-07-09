@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* html {
+            font-size: calc(100vw/20);
+        } */
+
+        @media screen and (max-width:500px) {
+            html {
+                font-size: 20px;
+            }
+        }
+
+        @media screen and (min-width:500px) {
+            html {
+                font-size: 50px;
+            }
+        }
+
+        div {
+            width: 5rem;
+            background-color: skyblue;
+        }
+    </style>
+    <style>
+        @media screen {
+            body {
+                background-color: rgb(221, 162, 85);
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div>尹梦淞</div>
+    <script>
+        function change() {
+            if (document.documentElement.clientWidth > 1230 && document.documentElement.clientWidth <= 2304) {
+                document.documentElement.style.fontSize = (16 * document.documentElement.clientWidth) / 1920 + 'px';
+            } else if (document.documentElement.clientWidth < 1230) {
+                document.documentElement.style.fontSize = '10.125px';
+            } else if (document.documentElement.clientWidth > 2304) {
+                document.documentElement.style.fontSize = '19.2px';
+            }
+        }
+        // window.addEventListener('resize', () => {
+        //     change()
+        //     console.log(document.documentElement.style.fontSize);
+        // }, false)
+    </script>
+</body>
+
+</html>

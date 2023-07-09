@@ -614,5 +614,44 @@ function foo(params) {
     let a = 1;
     console.log(this, "this");
   }
-  test();
+  // test();
+}
+function _new(fn, ...args) {
+  if (typeof fn !== "function") return;
+  let obj = Object.create(fn.prototype);
+  let res = fn.apply(obj, args);
+
+  return;
+}
+{
+  let reg = /\d/;
+  let res = JSON.parse(JSON.stringify(reg));
+  // console.log(res);
+}
+{
+  let p1 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("p1完成");
+    }, 2000);
+  }).then((res) => {
+    console.log(res);
+    return 1;
+  });
+  let p2 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("p2完成");
+    }, 1000);
+  })
+    .then((res) => {
+      console.log(res);
+      return 2;
+    })
+    .then((res) => {
+      console.log(res);
+    });
+  // let tasks = [p1, p2];
+  // let race = Promise.race(tasks);
+  // setTimeout(() => {
+  //   console.log(race);
+  // }, 3000);
 }

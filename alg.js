@@ -2193,3 +2193,96 @@ function parseStr(params) {}
   }
   fib(2);
 }
+//冒泡排序
+{
+  // 时间复杂度 n 到 n的平方
+  // 空间复杂度1
+  let arr = [1, 5, 6, 3, 2, 9, 4];
+  function BubbleSort(arr) {
+    let isSort = false;
+    for (let i = 0; i < arr.length; i++) {
+      isSort = true;
+      for (let j = 0; j < arr.length; j++) {
+        if (arr[j] > arr[j + 1]) {
+          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+          isSort = false;
+        }
+      }
+      if (isSort) {
+        return arr;
+      }
+    }
+    return arr;
+  }
+  // console.log(BubbleSort(arr));
+}
+//插入排序
+{
+  // 时间复杂度n 到 n方
+  // 空间复杂度 1
+  function insertionSort(arr) {
+    let len = arr.length;
+    for (let i = 0; i < len; i++) {
+      let preIndex = i - 1;
+      let cur = arr[i];
+      while (preIndex >= 0 && arr[preIndex] > cur) {
+        arr[preIndex + 1] = arr[preIndex];
+        preIndex--;
+      }
+      arr[preIndex + 1] = cur;
+    }
+    return arr;
+  }
+  let arr = [1, 5, 6, 3, 2, 9, 4];
+  // console.log(insertionSort(arr));
+}
+//选择排序
+{
+  // 时间复杂度 n方
+  function selectSort(arr) {
+    let len = arr.length;
+    let temp = 0;
+    for (let i = 0; i < len - 1; i++) {
+      temp = i;
+      for (let j = i + 1; j < len; j++) {
+        if (arr[j] < arr[temp]) {
+          temp = j;
+        }
+      }
+      if (temp !== i) {
+        [arr[i], arr[temp]] = [arr[temp], arr[i]];
+      }
+    }
+    return arr;
+  }
+  let arr = [1, 5, 6, 3, 2, 9, 4];
+  // console.log(selectSort(arr));
+}
+//快速排序
+{
+  // 时间复杂度 nlog(n)
+  function quickSort(arr) {
+    if (arr.length < 2) {
+      return arr;
+    }
+    let pivot = arr[0];
+    let low = []; //比基准值小
+    let hight = []; //比基准值大
+    let middle = []; //和基准值一样大
+    arr.forEach((element) => {
+      if (element > pivot) {
+        hight.push(element);
+      } else if (element < pivot) {
+        low.push(element);
+      } else {
+        middle.push(element);
+      }
+    });
+    return quickSort(low).concat(middle).concat(quickSort(hight));
+  }
+  let arr = [1, 5, 6, 3, 2, 9, 4];
+  // console.log(quickSort(arr));
+}
+//归并排序
+{
+}

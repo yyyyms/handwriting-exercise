@@ -2016,4 +2016,279 @@ const date = new Date();
     };
   }
 }
+//字节一面
+{
+  let obj = {
+    a: {
+      b: [
+        {
+          c: {
+            b: 1,
+          },
+        },
+      ],
+    },
+  };
+  function loadshGet(str) {
+    let reg = /\[/g;
+    let reg1 = /\]/g;
+    let res = str.replace(reg, ".").replace(reg1, "");
 
+    console.log(res);
+  }
+  // loadshGet("a.b[0].c.d");
+}
+//函数珂里化
+{
+  // sum(1)(2,3)(4).valueOf = 10
+  function sum(...args) {
+    let res = 0;
+    let add = (...args) => {
+      console.log(args);
+      res = args.reduce((pre, cur) => {
+        return pre + cur;
+      }, res);
+      return add;
+    };
+    add(...args);
+    add.valueOf = () => {
+      return res;
+    };
+    return add;
+
+    // return;
+  }
+  // console.log(sum(1)(2, 3)(4).valueOf());
+}
+//promise实现并发请求
+// 1.不通过Promise.race
+{
+  //自定义请求函数
+  function request(url) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(`任务${url}完成`);
+      }, 2000);
+    }).then((res) => {
+      console.log("外部逻辑", res);
+    });
+  }
+  //添加任务
+  function addTask(url) {
+    let task = request(url);
+    pool.push(task);
+    task.then((res) => {
+      //请求结束后将该Promise 任务从并发池中移除
+      pool.splice(pool.indexOf(task), 1);
+      console.log(`${url} 结束，当前并发数：${pool.length}`);
+      url = urls.shift();
+      //跑完一个就加入一个
+      if (url !== undefined) {
+        addTask(url);
+      }
+    });
+  }
+  let urls = ["bytedance.com", "tencent.com", "alibaba.com", "microsoft.com", "apple.com", "hulu.com", "amazon.com"];
+  let pool = []; //并发池子
+  let max = 3; //最大并发数量
+  // while (pool.length < max) {
+  //   let url = urls.shift();
+  //   addTask(url);
+  // }
+}
+//通过Promise.race
+{
+  //自定义请求函数
+  function request(url) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(`任务${url}完成`);
+      }, 1000);
+    }).then((res) => {
+      console.log("外部逻辑", res);
+      return 123;
+    });
+  }
+  //添加任务
+  function addTask(url) {
+    let task = request(url);
+    pool.push(task);
+    task.then((res) => {
+      pool.splice(pool.indexOf(task), 1);
+      console.log(`${url} 结束，当前并发数：${pool.length}`);
+      return 456;
+    });
+  }
+
+  //每当并发池跑完一个任务,就再塞入一个任务
+  function run(race) {
+    race.then((res) => {
+      console.log(res, "res");
+      let url = urls.shift();
+      if (url !== undefined) {
+        addTask(url);
+        run(Promise.race(pool));
+      }
+    });
+  }
+
+  let urls = ["bytedance.com", "tencent.com", "alibaba.com", "microsoft.com", "apple.com", "hulu.com", "amazon.com"];
+  let pool = []; //并发池子
+  let max = 3; //最大并发数量
+  // while (pool.length < max) {
+  //   let url = urls.shift();
+  //   addTask(url);
+  // }
+  //利用promise.race来获取并发池中某任务完成的信号
+  // let race = Promise.race(pool);
+  // setTimeout(() => {
+  //   console.log(race, "race");
+  // }, 2000);
+  // run(race);
+}
+
+//3.通过Promise.race和异步函数
+{
+  //自定义请求函数
+  function request(url) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(`任务${url}完成`);
+      }, 1000);
+    }).then((res) => {
+      console.log("外部逻辑", res);
+    });
+  }
+  //执行任务
+  async function fn() {
+    let urls = ["bytedance.com", "tencent.com", "alibaba.com", "microsoft.com", "apple.com", "hulu.com", "amazon.com"];
+    let pool = []; //并发池子
+    let max = 3; //最大并发数量
+    for (let i = 0; i < urls.length; i++) {
+      let url = urls[i];
+      let task = request(url);
+      task.then((res) => {
+        pool.splice(pool.indexOf(task), 1);
+        console.log(`${url} 结束，当前并发数：${pool.length}`);
+      });
+      pool.push(task);
+      //利用Promise.race方法来获得并发池中某任务完成的信号
+      //跟await结合当有任务完成才让程序继续执行,让循环把并发池塞满
+      if (pool.length === max) {
+        await Promise.race(pool);
+      }
+    }
+  }
+  // fn();
+}
+
+//4.通过Promise.all
+{
+  const delay = function delay(interval) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(interval);
+      }, interval);
+    });
+  };
+
+  let tasks = [
+    () => {
+      return delay(1000);
+    },
+    () => {
+      return delay(1003);
+    },
+    () => {
+      return delay(1005);
+    },
+    () => {
+      return delay(1002);
+    },
+    () => {
+      return delay(1004);
+    },
+    () => {
+      return delay(1006);
+    },
+  ];
+
+  function createRequest(tasks, pool) {
+    pool = pool || 5;
+    let results = [];
+    let together = new Array(pool).fill(null);
+    let index = 0;
+    together = together.map((item, i) => {
+      return new Promise((resolve, reject) => {
+        function run() {
+          console.log(index);
+          if (index >= tasks.length) {
+            resolve();
+            return;
+          }
+          let old_index = index;
+          // 从任务池拿任务，由于index是升级作用域的变量，所以多个Promise共享一个index
+          //这样可以让一个数组里面的任务一次执行
+          let task = tasks[index++];
+          task()
+            .then((result) => {
+              // 将返回的结果放置在results里面，实现请求数据的集中存储。
+              results[old_index] = result;
+              // 只有在上一个任务执行成功后才会执行一个异步任务
+              run();
+            })
+            .catch((reason) => {
+              reject(reason);
+            });
+        }
+        run();
+      });
+    });
+    // 多个promise同时处理，根据pool来限制同一时刻并发请求的个数
+    return Promise.all(together).then(() => results);
+  }
+  // createRequest(tasks, 3)
+  //   .then((results) => {
+  //     console.log("success->", results);
+  //   })
+  //   .catch((reason) => {
+  //     console.log("fail->", reason);
+  //   });
+}
+//函数珂里化 收集一次累加一次
+{
+  //实现add(1)(2)(3)(4)=10; 、 add(1)(1,2,3)(2)=9;
+  function add(...args) {
+    let res = 0;
+    function sum(...args) {
+      console.log(args);
+      res = args.reduce((pre, cur) => {
+        return pre + cur;
+      }, res);
+      return sum;
+    }
+    sum(...args);
+    sum.valueOf = () => {
+      return res;
+    };
+    return sum;
+  }
+  // console.log(add(1, 2, 3)(2)(1).valueOf());
+}
+//函数珂里化 全部收集完最后再加
+{
+  function add() {
+    let arr = [...arguments];
+    function fn() {
+      arr.push(...arguments);
+      return fn;
+    }
+    fn.toString = function (params) {
+      return arr.reduce((pre, cur) => {
+        return pre + cur;
+      });
+    };
+    return fn;
+  }
+  // console.log(add(1)(1, 2, 3)(2).toString());
+}
