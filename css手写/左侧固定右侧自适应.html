@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+        }
+    </style>
+    <!-- 弹性盒子 -->
+    <!-- <style>
+        * {
+            margin: 0;
+        }
+
+        .main {
+            display: flex;
+        }
+
+        .left {
+            flex-basis: 300px;
+            height: 200px;
+            background-color: skyblue;
+        }
+
+        .right {
+            height: 200px;
+            flex: 1;
+            background-color: rgb(42, 218, 201);
+        }
+    </style> -->
+    <!-- 利用浮动+margin -->
+    <!-- <style>
+        .main {
+            height: 100px;
+        }
+
+        .left {
+            width: 100px;
+            float: left;
+            height: 100px;
+            background-color: skyblue;
+
+        }
+
+        .right {
+            margin-left: 100px;
+            height: 100px;
+            background-color: rgb(42, 218, 201);
+            width: auto;
+        }
+    </style> -->
+    <!-- 利用浮动+bfc 不会重叠 -->
+    <!-- <style>
+        .main {
+            height: 100px;
+        }
+
+        .left {
+            width: 100px;
+            float: left;
+            height: 100px;
+            background-color: skyblue;
+
+        }
+
+        .right {
+            /* margin-left: 100px; */
+            height: 100px;
+            overflow: hidden;
+            background-color: rgb(42, 218, 201);
+            /* width: auto; */
+        }
+    </style> -->
+    <!-- grid布局 -->
+    <!-- <style>
+        .main {
+            height: 100px;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+        }
+
+        .left {
+            height: 100px;
+            background-color: skyblue;
+
+        }
+
+        .right {
+            height: 100px;
+            background-color: rgb(42, 218, 201);
+        }
+    </style> -->
+    <!-- 绝对定位 -->
+    <!-- <style>
+        .main {
+            height: 100px;
+            position: relative;
+        }
+
+        .left {
+            width: 100px;
+            height: 100px;
+            background-color: skyblue;
+            position: absolute;
+            left: 0;
+        }
+
+        .right {
+            right: 0;
+            height: 100px;
+            position: absolute;
+            left: 100px;
+            background-color: rgb(42, 218, 201);
+        }
+    </style> -->
+    <style>
+        .main {
+            height: 100px;
+            position: relative;
+        }
+
+        .left {
+            width: 100px;
+            height: 100px;
+            background-color: skyblue;
+            position: fixed;
+            left: 0;
+        }
+
+        .right {
+
+            height: 100px;
+            margin-left: 100px;
+            background-color: rgb(42, 218, 201);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+
+</body>
+
+</html>
