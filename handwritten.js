@@ -1815,22 +1815,7 @@ const date = new Date();
   // let item = new fn();
   // console.log(item);
 }
-//数组转树
-{
-  const data = [
-    { id: 0, name: "name0", pid: -1 },
-    { id: 1, name: "name1", pid: 0 },
-    { id: 2, name: "name2", pid: 0 },
-    { id: 3, name: "name3", pid: 0 },
-    { id: 4, name: "name4", pid: 1 },
-    { id: 5, name: "name5", pid: 2 },
-    { id: 6, name: "name6", pid: 3 },
-    { id: 7, name: "name7", pid: 4 },
-    { id: 8, name: "name8", pid: 5 },
-    { id: 9, name: "name9", pid: 6 },
-    { id: 10, name: "name10", pid: 7 },
-  ];
-}
+
 //手写new
 {
   function _new(fn, ...args) {
@@ -2291,4 +2276,228 @@ const date = new Date();
     return fn;
   }
   // console.log(add(1)(1, 2, 3)(2).toString());
+}
+//青蛙跳台阶
+{
+  //一次可以跳1阶 也可以跳两阶 求跳上n阶有多少种跳法
+  // 1.递归
+  function jump(n) {
+    if (n === 0 || n === 1) {
+      return 1;
+    }
+    return jump(n - 1) + jump(n - 2);
+  }
+  // console.log(jump(7));
+  // 2.动态规划
+  function jump1(n) {
+    let dp = Array(n).fill(0);
+    dp[0] = 1;
+    dp[1] = 1;
+    for (let i = 2; i <= n; i++) {
+      dp[i] = dp[i - 2] + dp[i - 1];
+    }
+    return dp[n];
+  }
+  // console.log(jump1(7));
+}
+//数组转树 递归map
+{
+  const currentArray = [
+    { id: "01", name: "张大大", pid: "", job: "项目经理" },
+    { id: "02", name: "小亮", pid: "01", job: "产品leader" },
+    { id: "03", name: "小美", pid: "01", job: "UIleader" },
+    { id: "04", name: "老马", pid: "01", job: "技术leader" },
+    { id: "05", name: "老王", pid: "01", job: "测试leader" },
+    { id: "06", name: "老李", pid: "01", job: "运维leader" },
+    { id: "07", name: "小丽", pid: "02", job: "产品经理" },
+    { id: "08", name: "大光", pid: "02", job: "产品经理" },
+    { id: "09", name: "小高", pid: "03", job: "UI设计师" },
+    { id: "10", name: "小刘", pid: "04", job: "前端工程师" },
+    { id: "11", name: "小华", pid: "04", job: "后端工程师" },
+    { id: "12", name: "小李", pid: "04", job: "后端工程师" },
+    { id: "13", name: "小赵", pid: "05", job: "测试工程师" },
+    { id: "14", name: "小强", pid: "05", job: "测试工程师" },
+    { id: "15", name: "小涛", pid: "06", job: "运维工程师" },
+  ];
+  function arrToTree(arr, pid) {
+    //找父亲
+    let flag = arr.filter((item) => item.pid === pid);
+    if (flag.length === 0) {
+      return [];
+    } else {
+      //给父亲找儿子
+      return flag.map((i) => {
+        let children = arrToTree(arr, i.id);
+        if (children.length) {
+          i.children = children;
+          return i;
+        } else {
+          return i;
+        }
+      });
+    }
+  }
+  // console.log(arrToTree(currentArray));
+}
+//数组转树 递归 reduce
+{
+  const currentArray = [
+    { id: "01", name: "张大大", pid: "", job: "项目经理" },
+    { id: "02", name: "小亮", pid: "01", job: "产品leader" },
+    { id: "03", name: "小美", pid: "01", job: "UIleader" },
+    { id: "04", name: "老马", pid: "01", job: "技术leader" },
+    { id: "05", name: "老王", pid: "01", job: "测试leader" },
+    { id: "06", name: "老李", pid: "01", job: "运维leader" },
+    { id: "07", name: "小丽", pid: "02", job: "产品经理" },
+    { id: "08", name: "大光", pid: "02", job: "产品经理" },
+    { id: "09", name: "小高", pid: "03", job: "UI设计师" },
+    { id: "10", name: "小刘", pid: "04", job: "前端工程师" },
+    { id: "11", name: "小华", pid: "04", job: "后端工程师" },
+    { id: "12", name: "小李", pid: "04", job: "后端工程师" },
+    { id: "13", name: "小赵", pid: "05", job: "测试工程师" },
+    { id: "14", name: "小强", pid: "05", job: "测试工程师" },
+    { id: "15", name: "小涛", pid: "06", job: "运维工程师" },
+  ];
+  function arrToTree(arr, pid) {
+    return arr.reduce((pre, cur) => {
+      if (cur.id === pid) {
+        //找儿子
+        const children = arrToTree(arr, cur.id);
+        if (children.length) {
+          cur.children = children;
+        }
+        //找父亲
+        pre.push(cur);
+      }
+      return pre;
+    }, []);
+  }
+}
+//数组转树 迭代 核心是新建一个 objs记录每一人 给objs里的对象加属性 假如root 是张大大
+// 在objs里给张大大加children root里的张大大也会有了这个children属性
+// 因为公用同一个地址
+{
+  const currentArray = [
+    { id: "01", name: "张大大", pid: "", job: "项目经理" },
+    { id: "02", name: "小亮", pid: "01", job: "产品leader" },
+    { id: "03", name: "小美", pid: "01", job: "UIleader" },
+    { id: "04", name: "老马", pid: "01", job: "技术leader" },
+    { id: "05", name: "老王", pid: "01", job: "测试leader" },
+    { id: "06", name: "老李", pid: "01", job: "运维leader" },
+    { id: "07", name: "小丽", pid: "02", job: "产品经理" },
+    { id: "08", name: "大光", pid: "02", job: "产品经理" },
+    { id: "09", name: "小高", pid: "03", job: "UI设计师" },
+    { id: "10", name: "小刘", pid: "04", job: "前端工程师" },
+    { id: "11", name: "小华", pid: "04", job: "后端工程师" },
+    { id: "12", name: "小李", pid: "04", job: "后端工程师" },
+    { id: "13", name: "小赵", pid: "05", job: "测试工程师" },
+    { id: "14", name: "小强", pid: "05", job: "测试工程师" },
+    { id: "15", name: "小涛", pid: "06", job: "运维工程师" },
+  ];
+  function arrToTree(arr) {
+    let list = JSON.parse(JSON.stringify(arr));
+    let root = null;
+    // !!!!!!!!拿一个obj 记录每一个人 方便找父亲
+    let objs = {};
+    while (list.length) {
+      let item = list.shift();
+      if (!objs[item.id]) {
+        objs[item.id] = item;
+      }
+      //处理树根
+      if (item.pid === "" && !root) {
+        root = item;
+        continue;
+      }
+      //给这个item找父亲
+      let parent = objs[item.pid];
+      if (!parent) {
+        //父亲还没出现 再push回去  因为可能是乱序的
+        list.push(item);
+      } else {
+        parent.children = parent.children ? parent.children.concat(item) : [item];
+      }
+    }
+    return root;
+  }
+}
+//快速排序
+{
+  function quickSort(arr) {
+    if (arr.length < 2) {
+      return arr;
+    }
+    let pivot = arr.slice(0)[0];
+    let hight = [];
+    let low = [];
+    let middle = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] > pivot) {
+        hight.push(arr[i]);
+      } else if (arr[i] < pivot) {
+        low.push(arr[i]);
+      } else {
+        middle.push(arr[i]);
+      }
+    }
+    return quickSort(low).concat(middle).concat(quickSort(hight));
+  }
+  let arr = [1, 8, 5, 6, 9, 2, 7, 6];
+  // console.log(quickSort(arr));
+}
+//数组扁平
+{
+  //1.api
+  const arr = [1, [2, [3, [4, 5]]], 6];
+  let res = arr.flat(Infinity);
+  // console.log(res);
+  //2.正则
+  let res1 = JSON.parse("[" + JSON.stringify(arr).replace(/\[|\]/g, "") + "]");
+  // console.log(res1);
+  //3.函数递归
+  let res2 = [];
+  const fn = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+      const element = arr[i];
+      if (Array.isArray(element)) {
+        fn(element);
+      } else {
+        res2.push(element);
+      }
+    }
+  };
+  fn(arr);
+  // console.log(res2);
+  // [1, [2, [3, [4, 5]]], 6];
+  //3.reduce + 递归
+  const flatten = (arr) => {
+    return arr.reduce((pre, cur) => {
+      return pre.concat(Array.isArray(cur) ? flatten(cur) : cur);
+    }, []);
+  };
+  // console.log(flatten(arr));
+}
+//promiseAll
+{
+  function myPromiseAll(iterable) {
+    let promises = Array.from(iterable);
+    let len = promises.length;
+    let count = 0;
+    let results = [];
+    return new Promise((resolve, reject) => {
+      promises.forEach((element, index) => {
+        Promise.resolve(element)
+          .then((res) => {
+            results[index] = res;
+            count++;
+            if (count === len) {
+              resolve(results);
+            }
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    });
+  }
 }

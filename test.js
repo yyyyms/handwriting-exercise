@@ -629,29 +629,109 @@ function _new(fn, ...args) {
   // console.log(res);
 }
 {
-  let p1 = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve("p1完成");
-    }, 2000);
-  }).then((res) => {
-    console.log(res);
-    return 1;
-  });
-  let p2 = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve("p2完成");
-    }, 1000);
-  })
-    .then((res) => {
-      console.log(res);
-      return 2;
-    })
-    .then((res) => {
-      console.log(res);
-    });
+  // let p1 = new Promise((resolve, reject) => {
+  //   setTimeout(() => {
+  //     resolve("p1完成");
+  //   }, 2000);
+  // }).then((res) => {
+  //   console.log(res);
+  //   return 1;
+  // });
+  // let p2 = new Promise((resolve, reject) => {
+  //   setTimeout(() => {
+  //     resolve("p2完成");
+  //   }, 1000);
+  // })
+  //   .then((res) => {
+  //     console.log(res);
+  //     return 2;
+  //   })
+  //   .then((res) => {
+  //     console.log(res);
+  //   });
   // let tasks = [p1, p2];
   // let race = Promise.race(tasks);
   // setTimeout(() => {
   //   console.log(race);
   // }, 3000);
+}
+
+// 2.使用正则表达式从一个字符串里取出数字
+{
+  let str = "as3d21fa32s1df";
+  let reg = /\d+/g;
+  let res = str.match(reg);
+
+  // console.log(res);
+}
+// 4.使用js的闭包实现一个计数器函数，每次调用时+1
+{
+  let num = 0;
+  function count() {
+    console.log(num++);
+  }
+  // count();
+  // count();
+  // count();
+  // count();
+}
+// 5.实现一个函数，使得给定一个字符串，将字符串中每一个单词的首字母大写
+{
+  let str = "hello my name is yinmengsong";
+  function test(str) {
+    let arr = str.split(" ");
+    let res = arr.map((item) => {
+      return item.charAt(0).toUpperCase() + item.slice(1);
+    });
+    return res.join(" ");
+  }
+  // console.log(test(str));
+}
+{
+  //正则 里面的单词首字母大写
+  let str = "hello my name is yinmengsong";
+  function test(str) {
+    let reg = /\b\w/g;
+    let res = str.replace(reg, ($1) => {
+      return $1.toUpperCase();
+    });
+    console.log(res);
+  }
+  // test(str);
+}
+{
+  // JSON.parse
+  let obj = [1, 2, 3];
+  // console.log(JSON.stringify(obj));
+  // let str = { a: 1 };
+  // console.log(JSON.parse(str));
+}
+// 7.实现一个函数，将js对象里值为null undefined 的属性去除
+{
+  let obj = {
+    a: 1,
+    b: 2,
+    c: {
+      a: null,
+      b: undefined,
+      c: {
+        a: 1,
+        b: undefined,
+        d: null,
+      },
+    },
+  };
+  function test(obj) {
+    for (const key in obj) {
+      if (Object.hasOwnProperty.call(obj, key)) {
+        if (obj[key] === null || obj[key] === undefined) {
+          delete obj[key];
+        } else if (typeof obj[key] === "object") {
+          test(obj[key]);
+        }
+      }
+    }
+  }
+  // test(obj);
+  // console.log(obj);
 }
