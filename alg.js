@@ -2286,3 +2286,8 @@ function parseStr(params) {}
 //归并排序
 {
 }
+// 写代码，数组里的0移到最后
+{
+  let arr = [1, 2, 0, 4, 0, 6, 7, 9, 0];
+  function test(params) {}
+}

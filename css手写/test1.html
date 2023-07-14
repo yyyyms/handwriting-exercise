@@ -16,17 +16,18 @@
         } */
         /* 绝对定位 + transform */
         .main {
-            height: 500px;
+            width: 100%;
             background-color: skyblue;
             position: relative;
+            padding-bottom: 50%;
         }
 
-        .test {
+        /* .test {
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-        }
+        } */
 
         /* .test {
             width: 50px;
@@ -43,8 +44,9 @@
 </head>
 
 <body>
+    <!-- padding-bottom设置50%会是什么情况？(懵，直接回了句没写过padding百分比单位，让我猜一下啥) -->
     <div class="main">
-        <div class="test">中国Engxx</div>
+
     </div>
 </body>
 

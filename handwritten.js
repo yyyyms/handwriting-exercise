@@ -1069,7 +1069,7 @@ const date = new Date();
   };
   // console.log(isSame(obj1, obj2));
 
-  // console.log(isObjectValueEqual(obj1, obj2)) // false
+  // console.log(isObjectValueEqual(obj1, obj2)); // false
 }
 
 {
@@ -1095,7 +1095,7 @@ const date = new Date();
             }
           });
       };
-      attemp(resolve, reject);
+      attemp();
     });
   }
 
@@ -1109,7 +1109,7 @@ const date = new Date();
       }
     });
   }
-  // PromiseRetry(getUrl, 5, 1000)
+  // PromiseRetry(getUrl, 5, 1000);
 }
 {
   //节流 时间戳版
@@ -1811,7 +1811,8 @@ const date = new Date();
   // };
   // Function.prototype._bind = _bind;
   // let fn = test._bind(obj, "yms");
-  // // console.log(fn);
+  // fn();
+  // console.log(fn);
   // let item = new fn();
   // console.log(item);
 }
@@ -2046,7 +2047,7 @@ const date = new Date();
   // console.log(sum(1)(2, 3)(4).valueOf());
 }
 //promise实现并发请求
-// 1.不通过Promise.race
+// 1.不用Promise.race
 {
   //自定义请求函数
   function request(url) {
@@ -2132,7 +2133,7 @@ const date = new Date();
   // run(race);
 }
 
-//3.通过Promise.race和异步函数
+//3.Promise.race和异步函数
 {
   //自定义请求函数
   function request(url) {
@@ -2242,7 +2243,7 @@ const date = new Date();
 }
 //函数珂里化 收集一次累加一次
 {
-  //实现add(1)(2)(3)(4)=10; 、 add(1)(1,2,3)(2)=9;
+  //实现add(1)(2)(3)(4).valueOf=10; 、 add(1)(1,2,3)(2).valueOf=9;
   function add(...args) {
     let res = 0;
     function sum(...args) {
@@ -2500,4 +2501,412 @@ const date = new Date();
       });
     });
   }
+}
+// css的颜色有哪些形式，rgb/rgba，pink之类的字符串，'#666fff'为什么有6位，各表示什么，
+// 手写一个生成随机颜色（颜色表示方式用'#666fff'这种）的函数
+{
+  function randomColor() {
+    let red = Math.floor(Math.random() * 256);
+    let green = Math.floor(Math.random() * 256);
+    let blue = Math.floor(Math.random() * 256);
+    red = red.toString(16);
+    green = green.toString(16);
+    blue = blue.toString(16);
+    return "#" + red + green + blue;
+  }
+  // console.log(randomColor());
+}
+// 手写千分位转换（三位一加逗号）
+//正则
+{
+  let num = "123456.7890";
+  function test(num) {
+    let arr = num.split(".");
+    let integerPart = arr[0];
+    let decimalPart = arr[1];
+    let reg = /(\d)(?=(\d{3})+$)/g;
+    // let reg = /(\d)(?=(\d{3})+$)/g;
+    integerPart = integerPart.replace(reg, ($1) => {
+      return $1 + ",";
+    });
+    console.log(integerPart + "." + decimalPart);
+  }
+  // test(num);
+}
+//不用正则
+{
+}
+// JS实现一个带并发限制的异步调度器Scheduler，
+// 保证同时运行的任务最多有两个。
+// 完善代码中Scheduler类，
+// 使得以下程序能正确输出
+{
+  class Scheduler {
+    constructor() {
+      this.count = 2;
+      this.queue = [];
+      this.run = [];
+    }
+    excute(task) {
+      this.run.push(task);
+      Promise.resolve(task()).then(() => {
+        task.resolve();
+        this.run.splice(this.run.findIndex(task), 1);
+        if (this.queue.length) {
+          this.excute(this.queue.shift());
+        }
+      });
+    }
+    add(task) {
+      return new Promise((resolve, reject) => {
+        task.resolve = resolve;
+        if (this.run.length < this.count) {
+          this.excute(task);
+        } else {
+          this.queue.push(task);
+        }
+      });
+    }
+  }
+
+  const timeout = (time) =>
+    new Promise((resolve) => {
+      setTimeout(resolve, time);
+    });
+
+  const scheduler = new Scheduler();
+  const addTask = (time, order) => {
+    scheduler.add(() => timeout(time)).then(() => console.log(order, "res"));
+  };
+
+  // addTask(1000, "1");
+  // addTask(500, "2");
+  // addTask(300, "3");
+  // addTask(400, "4");
+  // output: 2 3 1 4
+
+  // 一开始，1、2两个任务进入队列
+  // 500ms时，2完成，输出2，任务3进队
+  // 800ms时，3完成，输出3，任务4进队
+  // 1000ms时，1完成，输出1
+  // 1200ms时，4完成，输出4
+  //答案
+  // class Scheduler {
+  //  constructor() {
+  //    this.count = 2
+  //    this.queue = []
+  //    this.run = []
+  //  }
+
+  //  excute(task) {
+  //    this.run.push(task)
+  //    Promise.resolve(task()).then(() => {
+  //      task.resolve()
+  //      this.run.splice(this.run.findIndex(task), 1)
+  //      if (this.queue.length) {
+  //        this.excute(this.queue.shift())
+  //      }
+  //    })
+  //  }
+
+  //  add(task) {
+  //    return new Promise((resolve, reject) => {
+  //      task.resolve = resolve
+  //      if (this.run.length < this.count) {
+  //        this.excute(task)
+  //      } else this.queue.push(task)
+  //    })
+  //  }
+  // }
+
+  // const timeout = (time) =>
+  //  new Promise((resolve) => {
+  //    setTimeout(resolve, time)
+  //  })
+
+  // const scheduler = new Scheduler()
+  // const addTask = (time, order) => {
+  //  scheduler.add(() => timeout(time)).then(() => console.log(order))
+  // }
+  // addTask(1000, '1')
+  // addTask(500, '2')
+  // addTask(300, '3')
+  // addTask(400, '4')
+}
+//promise.retry
+{
+  function getUrl() {
+    return new Promise((resolve, reject) => {
+      // do...
+      let count = Math.random();
+      if (count > 0.5) {
+        resolve(count);
+      } else {
+        reject("失败");
+      }
+    });
+  }
+  function PromiseRetry(fn, times, delay) {
+    return new Promise((resolve, reject) => {
+      let time = 0;
+      let attemp = () => {
+        fn()
+          .then((res) => {
+            resolve(res);
+            // console.log("成功");
+          })
+          .catch((err) => {
+            time++;
+            if (time === times) {
+              // console.log("请求失败");
+              reject(err);
+            }
+            setTimeout(() => {
+              console.log("重试");
+              attemp();
+            }, delay);
+          });
+      };
+      attemp();
+    });
+  }
+  // PromiseRetry(getUrl, 5, 1000)
+  //   .then((res) => {
+  //     console.log("最后成功了", res);
+  //   })
+  //   .catch((err) => {
+  //     console.log("最后还是失败了");
+  //   });
+}
+//promise并发
+{
+  function request(url) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+      }, 1000);
+    }).then((res) => {
+      console.log(`任务${url}完成`);
+    });
+  }
+  function addTask(url) {
+    let task = request(url);
+    pool.push(task);
+    task.then((res) => {
+      pool.splice(pool.indexOf(task), 1);
+      console.log(`${url}任务结束,当前任务池的数量${pool.length}`);
+      url = urls.shift();
+      if (url !== undefined) {
+        addTask(url);
+      }
+    });
+  }
+  let urls = ["bytedance.com", "tencent.com", "alibaba.com", "microsoft.com", "apple.com", "hulu.com", "amazon.com"];
+  let pool = []; //并发池子
+  let max = 3; //最大并发数量
+  // while (pool.length < max) {
+  //   let url = urls.shift();
+  //   addTask(url);
+  // }
+}
+//通过Promise.race
+{
+  function request(url) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+      }, 1000);
+    }).then((res) => {
+      console.log(`任务${url}完成`);
+      return 11111;
+    });
+  }
+  let urls = ["bytedance.com", "tencent.com", "alibaba.com", "microsoft.com", "apple.com", "hulu.com", "amazon.com"];
+  let pool = [];
+  let max = 3;
+  function addTask(url) {
+    let task = request(url);
+    pool.push(task);
+    task.then((res) => {
+      pool.splice(pool.indexOf(task), 1);
+      console.log(`${url} 结束，当前并发数：${pool.length}`);
+    });
+  }
+  function run(race) {
+    race.then((res) => {
+      let url = urls.shift();
+      if (url !== undefined) {
+        addTask(url);
+        run(Promise.race(pool));
+      }
+    });
+  }
+  // while (pool.length < max) {
+  //   let url = urls.shift();
+  //   addTask(url);
+  // }
+  // let race = Promise.race(pool);
+  // run(race);
+}
+//Promise.race和异步函数
+{
+  function request(url) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+      }, 1000);
+    }).then((res) => {
+      console.log(`任务${url}完成`);
+      return 11111;
+    });
+  }
+  async function fn(params) {
+    let urls = ["bytedance.com", "tencent.com", "alibaba.com", "microsoft.com", "apple.com", "hulu.com", "amazon.com"];
+    let pool = [];
+    let max = 3;
+    for (let i = 0; i < urls.length; i++) {
+      let url = urls[i];
+      let task = request(url);
+      task.then((res) => {
+        pool.splice(pool.indexOf(task), 1);
+        console.log(`${url} 结束，当前并发数：${pool.length}`);
+      });
+      pool.push(task);
+      if (pool.length === max) {
+        await Promise.race(pool);
+      }
+    }
+  }
+  // fn();
+}
+//手写bind apply call
+{
+  Function.prototype._call = function (ctx, ...args) {
+    ctx = ctx === undefined ? window : Object(ctx);
+    let fn = this;
+    let symbol = Symbol();
+    ctx[symbol] = fn;
+    let res = ctx[symbol](...args);
+    delete ctx[symbol];
+    return res;
+  };
+  function sayName() {
+    console.log(this.name);
+    console.log(arguments);
+  }
+  let obj = {
+    name: "yms",
+  };
+  // sayName._call(obj, "哈哈哈哈");
+
+  Function.prototype._bind = function (ctx, ...args) {
+    ctx = ctx === undefined ? window : Object(ctx);
+    let fn = this;
+    let newFn = function (...fnArgs) {
+      if (this instanceof newFn) {
+        res = new fn(...args, ...fnArgs);
+      } else {
+        res = fn.call(ctx, ...args, ...fnArgs);
+      }
+      return res;
+    };
+    return newFn;
+  };
+  // let fn = sayName._bind(obj, "哈哈哈哈");
+  // let item = new fn();
+  // console.log(item);
+}
+//手写new
+{
+  function _new(fn, ...args) {
+    if (typeof fn !== "function") return;
+    let obj = Object.create(fn.prototype);
+    let res = fn.call(obj, ...args);
+    return (typeof res === "object" && res !== null) || typeof res === "function" ? res : obj;
+  }
+}
+//数组转树 迭代
+{
+  const currentArray = [
+    { id: "01", name: "张大大", pid: "", job: "项目经理" },
+    { id: "02", name: "小亮", pid: "01", job: "产品leader" },
+    { id: "03", name: "小美", pid: "01", job: "UIleader" },
+    { id: "04", name: "老马", pid: "01", job: "技术leader" },
+    { id: "05", name: "老王", pid: "01", job: "测试leader" },
+    { id: "06", name: "老李", pid: "01", job: "运维leader" },
+    { id: "07", name: "小丽", pid: "02", job: "产品经理" },
+    { id: "08", name: "大光", pid: "02", job: "产品经理" },
+    { id: "09", name: "小高", pid: "03", job: "UI设计师" },
+    { id: "10", name: "小刘", pid: "04", job: "前端工程师" },
+    { id: "11", name: "小华", pid: "04", job: "后端工程师" },
+    { id: "12", name: "小李", pid: "04", job: "后端工程师" },
+    { id: "13", name: "小赵", pid: "05", job: "测试工程师" },
+    { id: "14", name: "小强", pid: "05", job: "测试工程师" },
+    { id: "15", name: "小涛", pid: "06", job: "运维工程师" },
+  ];
+  function arrToTree(arr) {
+    let root = null;
+    let list = JSON.parse(JSON.stringify(arr));
+    let obj = {};
+    while (list.length > 0) {
+      let item = list.shift();
+      if (!obj[item.id]) {
+        obj[item.id] = item;
+      }
+      if (item.pid === "" || root === null) {
+        root = item;
+        continue;
+      }
+
+      let parent = obj[item.pid];
+      if (parent) {
+        if (obj[item.pid].child) {
+          obj[item.pid].child.push(item);
+        } else {
+          obj[item.pid].child = [item];
+        }
+      } else {
+        list.push(item);
+      }
+    }
+    return root;
+  }
+  console.log(arrToTree(currentArray));
+}
+//数组转树 递归
+{
+  const currentArray = [
+    { id: "01", name: "张大大", pid: "", job: "项目经理" },
+    { id: "02", name: "小亮", pid: "01", job: "产品leader" },
+    { id: "03", name: "小美", pid: "01", job: "UIleader" },
+    { id: "04", name: "老马", pid: "01", job: "技术leader" },
+    { id: "05", name: "老王", pid: "01", job: "测试leader" },
+    { id: "06", name: "老李", pid: "01", job: "运维leader" },
+    { id: "07", name: "小丽", pid: "02", job: "产品经理" },
+    { id: "08", name: "大光", pid: "02", job: "产品经理" },
+    { id: "09", name: "小高", pid: "03", job: "UI设计师" },
+    { id: "10", name: "小刘", pid: "04", job: "前端工程师" },
+    { id: "11", name: "小华", pid: "04", job: "后端工程师" },
+    { id: "12", name: "小李", pid: "04", job: "后端工程师" },
+    { id: "13", name: "小赵", pid: "05", job: "测试工程师" },
+    { id: "14", name: "小强", pid: "05", job: "测试工程师" },
+    { id: "15", name: "小涛", pid: "06", job: "运维工程师" },
+  ];
+  function arrToTree(arr, pid) {
+    return arr.reduce((pre, cur) => {
+      if (cur.pid === pid) {
+        pre.push(cur);
+        const child = arrToTree(arr, cur.id);
+        if (child.length) {
+          cur.child = child;
+        }
+      }
+      return pre;
+    }, []);
+  }
+  // arrToTree(currentArray, "");
+}
+//isEqualWith
+// 递归比较两个对象是否相同
+{
 }

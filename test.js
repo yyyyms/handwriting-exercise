@@ -735,3 +735,88 @@ function _new(fn, ...args) {
   // test(obj);
   // console.log(obj);
 }
+{
+  function test(params) {
+    console.log(this);
+    setTimeout(() => {
+      console.log(this);
+    }, 2000);
+  }
+  let obj = {
+    a: 1,
+    name: "yms",
+    age: 18,
+  };
+  // test();
+}
+//多个数组取交集
+{
+  let arr1 = [1, 2, 3, 4, 5];
+  let arr2 = [2, 3, 4];
+  let arr3 = [3, 4];
+  function intersection(arrs) {
+    return arrs.reduce((pre, cur) => {
+      return pre.filter((item) => {
+        return cur.includes(item);
+      });
+    });
+  }
+  // console.log(intersection([arr1, arr2, arr3]));
+}
+// 10进制转n进制
+{
+  let a = 255;
+  // console.log(a.toString(16));
+}
+//n进制转10进制
+{
+  let a = 1010;
+  // console.log(parseInt(a, 2));
+}
+//重新加载当前页面
+{
+  // location.reload();
+}
+//滚动到页面顶部
+{
+  // window.scrollTo(0, 0)
+}
+//将一个元素顺滑的滚动到可视区域的起点
+{
+  // document.body.scrollIntoView({
+  //   behavior: "smooth",
+  //   block: "start", //end 回到底部
+  // });
+}
+//重定向
+{
+  // location.href = '666'
+}
+{
+  async function async1() {
+    console.log("async1 start");
+    await async2();
+    console.log("async1 end");
+  }
+
+  async function async2() {
+    console.log("async2");
+  }
+
+  console.log("script start");
+
+  setTimeout(function () {
+    console.log("setTimeout");
+  }, 0);
+
+  async1();
+
+  new Promise(function (resolve) {
+    console.log("promise1");
+    resolve();
+  }).then(function () {
+    console.log("promise2");
+  });
+
+  console.log("script end");
+}

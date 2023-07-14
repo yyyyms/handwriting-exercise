@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MutationObserver</title>
+</head>
+
+<body>
+    <div id="test">
+        <div id="sibling">yms</div>
+    </div>
+    <button onclick="addNode()">appendChild</button>
+    <button onclick="insertbefore()">insertBefore</button>
+    <button onclick="addAttributes()">给原节点添加attribute</button>
+
+
+</body>
+<script>
+
+    const targetNode = document.getElementById('test')
+    function addAttributes(params) {
+        targetNode.setAttribute('class', 'test')
+    }
+    function insertbefore(params) {
+        const sibling = document.getElementById('sibling')
+        const child = document.createElement('div')
+        child.innerText = '我是在子节点之前插入的新节点'
+        targetNode.insertBefore(child, sibling)
+    }
+    function addNode(params) {
+        console.log(123);
+        const div = document.createElement('div')
+        div.innerText = '我是追加的子节点'
+        targetNode.appendChild(div)
+    }
+    //配置观察器
+    const config = {
+        attributes: true,
+        childList: true,
+        subtree: true
+    }
+    const callback = function (mutationsList, observer) {
+        for (const mutation of mutationsList) {
+            if (mutation.type === 'childList') {
+                console.log('子节点变动了');
+            } else if (mutation.type === 'attributes') {
+                console.log('原节点的属性变化了');
+            }
+        }
+    }
+    //创建一个观察器实例并传入回调函数
+    const observer = new MutationObserver(callback)
+    observer.observe(targetNode, config)
+
+//  使用 insertAdjacentElement 方法：该方法允许你以不同的方式在指定位置插入一个新的子节点。
+//  它有四个可选参数，可以使用以下值来指定插入位置：
+// 'beforebegin'：在目标节点之前插入一个新的同级节点。
+// 'afterbegin'：在目标节点内部的第一个子节点之前插入一个新的节点。
+// 'beforeend'：在目标节点内部的最后一个子节点之后插入一个新的节点。
+// 'afterend'：在目标节点之后插入一个新的同级节点。
+</script>
+
+</html>

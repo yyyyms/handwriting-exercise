@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* body {
+            height: 1000px;
+        } */
+        .test {
+            height: 10000px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test">盒子</div>
+    <script>
+    //实现上拉加载的原理：监听滚动条滑到页面底部，然后就去做一次请求数据。
+        window.onscroll = function () {
+            const scrollH = document.documentElement.scrollHeight//文档完整高度
+            // console.log(scrollH);
+            const scrollT = document.documentElement.scrollTop || document.body.scrollTop//当前滚动条的垂直偏移
+            // console.log(scrollT);
+            const screenH = window.screen.height;//屏幕可视高度
+            // console.log(screenH);
+            // console.log(scrollH - scrollT - screenH);
+            if ((scrollH - scrollT - screenH) < 5) {
+                console.log('上拉刷新');
+            }
+        }
+    //实现下拉刷新    
+    </script>
+
+</body>
+</html>
