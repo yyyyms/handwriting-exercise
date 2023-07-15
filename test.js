@@ -792,31 +792,69 @@ function _new(fn, ...args) {
 {
   // location.href = '666'
 }
+// {
+//   async function async1() {
+//     console.log("async1 start");
+//     await async2();
+//     console.log("async1 end");
+//   }
+
+//   async function async2() {
+//     console.log("async2");
+//   }
+
+//   console.log("script start");
+
+//   setTimeout(function () {
+//     console.log("setTimeout");
+//   }, 0);
+
+//   async1();
+
+//   new Promise(function (resolve) {
+//     console.log("promise1");
+//     resolve();
+//   }).then(function () {
+//     console.log("promise2");
+//   });
+
+//   console.log("script end");
+// }
+// {
+//   setTimeout(() => {
+//     console.log(1);
+//   }, 0);
+
+//   new Promise((resolve) => {
+//     console.log(2);
+//     resolve();
+//     console.log(3);
+//   }).then(() => {
+//     console.log(4);
+//   });
+
+//   const promise2 = new Promise(async (resolve) => {
+//     console.log(await resolve(5));
+//     console.log(6);
+//   });
+
+//   async function test() {
+//     console.log(7);
+//     console.log(await promise2);
+//     console.log(8);
+//   }
+
+//   test();
+//   console.log(9);
+// }
 {
-  async function async1() {
-    console.log("async1 start");
-    await async2();
-    console.log("async1 end");
-  }
-
-  async function async2() {
-    console.log("async2");
-  }
-
-  console.log("script start");
-
-  setTimeout(function () {
-    console.log("setTimeout");
-  }, 0);
-
-  async1();
-
-  new Promise(function (resolve) {
-    console.log("promise1");
-    resolve();
-  }).then(function () {
-    console.log("promise2");
-  });
-
-  console.log("script end");
+  // async function test(params) {
+  //   return await new Promise((resolve, reject) => {
+  //     resolve(5);
+  //   });
+  //   // do...
+  // }
+  // test().then((res) => {
+  //   console.log(res);
+  // });
 }

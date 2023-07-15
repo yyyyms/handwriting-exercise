@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // var obj = {
+        //     foo() {
+        //         this.a = 11111;
+        //     },
+        //     fun() {
+        //         console.log(this.a);
+        //     },
+        // };
+        // obj.foo();
+        // setTimeout(obj.fun, 0);
+        // var obj = {
+        //     name: 'name',
+        //     foo: function () {
+        //         console.log(this); // Object {name: "name"}
+        //         setTimeout(function () {
+        //             console.log(this);  // Window
+        //         }, 1000);
+        //     },
+        //     foo2: function () {
+        //         console.log(this); // Object {name: "name"}
+        //         setTimeout(() => {
+        //             console.log(this);  // Object {name: "name"}
+        //         }, 2000);
+        //     }
+        // }
+        // obj.foo()
+        // obj.foo2()
+
+        // function method() {
+        //     // 输出 42  第二个this
+        // }
+        // function Foo() {
+        //     this.value = 42;
+        //     setTimeout(function (params) {
+        //         console.log(this);
+        //     }, 500);  // 这里this指向window   第一个this
+        // }
+        // Foo();
+        let test = () => {
+            console.log(this);
+        };
+        let obj = {
+            foo: test,
+        };
+        obj.foo();
+        test();
+    </script>
+</body>
+
+</html>
