@@ -858,3 +858,115 @@ function _new(fn, ...args) {
   //   console.log(res);
   // });
 }
+{
+  const o = (function () {
+    const obj = {
+      a: "a",
+      b: "b",
+    };
+    return {
+      get(c) {
+        return obj[c];
+      },
+    };
+  })();
+
+  o.get("this");
+
+  // 下面是答案
+  // Object.defineProperty(Object.prototype, "this", {
+  //   get() {
+  //     return this;
+  //   },
+  // });
+}
+{
+  ["1", "2", "3"].map(parseInt);
+}
+//用promise实现每个一秒输出一个1
+// 如果输入1 2 3 ...呢
+//1.借助async
+{
+  async function test(params) {
+    for (let i = 0; i < 5; i++) {
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(i);
+          console.log(i);
+        }, 1000);
+      });
+    }
+  }
+  // test();
+}
+//2.then里面递归
+{
+  function test(i) {
+    let p = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(i);
+      }, 1000);
+    });
+    p.then((res) => {
+      console.log(res);
+      test(i + 1);
+    });
+  }
+  // test(1);
+}
+//3.巧妙利用then链式调用
+// {
+//   let promise = Promise.resolve();
+//   for (let i = 0; i < 5; i++) {
+//     promise = promise.then((res) => {
+//       console.log(res);
+//       return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//           resolve(i);
+//         }, 1000);
+//       });
+//     });
+//   }
+// }
+{
+  // console.log([] == ![]);
+  // console.log([] == []);
+  [] == false;
+  console.log([].valueOf());
+}
+{
+  async function test(params) {
+    await new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(111);
+      }, 5000);
+    });
+    console.log(123);
+  }
+  // test();
+}
+{
+  let a = {
+    id: 1,
+    valueOf() {
+      return this.id++;
+    },
+  };
+  // console.log(a == 1 && a == 2 && a == 3);
+}
+{
+  async function test(params) {
+    let p = null;
+    try {
+      p = await new Promise((resolve, reject) => {
+        resolve(1);
+        // reject(1111);
+      });
+    } catch (error) {}
+    console.log(123);
+    return p;
+  }
+  test().then((res) => {
+    console.log(res);
+  });
+}

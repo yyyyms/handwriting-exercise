@@ -2871,7 +2871,7 @@ const date = new Date();
     }
     return root;
   }
-  console.log(arrToTree(currentArray));
+  // console.log(arrToTree(currentArray));
 }
 //数组转树 递归
 {
@@ -2906,7 +2906,256 @@ const date = new Date();
   }
   // arrToTree(currentArray, "");
 }
+// const arr = [{a:2}, {a:2}, {a:2, b:1}, {a:{b:1, c:{a:1}}},{a:{b:1, c:{a:1}}}] 去重
 //isEqualWith
 // 递归比较两个对象是否相同
 {
+  let obj1 = { a: { b: 1, c: { a: 1, b: 1 } } };
+  let obj2 = { a: { b: 1, c: "2" } };
+  function isEqualWith(obj1, obj2) {
+    if (obj1 === obj2) {
+      return true;
+    }
+    let keys1 = Object.keys(obj1);
+    let keys2 = Object.keys(obj2);
+    if (keys1.length !== keys2.length) return false;
+    for (const key in obj1) {
+      if (Object.prototype.toString.call(obj1[key]) === "[object Object]" || Object.prototype.toString.call(obj2[key]) === "[object Object]") {
+        if (isEqualWith(obj1[key], obj2[key]) === false) {
+          return false;
+        }
+      } else {
+        if (obj1[key] !== obj2[key]) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+  // console.log(isEqualWith(obj1, obj2));
+}
+//手写instancof方法
+{
+  function _instanceof(obj, fn) {
+    if (typeof obj !== "object" || obj === null) {
+      return false;
+    }
+    let prototype = fn.prototype;
+    let __proto__ = Object.getPrototypeOf(obj);
+    while (true) {
+      if (__proto__ === prototype) {
+        return true;
+      } else {
+        if (__proto__ === null) {
+          return false;
+        } else {
+          __proto__ = Object.getPrototypeOf(__proto__);
+        }
+      }
+    }
+  }
+}
+// Promise.retry
+{
+  function request() {
+    return new Promise((resolve, reject) => {
+      if (Math.random() > 0.5) {
+        resolve();
+      } else {
+        reject();
+      }
+    });
+  }
+  function retry(req, time) {
+    return new Promise((resolve, reject) => {
+      let count = 0;
+      let run = () => {
+        req()
+          .then((res) => {
+            resolve("最终成功了");
+          })
+          .catch((err) => {
+            count++;
+            if (count === time) {
+              reject("最终失败了");
+            }
+            console.log("失败了");
+            setTimeout(() => {
+              run();
+            }, 1000);
+          });
+      };
+      run();
+    });
+  }
+  // retry(request, 5)
+  //   .then((res) => {
+  //     console.log(res);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+}
+//实现红绿灯(三个灯互相调用)
+{
+  function red() {
+    new Promise((resolve, reject) => {
+      console.log("红灯开始");
+      setTimeout(() => {
+        resolve();
+      }, 3000);
+    }).then((res) => {
+      console.log("红灯结束");
+      green();
+    });
+  }
+  function green(params) {
+    new Promise((resolve, reject) => {
+      console.log("绿灯开始");
+      setTimeout(() => {
+        resolve();
+      }, 3000);
+    }).then((res) => {
+      console.log("绿灯灯结束");
+      yellow();
+    });
+  }
+  function yellow(params) {
+    new Promise((resolve, reject) => {
+      console.log("黄灯开始");
+      setTimeout(() => {
+        resolve();
+      }, 3000);
+    }).then((res) => {
+      console.log("黄灯结束");
+      red();
+    });
+  }
+  // red();
+}
+//利用.then链式调用 最后利用finall递归
+{
+  function test(params) {
+    new Promise((resolve, reject) => {
+      console.log("红灯开始");
+      setTimeout(() => {
+        resolve();
+      }, 3000);
+    }).then((res) => {
+      console.log("红灯结束");
+      new Promise((resolve, reject) => {
+        console.log("绿灯开始");
+        setTimeout(() => {
+          resolve();
+        }, 3000);
+      }).then((res) => {
+        console.log("绿灯灯结束");
+        new Promise((resolve, reject) => {
+          console.log("黄灯开始");
+          setTimeout(() => {
+            resolve();
+          }, 3000);
+        })
+          .then((res) => {
+            console.log("黄灯结束");
+          })
+          .finally(() => {
+            test();
+          });
+      });
+    });
+  }
+  // test();
+}
+//利用async 达到延迟的效果
+{
+  async function test(params) {
+    await new Promise((resolve, reject) => {
+      console.log("红灯开始");
+      setTimeout(() => {
+        resolve();
+        console.log("红灯结束");
+      }, 3000);
+    });
+    await new Promise((resolve, reject) => {
+      console.log("绿灯开始");
+      setTimeout(() => {
+        resolve();
+        console.log("绿灯结束");
+      }, 3000);
+    });
+    await new Promise((resolve, reject) => {
+      console.log("黄灯开始");
+      setTimeout(() => {
+        resolve();
+        console.log("黄灯结束");
+      }, 3000);
+    });
+    test();
+  }
+  // test();
+}
+//同时发出多个请求，怎么保证按顺序返回结果
+{
+  // 模拟异步请求的函数
+  function request(url) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(`请求${url}的结果`);
+      }, Math.random() * 1000);
+    });
+  }
+
+  // 并行发送多个请求
+  async function sendParallelRequests(urls) {
+    let promises = urls.map((url) => {
+      return request(url);
+    });
+    const results = await Promise.all(promises);
+    results.forEach((res, index) => {
+      console.log(`处理请求 ${urls[index]} 的结果: ${res}`);
+    });
+  }
+  // 测试
+  const urls = ["url1", "url2", "url3"];
+  // sendParallelRequests(urls);
+}
+//按顺序 但是阻塞了
+{
+  function request(url) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(`请求${url}的结果`);
+      }, Math.random() * 1000);
+    });
+  }
+  async function logInOrder(urls) {
+    for (const url of urls) {
+      let res = await request(url);
+      console.log(res);
+    }
+  }
+  const urls = ["url1", "url2", "url3"];
+  // logInOrder(urls);
+}
+//优化
+{
+  function request(url) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(`请求${url}的结果`);
+      }, Math.random() * 5000);
+    });
+  }
+  const urls = ["url1", "url2", "url3"];
+  async function logInOrder() {
+    const promises = urls.map(async (url) => {
+      let res = await request(url);
+      return res;
+    });
+    for (const p of promises) {
+      console.log(await p);
+    }
+  }
+  // logInOrder(urls);
 }
