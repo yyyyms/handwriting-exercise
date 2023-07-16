@@ -47,14 +47,48 @@
         //     }, 500);  // 这里this指向window   第一个this
         // }
         // Foo();
-        let test = () => {
-            console.log(this);
+        // let test = () => {
+        //     console.log(this);
+        // };
+        // let obj = {
+        //     foo: test,
+        // };
+        // obj.foo();
+        // test();
+        let grid = [
+            ["1", "1", "0", "0", "0"],
+            ["1", "1", "0", "0", "0"],
+            ["0", "0", "1", "0", "0"],
+            ["0", "0", "0", "1", "1"],
+        ];
+        function dfs(i, j, grid, dp) {
+            if (i >= grid.length || i < 0 || j < 0 || j >= grid[0].length || grid[i][j] === "0") {
+                return;
+            }
+            grid[i][j] = '0';
+            dfs(i + 1, j, grid, dp);
+            dfs(i - 1, j, grid, dp);
+            dfs(i, j + 1, grid, dp);
+            dfs(i, j - 1, grid, dp);
+        }
+        var numIslands = function (grid) {
+            let res = 0;
+            let column = grid[0].length;
+            let row = grid.length;
+
+            // console.log(dp);
+            for (let i = 0; i < row; i++) {
+                for (let j = 0; j < column; j++) {
+
+                    if (grid[i][j] === "1") {
+                        res++;
+                        dfs(i, j, grid,);
+                    }
+                }
+            }
+            return res;
         };
-        let obj = {
-            foo: test,
-        };
-        obj.foo();
-        test();
+        console.log(numIslands(grid));
     </script>
 </body>
 

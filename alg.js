@@ -2286,7 +2286,144 @@ function parseStr(params) {}
 // 写代码，数组里的0移到最后
 {
   let arr = [1, 2, 0, 4, 0, 6, 7, 9, 0];
-  function test(params) {}
+  function test(arr) {
+    let l = 0;
+    let r = arr.length - 1;
+    while (l < r) {
+      if (arr[l] == 0) {
+        let r1 = r;
+        while (arr[r1] == 0) {
+          r1--;
+        }
+        [arr[l], arr[r1]] = [arr[r1], arr[l]];
+        r = r1;
+      }
+
+      if (arr[r] !== 0) {
+        let l1 = l;
+
+        while (arr[l1] !== 0) {
+          l1++;
+        }
+        console.log(l1);
+        [arr[l1], arr[r]] = [arr[r], arr[l1]];
+        l = l1;
+      }
+      l++;
+      r--;
+    }
+    return arr;
+  }
+  // console.log(test(arr));
+}
+//leecode926 翻转0或1最少次数使二进制字符串单调递增
+{
+  // 找一个位置 这个位置左边都是0右边都是1
+  let s = "11011";
+  var minFlipsMonoIncr = function (s) {
+    let len = s.length;
+    let zero = 0;
+    let one = 0;
+    for (let i = 0; i < len; i++) {
+      const element = s[i];
+      if (element == 0) {
+        zero++;
+      }
+      one = len - zero;
+    }
+    let dp = [];
+    let res = Infinity;
+    dp[0] = zero;
+    res = Math.min(res, dp[0]);
+    for (let i = 1; i <= len; i++) {
+      if (s[i - 1] == 0) {
+        dp[i] = dp[i - 1] - 1;
+        res = Math.min(res, dp[i]);
+      } else {
+        dp[i] = dp[i - 1] + 1;
+        res = Math.min(res, dp[i]);
+      }
+    }
+    return res;
+  };
+  // console.log(minFlipsMonoIncr(s));
+}
+//岛屿的数量
+{
+  let grid = [
+    ["1", "1", "0", "0", "0"],
+    ["1", "1", "0", "0", "0"],
+    ["0", "0", "1", "0", "0"],
+    ["0", "0", "0", "1", "1"],
+  ];
+  function dfs(i, j, grid, dp) {
+    if (i >= grid.length || i < 0 || j < 0 || j >= grid[0].length || grid[i][j] === "0") {
+      return;
+    }
+    grid[i][j] = "0";
+    dfs(i + 1, j, grid, dp);
+    dfs(i - 1, j, grid, dp);
+    dfs(i, j + 1, grid, dp);
+    dfs(i, j - 1, grid, dp);
+  }
+  var numIslands = function (grid) {
+    let res = 0;
+    let column = grid[0].length;
+    let row = grid.length;
+
+    // console.log(dp);
+    for (let i = 0; i < row; i++) {
+      for (let j = 0; j < column; j++) {
+        if (grid[i][j] === "1") {
+          res++;
+          dfs(i, j, grid);
+        }
+      }
+    }
+    return res;
+  };
+  // console.log(numIslands(grid));
+}
+//岛屿的最大面积
+{
+  let grid = [
+    [0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+    [0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0],
+    [0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+  ];
+
+  var maxAreaOfIsland = function (grid) {
+    let res = 0;
+    let column = grid[0].length;
+    let row = grid.length;
+    for (let i = 0; i < row; i++) {
+      for (let j = 0; j < column; j++) {
+        if (grid[i][j] === 1) {
+          res = Math.max(res, dfs(i, j, grid, 0));
+        }
+      }
+    }
+    function dfs(i, j, grid, num) {
+      if (i >= grid.length || i < 0 || j < 0 || j >= grid[0].length || grid[i][j] === 0) {
+        return 0;
+      }
+      grid[i][j] = 0;
+      num++;
+      // console.log(num);
+      const bottom = dfs(i + 1, j, grid, num);
+      const top = dfs(i - 1, j, grid, num);
+      const right = dfs(i, j + 1, grid, num);
+      const left = dfs(i, j - 1, grid, num);
+      return bottom + top + right + left + 1;
+    }
+    return res;
+  };
+  // console.log(maxAreaOfIsland(grid));
 }
 {
   //   输入：candidates = [2,3,6,7], target = 7
@@ -2303,5 +2440,8 @@ function parseStr(params) {}
 {
 }
 //写一个二分查找
+{
+}
+//盛最多水的容器
 {
 }

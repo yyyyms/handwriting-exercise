@@ -3159,3 +3159,31 @@ const date = new Date();
   }
   // logInOrder(urls);
 }
+//并发限制
+{
+  let urls = ["bytedance.com", "tencent.com", "alibaba.com", "microsoft.com", "apple.com", "hulu.com", "amazon.com"];
+  let pool = [];
+  let max = 3;
+  function request(url) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+      }, 1000);
+    }).then((res) => {
+      console.log(`请求${url}完成`);
+    });
+  }
+  async function fn(params) {
+    for (let i = 0; i < urls.length; i++) {
+      let task = request(urls[i]);
+      pool.push(task);
+      task.then(() => {
+        pool.splice(pool.indexOf(task), 1);
+      });
+      if (pool.length === max) {
+        await Promise.race(pool);
+      }
+    }
+  }
+  // fn();
+}
