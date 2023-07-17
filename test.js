@@ -955,18 +955,21 @@ function _new(fn, ...args) {
   // console.log(a == 1 && a == 2 && a == 3);
 }
 {
-  async function test(params) {
-    let p = null;
-    try {
-      p = await new Promise((resolve, reject) => {
-        resolve(1);
-        // reject(1111);
-      });
-    } catch (error) {}
-    console.log(123);
-    return p;
-  }
-  test().then((res) => {
-    console.log(res);
-  });
+  // async function test(params) {
+  //   let p = null;
+  //   try {
+  //     p = await new Promise((resolve, reject) => {
+  //       resolve(1);
+  //       // reject(1111);
+  //     });
+  //   } catch (error) {}
+  //   console.log(123);
+  //   return p;
+  // }
+  // test().then((res) => {
+  //   console.log(res);
+  // });
+}
+{
+  console.log(0.1 + 0.2);
 }
