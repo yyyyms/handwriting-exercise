@@ -3187,3 +3187,116 @@ const date = new Date();
   }
   // fn();
 }
+//千分位转换
+{
+  let num = "1234567890";
+  function test(str) {
+    //先行断言
+    let reg = /(\d)(?=(\d{3})+$)/g;
+    return str.replace(reg, ($1) => {
+      return $1 + ",";
+    });
+  }
+  // console.log(test(num));
+}
+//promiseAll 实现并发请求
+{
+  let urls = ["bytedance.com", "tencent.com", "alibaba.com", "microsoft.com", "apple.com", "hulu.com", "amazon.com"];
+  let pool = [];
+  let max = 3;
+
+  function test(params) {
+    return new Promise((resolve, reject) => {});
+  }
+}
+//手写reduce
+{
+}
+//js实现继承的方式
+{
+  function Father(name, age) {
+    this.name = name;
+    this.age = age;
+    this.color = ["red", "green", "black"];
+  }
+  Father.prototype.sayhi = function (params) {
+    console.log("你好我是" + this.name);
+  };
+
+  const f = new Father("yms", 18);
+  // f.sayhi();
+  //原型继承
+  // function Son(params) {}
+  // Son.prototype = new Father("yms", 18);
+  // const son = new Son();
+  // console.log(son.__proto__.sayhi);
+  //构造函数继承
+  // function Son(params) {
+  //   Father.call(this, "yms", 18);
+  // }
+  // const son = new Son(arguments);
+  // son.color = [];
+  // console.log(f.color);
+  //组合继承就是原型继承+构造函数继承
+
+  // 原型式继承
+  // let obj = Object.create(Father.prototype);
+  //寄生式继承 在原型式继承的基础上，增强对象，返回构造函数
+  //寄生组合式继承
+  function Son(name, age) {
+    Father.call(this, name);
+    this.age = age;
+  }
+  let prototype = Object.create(Father.prototype);
+  prototype.constrctor = Son;
+  Son.prototype = prototype;
+  const son = new Son("yms", 18);
+  son.sayhi = function (params) {
+    console.log(6666);
+  };
+  son.color = [];
+  // son.sayhi();
+  // f.sayhi();
+  // console.log(f.color);
+}
+//ES6继承
+{
+  class Parent {
+    #p;
+    constructor(value) {
+      this.val = value;
+      this.#p = 1;
+      this.getValue1 = function (params) {
+        console.log(1231);
+      };
+    }
+    getP() {
+      return this.obj;
+    }
+    getValue() {
+      console.log(333);
+    }
+    obj = {
+      a: 1,
+      b: 3,
+    };
+  }
+  class Child extends Parent {
+    constructor(value) {
+      //看成 Parent.call(this, value)。
+      super(value);
+      this.a = 1;
+      this.val = value;
+    }
+  }
+  const f = new Parent(6);
+  let child = new Child(1);
+  // console.log(Child.prototype.__proto__ === Parent.prototype);
+  // console.log(child.hasOwnProperty("getValue1"));
+  // console.log(child.obj);
+  // console.log(f.obj);
+
+  // child.getValue()
+  // child instanceof Parent
+  // Parent.prototype.getValue()
+}

@@ -2425,6 +2425,7 @@ function parseStr(params) {}
   };
   // console.log(maxAreaOfIsland(grid));
 }
+//回溯
 {
   //   输入：candidates = [2,3,6,7], target = 7
   // 输出：[[2,2,3],[7]]
@@ -2432,16 +2433,77 @@ function parseStr(params) {}
   // 2 和 3 可以形成一组候选，2 + 2 + 3 = 7 。注意 2 可以使用多次。
   // 7 也是一个候选， 7 = 7 。
   // 仅有这两种组合。
+  function test(arr, target) {
+    let res = [];
+    let path = [];
+    let sum = 0;
+    function backTrack(startIndex, path, sum) {
+      if (sum > target) {
+        return;
+      }
+      if (sum === target) {
+        // console.log(path);
+        res.push(path.slice());
+        // console.log(res);
+      }
+      for (let i = startIndex; i < arr.length; i++) {
+        const element = arr[i];
+        sum += element;
+        path.push(element);
+        backTrack(i, path, sum);
+        sum = sum - element;
+        path.pop();
+      }
+    }
+    backTrack(0, path, sum);
+    // console.log(res);
+  }
+  test([2, 3, 6, 7], 7);
+}
+//写一个二分查找
+{
+  let nums = [-1, 0, 3, 5, 9, 12];
+  function search(nums, target) {
+    let len = nums.length;
+    let l = 0;
+    let r = len - 1;
+    let middle;
+    while (l <= r) {
+      middle = (l + r) >> 1;
+      if (nums[middle] < target) {
+        l = middle + 1;
+      } else if (nums[middle] > target) {
+        r = middle - 1;
+      } else {
+        return middle;
+      }
+    }
+  }
+  // console.log(search(nums, 9));
+}
+//盛最多水的容器
+{
+  var maxArea = function (height) {
+    let l = 0;
+    let r = height.length - 1;
+    var max = 0;
+    while (l < r) {
+      let tep = (r - l) * Math.min(height[l], height[r]);
+      if (tep > max) {
+        max = tep;
+      }
+      if (height[l] < height[r]) {
+        l++;
+      } else {
+        r--;
+      }
+    }
+    return max;
+  };
 }
 //手撕快排（双指针）
 {
 }
 //归并排序
-{
-}
-//写一个二分查找
-{
-}
-//盛最多水的容器
 {
 }

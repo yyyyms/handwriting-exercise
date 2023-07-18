@@ -971,5 +971,19 @@ function _new(fn, ...args) {
   // });
 }
 {
-  console.log(0.1 + 0.2);
+  // console.log(0.1 + 0.2);
+}
+{
+  let reg = /(.)(?=\d{3})/; //先行断言
+  let reg1 = /(?<![a-z])\d/g; //反向查找
+  // console.log(reg1.exec("aaaab123"));
+  let str = "aaaab12ab3";
+  let reg2 = /([a-z])(?=\d)/g;
+  // console.log(reg2.exec(str));
+  // // console.log(str.search(reg1));
+  // console.log(str.split(/(\d)/));
+  // console.log(str.split(/\d/));
+}
+{
+  console.log((0 + 5) >> 1);
 }
