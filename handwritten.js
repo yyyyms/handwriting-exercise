@@ -3209,9 +3209,7 @@ const date = new Date();
     return new Promise((resolve, reject) => {});
   }
 }
-//手写reduce
-{
-}
+
 //js实现继承的方式
 {
   function Father(name, age) {
@@ -3219,6 +3217,9 @@ const date = new Date();
     this.age = age;
     this.color = ["red", "green", "black"];
   }
+  Father.prototype.obj = {
+    a: 1,
+  };
   Father.prototype.sayhi = function (params) {
     console.log("你好我是" + this.name);
   };
@@ -3254,6 +3255,8 @@ const date = new Date();
   son.sayhi = function (params) {
     console.log(6666);
   };
+  son.obj.c = 0;
+  // console.log(f.obj);
   son.color = [];
   // son.sayhi();
   // f.sayhi();
@@ -3299,4 +3302,81 @@ const date = new Date();
   // child.getValue()
   // child instanceof Parent
   // Parent.prototype.getValue()
+}
+// 将输入字符串去重按字典序输出
+{
+  function test(str) {
+    let arr = Array.from(new Set(str));
+    console.log(arr.sort());
+  }
+  // test("abracadabra");
+}
+//实现工厂模式 并实现继承
+{
+  function createPerson(name, age) {
+    let obj = {
+      name: name,
+      age: age,
+      sayHello: function () {
+        console.log(`Hello, my name is ${this.name} and I'm ${this.age} years old.`);
+      },
+    };
+    return obj;
+  }
+  const person1 = createPerson("Alice", 25);
+  person1.sayHello(); // 输出: Hello, my name is Alice and I'm 25 years old.
+}
+//大数求和
+{
+  const num1 = "12345678901234567895";
+  const num2 = "98765432109876543215";
+  function addStrings(num1, num2) {
+    let res = "";
+    let i = num1.length - 1;
+    let j = num2.length - 1;
+    let carry = 0;
+    while (i >= 0 || j >= 0 || carry != 0) {
+      let n1 = num1[i] >= 0 ? parseInt(num1[i]) : 0;
+      let n2 = num2[j] >= 0 ? parseInt(num2[j]) : 0;
+      let sum = n1 + n2 + carry;
+      res = (sum % 10) + res;
+      carry = Math.floor(sum / 10);
+      i--;
+      j--;
+    }
+    return res;
+  }
+  const sum = addStrings(num1, num2);
+  // console.log(sum); // 输出: 111111111011111111110
+}
+//使用es6的bigInt
+{
+  const num1 = "12345678901234567895";
+  const num2 = "98765432109876543215";
+  const bigint1 = BigInt(num1);
+  const bigint2 = BigInt(num2);
+  // console.log((bigint1 + bigint2).toString());
+}
+//手写reduce
+{
+  let arr = [1, 2, 3, 4, 5];
+  arr.reduce(() => {});
+  Array.prototype._reduce = function (cb, initialValue) {
+    let k = 0;
+    const O = Object(this);
+    let accumulator = initialValue == undefined ? O[k++] : initialValue;
+    let len = this.length;
+    while (k < len) {
+      if (k in O) {
+        accumulator = cb(accumulator, O[k], k, O);
+      }
+      k++;
+    }
+    return accumulator;
+  };
+
+  let res = arr._reduce((pre, cur) => {
+    return pre + cur;
+  });
+  // console.log(res);
 }
