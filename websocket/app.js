@@ -1,4 +1,4 @@
-const express = require("express");
+const express = requirecors("express");
 const cors = require("cors");
 const app = express();
 const expressWs = require("express-ws")(app); // 混入 相当于为app添加.ws方法

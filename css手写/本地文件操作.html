@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端本地文件操作与上传</title>
+    <style>
+        .main {
+            display: flex;
+        }
+
+        .button {
+            height: 30px;
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        .dropArea {
+            width: 300px;
+            height: 300px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div>
+            <span>
+                通过input type="file" 选择本地文件
+            </span>
+            <form>
+                <button onclick="buttonClick()" class="button">
+                    点击选择图片
+                    <input type="file" id="file-input" name="fileContent" onchange="fileChange()">
+                </button>
+
+            </form>
+            <!-- <img id="img" src="" alt=""> -->
+        </div>
+        <div class="dropArea" id="dropId">
+
+        </div>
+    </div>
+    <script>
+        document.querySelector('form').addEventListener('submit', function (event) {
+
+            /*
+                do someting to handle form input
+            */
+            event.preventDefault();
+        })
+        let input = document.querySelector('#file-input')
+        function buttonClick() {
+
+
+            input.click()
+        }
+        function fileChange(params) {
+            let file = input.files[0]
+            console.log(file);
+            // const reader = new FileReader();
+            // reader.onload = async (event) => {
+            //     let res = event.target.result
+            //     // console.log(res);
+            //     // let img = document.querySelector('#img')
+            //     // img.src = res
+
+            // }
+            // reader.readAsDataURL(file)
+            const url = URL.createObjectURL(file)
+            const img = new Image();
+            img.src = url
+            img.onload = () => {
+                document.querySelector('.main').appendChild(img)
+            }
+        }
+    </script>
+    <script>
+        let dropobj = document.querySelector('#dropId')
+        dropobj.ondrop = function (e) {
+            e.preventDefault()
+            let files = e.dataTransfer.files
+            console.log(files);
+        }
+        dropobj.ondragover = function (e) {
+            e.preventDefault()
+        }
+    </script>
+</body>
+
+</html>
