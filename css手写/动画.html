@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css动画从屏幕的左边向右滑入，实现方式</title>
+    <style>
+        .test {
+            width: 100px;
+            height: 100px;
+            background-color: blanchedalmond;
+            animation: my 1s linear;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes my {
+            from {
+                left: 0;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            to {
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test">
+        666
+    </div>
+</body>
+
+</html>

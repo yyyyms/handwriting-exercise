@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer src="./A.js"></script>
+    <script defer src="./B.js"></script>
+</head>
+
+<body>
+    <div>在加载script标签里的js文件时，怎么做到A,B加载完成后再加载C,D，同时B要优先A加载完成？</div>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            let scriptC = document.createElement('script')
+            scriptC.src = './C.js'
+            document.head.appendChild(scriptC)
+        })
+    </script>
+</body>
+
+</html>

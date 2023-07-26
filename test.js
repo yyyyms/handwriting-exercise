@@ -985,5 +985,21 @@ function _new(fn, ...args) {
   // console.log(str.split(/\d/));
 }
 {
-  console.log((0 + 5) >> 1);
+  // console.log((0 + 5) >> 1);
+}
+{
+  let obj = {
+    a: 1,
+    b: 2,
+    c: 3,
+  };
+  // console.log(JSON.stringify(obj, ["a", "b"]));
+  // console.log(
+  //   JSON.stringify(obj, (key, value) => {
+  //     if (key === "c") {
+  //       return /\d/;
+  //     }
+  //     return value;
+  //   })
+  // );
 }

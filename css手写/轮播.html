@@ -19,7 +19,7 @@
         .ul-img {
             position: absolute;
             display: flex;
-            width: 4200px;
+            /* width: 4200px; */
             height: 400px;
             left: 0;
             padding: 0;
@@ -142,37 +142,38 @@
     let ulDom = document.getElementsByClassName('ul-img')[0]
     var currentIndex = 0; // 当前显示的图片索引
     var timer = null; // 自动播放定时器
-    containerDom.addEventListener('mouseleave',autoPlay )
+    containerDom.addEventListener('mouseleave', autoPlay)
     containerDom.addEventListener("mouseenter", stopPlay);
 
     function nextFun(params) {
         ulDom.style.transition = '0.5s'
-        if (currentIndex === 4 ) {
-        ulDom.style.transition = "0s"; // 为了实现无缝滚动，清除动画
-        currentIndex = 0; // 重新播放第一张
-        }else {
+        if (currentIndex === 4) {
+            ulDom.style.transition = "0s"; // 为了实现无缝滚动，清除动画
+            currentIndex = 0; // 重新播放第一张
+        } else {
             ++currentIndex
         }
-      ulDom.style.left = `-${currentIndex * 600}px`;
+        ulDom.style.left = `-${currentIndex * 600}px`;
 
     }
     function prevFun() {
-  ulDom.style.transition = "0.5s";
-//   numList[currentIndex].style.backgroundColor = ""; // 清空上一个按钮的样式
-  if (currentIndex === 0) {
-    ulDom.style.transition = "0s"; // 为了实现无缝滚动，清除动画
-    currentIndex = 4;
-  } else {
-    --currentIndex;
-  }
-  ulDom.style.left = `-${currentIndex * 600}px`;
-//   numList[currentIndex].style.backgroundColor = "#ccc";
-}
+        ulDom.style.transition = "0.5s";
+        //   numList[currentIndex].style.backgroundColor = ""; // 清空上一个按钮的样式
+        if (currentIndex === 0) {
+            ulDom.style.transition = "0s"; // 为了实现无缝滚动，清除动画
+            currentIndex = 4;
+        } else {
+            --currentIndex;
+        }
+        ulDom.style.left = `-${currentIndex * 600}px`;
+        //   numList[currentIndex].style.backgroundColor = "#ccc";
+    }
     function autoPlay() {
-    timer = setInterval(prevFun, 1000);
+        timer = setInterval(prevFun, 1000);
     }
     //关闭自动播放
-    function stopPlay() {  clearTimeout(timer)
+    function stopPlay() {
+        clearTimeout(timer)
     }
     autoPlay()
 </script>

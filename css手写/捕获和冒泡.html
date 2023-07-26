@@ -8,18 +8,25 @@
 </head>
 
 <body>
-    <button>click</button>
+    <div>
+        <button>click</button>
+    </div>
+
     <script>
+        let div = document.querySelector('div')
+        div.addEventListener('click', (event) => {
+            console.log('父元素接收到事件', event);
+
+        }, true)
         let ele = document.querySelector('button')
         ele.addEventListener('click', function (event) {
             console.log('捕获先执行', event);
         }, true)
         ele.addEventListener('click', function (event) {
+            // event.stopPropagation()
             console.log('冒泡', event);
-        }, false)
-        ele.addEventListener('click', function (event) {
-            console.log('不传也是冒泡', event);
         })
+
     </script>
 </body>
 

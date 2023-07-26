@@ -3323,8 +3323,8 @@ const date = new Date();
     };
     return obj;
   }
-  const person1 = createPerson("Alice", 25);
-  person1.sayHello(); // 输出: Hello, my name is Alice and I'm 25 years old.
+  // const person1 = createPerson("Alice", 25);
+  // person1.sayHello(); // 输出: Hello, my name is Alice and I'm 25 years old.
 }
 //大数求和
 {
@@ -3379,4 +3379,79 @@ const date = new Date();
     return pre + cur;
   });
   // console.log(res);
+}
+//迭代器
+{
+  function myIterantion(arr) {
+    let index = 0;
+    return {
+      next: function () {
+        return index < arr.length
+          ? {
+              value: arr[index++],
+              done: false,
+            }
+          : {
+              value: undefined,
+              done: true,
+            };
+      },
+    };
+  }
+  // let arr = [1, 2, 3];
+  // let test = myIterantion(arr);
+  // console.log(test.next());
+  // console.log(test.next());
+  // console.log(test.next());
+  // console.log(test.next());
+  // let iter = arr[Symbol.iterator]();
+  // console.log(iter.next());
+  // console.log(iter.next());
+  // console.log(iter.next());
+}
+//自定义迭代器
+{
+  let obj = { name: "前端小鹿", age: "18", sex: "男" };
+  //改造
+  obj = {
+    data: ["name:前端小鹿", "age:18", "sex:男"],
+    [Symbol.iterator]: function () {
+      let self = this;
+      let index = 0;
+      return {
+        next: function () {
+          return index < self.data.length
+            ? {
+                value: self.data[index++],
+                done: false,
+              }
+            : {
+                value: undefined,
+                done: true,
+              };
+        },
+      };
+    },
+  };
+  for (const i of obj) {
+    // console.log(i);
+  }
+  obj = {
+    0: "前端小鹿",
+    1: "18",
+    2: "男",
+    length: 3,
+    [Symbol.iterator]: Array.prototype[Symbol.iterator],
+  };
+  // for (const I of obj) {
+  //   console.log(I);
+  // }
+}
+{
+  // function test() {
+  //   console.log(...arguments);
+  //   for (const iterator of arguments) {
+  //   }
+  // }
+  // test(1, 2, 3, 4);
 }

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        #main {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wrap {
+            width: 600px;
+            height: 400px;
+            overflow: hidden;
+            position: absolute;
+        }
+
+        .list {
+            display: flex;
+            position: absolute;
+            left: 0;
+        }
+
+        .list img {
+            width: 600px;
+            height: 400px;
+            filter: saturate(2);
+        }
+
+        .dot {
+            width: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+
+        .dot .active {
+            background: #e74c3c;
+
+        }
+
+        .dot li {
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);
+            margin: 2px;
+        }
+
+
+
+        .wrap a {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: aquamarine;
+            user-select: none;
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -50%);
+            width: 40px;
+            height: 70px;
+            text-align: center;
+            line-height: 70px;
+            font-size: 30px;
+            text-decoration: none;
+        }
+
+        a.left {
+            left: 0;
+        }
+
+        a.right {
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <div class="wrap">
+            <ul class="list">
+                <li class="item"><img src="https://s1.ax1x.com/2020/09/26/0irm1P.jpg">
+                </li>
+                <li class="item">
+                    <img src="https://s1.ax1x.com/2020/09/26/0irQ0g.jpg">
+                </li>
+                <li class="item">
+                    <img src="https://s1.ax1x.com/2020/09/26/0ir8ts.jpg">
+                </li>
+                <li class="item">
+                    <img src="https://s1.ax1x.com/2020/10/11/0gbKoV.jpg">
+                </li>
+                <li class="item"><img src="https://s1.ax1x.com/2020/09/26/0irm1P.jpg">
+                </li>
+            </ul>
+            <div class="arrow">
+                <a class="left" href="javascript:;">
+                    < </a>
+                        <a class="right" href="javascript:;"> > </a>
+            </div>
+            <ul class="dot">
+
+                <li class="circle active" index="0"></li>
+                <li class="circle" index="1"></li>
+                <li class="circle" index="2"></li>
+                <li class="circle" index="3"></li>
+
+
+            </ul>
+        </div>
+    </div>
+    <script>
+        let left = document.querySelector('.left')
+        let right = document.querySelector('.right')
+        let list = document.querySelector('.list')
+        let circles = document.querySelectorAll('.circle')
+        //克隆第一张
+
+        let current = 0
+        function handleRightBtn(params) {
+            current++
+            list.style.transition = "0.5s ease";
+            list.style.left = current * -600 + 'px'
+
+            if (current === 4) {
+                current = 0
+
+                setTimeout(() => {
+                    list.style.transition = "none";
+                    list.style.left = 0
+
+                }, 500);
+            }
+            setCircles()
+        }
+        right.addEventListener('click', handleRightBtn)
+        left.addEventListener('click', () => {
+            current--
+            if (current === -1) {
+                list.style.transition = "none";
+                list.style.left = 4 * -600 + 'px'
+                current = 3
+                setTimeout(() => {
+                    list.style.left = current * -600 + 'px'
+                    list.style.transition = "0.5s ease";
+
+                }, 0);
+            } else {
+                list.style.left = current * -600 + 'px'
+            }
+            setCircles()
+        })
+        //控制圆点 
+        function setCircles(params) {
+            for (let i = 0; i < circles.length; i++) {
+                if (i == current) {
+                    circles[i].classList.add('active')
+                } else {
+                    circles[i].classList.remove('active')
+
+                }
+
+            }
+        }
+        //点击圆点
+        let dot = document.querySelector('.dot')
+        dot.addEventListener('click', (e) => {
+            if (e.target.nodeName === 'LI') {
+                let n = e.target.getAttribute('index')
+                current = n
+                setCircles()
+                list.style.transition = "0.5s ease";
+                list.style.left = current * -600 + 'px'
+
+            }
+        })
+    </script>
+</body>
+
+</html>

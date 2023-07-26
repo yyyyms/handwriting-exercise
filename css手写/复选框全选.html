@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <div id="test">
+            <input name="option1" value="吃饭" type="checkbox">
+            <input name="option2" value="睡觉" type="checkbox">
+            <input name="option3" value="写代码" type="checkbox">
+            <input name="option4" value="打游戏" type="checkbox">
+            全选
+            <input name="option4" value="全选" type="checkbox">
+        </div>
+
+
+    </div>
+    <script>
+        let nodelist = document.querySelectorAll('input[type="checkbox"]')
+        let all = document.querySelector('input[value="全选"]')
+
+        // console.log(nodelist);
+        let div = document.querySelector('#test')
+        div.addEventListener('change', (e) => {
+            console.log(e);
+            if (e.target.value === '全选') {
+                let ischecked = e.target.checked
+                console.log(ischecked);
+                for (const node of nodelist) {
+                    node.checked = ischecked
+                }
+            } else {
+                console.log('选了其他的');
+                let arr = [...nodelist]
+
+                if (arr.every((item) => {
+                    if (item.value !== '全选' && item.checked === true) {
+                        return true
+                    } else if (item.value == '全选') {
+                        return true
+                    } else {
+                        return false
+                    }
+                })) {
+                    all.checked = true
+                } else {
+                    all.checked = false
+                }
+            }
+        }, true)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hash</title>
+</head>
+
+<body>
+    <ul>
+        <ul>
+            <li><a href="#/home">home</a> </li>
+            <li><a href="#/about">about</a> </li>
+            <div id="routeView"></div>
+        </ul>
+    </ul>
+    <script>
+        let routerView = routeView
+        window.addEventListener('hashchange', () => {
+            console.log(location.hash);
+            let hash = location.hash
+            routerView.innerHTML = hash
+        })
+        window.addEventListener('DOMContentLoaded', () => {
+            if (!location.hash) {
+                location.hash = '/'
+            }
+        })
+    </script>
+</body>
+
+</html>

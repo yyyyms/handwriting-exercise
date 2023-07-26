@@ -4,21 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>test1</title>
 </head>
-<script defer src="./A.js"></script>
-<script defer src="./B.js"></script>
+
 
 <body>
-    <div>在加载script标签里的js文件时，怎么做到A,B加载完成后再加载C,D，同时B要优先A加载完成？</div>
+    <a href="http://127.0.0.1:53313/test2.html" target="http://127.0.0.1:53313/test2.html">
+        open
+    </a>
     <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            let scriptC = document.createElement('script')
-            scriptC.src = './C.js'
-            document.head.appendChild(scriptC)
-        })
-    </script>
-    <script>
+        window.localStorage.setItem('name', 'yms')
+        window.localStorage.setItem('age', '18')
+
+        window.sessionStorage.setItem('page1', '123')
+        window.sessionStorage.setItem("pageA_2", "789")
         // var obj = {
         //     foo() {
         //         this.a = 11111;
