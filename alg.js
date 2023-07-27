@@ -2501,12 +2501,144 @@ function parseStr(params) {}
     return max;
   };
 }
-//手撕快排（双指针）
+//全排列
+{
+  let arr = [1, 0];
+  function permute(nums) {
+    let res = [];
+    let len = nums.length;
+    let path = [];
+    let visitd = {};
+    function backTrack(path, visitd, arr, len) {
+      console.log(path);
+      if (path.length == len) {
+        res.push(path.slice());
+      }
+      for (let i = 0; i < len; i++) {
+        const element = arr[i];
+        if (visitd[element]) {
+          continue;
+        }
+        path.push(element);
+
+        visitd[element] = true;
+        backTrack(path, visitd, arr, len);
+        visitd[element] = false;
+        path.pop();
+      }
+    }
+    backTrack(path, visitd, nums, len);
+    return res;
+  }
+  // console.log(permute(arr));
+}
+//LRU
+{
+  let LRUCache = function (capacity) {
+    this.capacity = capacity;
+
+    this.map = new Map();
+  };
+  LRUCache.prototype.get = function (key) {
+    if (!this.map.has(key)) {
+      return -1;
+    } else {
+      let value = this.map.get(key);
+      this.map.delete(key);
+      this.map.set(key, value);
+      return value;
+    }
+  };
+  LRUCache.prototype.put = function (key, value) {
+    if (this.map.has(key)) {
+      this.map.delete(key);
+    }
+    this.map.set(key, value);
+    if (this.map.size > this.capacity) {
+      this.map.delete(this.map.keys().next().value);
+    }
+  };
+  // let lRUCache = new LRUCache(2);
+  // lRUCache.put(1, 1); // 缓存是 {1=1}
+  // lRUCache.put(2, 2); // 缓存是 {1=1, 2=2}
+  // console.log(lRUCache.get(1)); // 返回 1
+  // lRUCache.put(3, 3); // 该操作会使得关键字 2 作废，缓存是 {1=1, 3=3}
+  // console.log(lRUCache.get(2)); // 返回 -1 (未找到)
+  // lRUCache.put(4, 4); // 该操作会使得关键字 1 作废，缓存是 {4=4, 3=3}
+  // console.log(lRUCache.get(1)); // 返回 -1 (未找到)
+  // console.log(lRUCache.get(3)); // 返回 3
+  // console.log(lRUCache.get(4)); // 返回 4
+}
+//罗马数字转整数
+{
+  function romanToInt(S) {
+    const symbolValues = new Map();
+    symbolValues.set("I", 1);
+    symbolValues.set("V", 5);
+    symbolValues.set("X", 10);
+    symbolValues.set("L", 50);
+    symbolValues.set("C", 100);
+    symbolValues.set("D", 500);
+    symbolValues.set("M", 1000);
+    let res = 0;
+    let len = S.length;
+    for (let i = 0; i < len; i++) {
+      let value = symbolValues.get(S[i]);
+      if (i < len - 1 && value < symbolValues.get(S[i + 1])) {
+        res -= value;
+      } else {
+        res += value;
+      }
+    }
+    return res;
+  }
+  let s = "MCMXCIV";
+  // console.log(romanToInt(s));
+}
+//整数转罗马数字
+{
+  function intToRoman(num) {
+    let intArr = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+    let RomanArr = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"];
+    let index = 0;
+    let res = "";
+    while (index <= 13) {
+      while (num >= intArr[index]) {
+        res += RomanArr[index];
+        num -= intArr[index];
+      }
+      index++;
+    }
+    return res;
+  }
+  // console.log(intToRoman(58));
+}
+//零钱兑换
+{
+  function change(amount, coins) {
+    let dp = Array(amount + 1).fill(0);
+    dp[0] = 1;
+    for (let i = 0; i < coins.length; i++) {
+      for (let j = coins[i]; j <= amount; j++) {
+        dp[j] = dp[j] + dp[j - coins[i]];
+      }
+    }
+  }
+  // console.log(change(5, [2, 4, 5]));
+}
+//最长重复子数组
+{
+  let findLength = function (nums1, nums2) {};
+  let nums1 = [1, 2, 3, 2, 1];
+  let nums2 = [3, 2, 1, 4, 7];
+  console.log(findLength(nums1, nums2));
+}
+// 最大岛屿面积
+{
+}
+//手撕快排
 {
 }
 //归并排序
-{
-}
-// 最大岛屿面积
 {
 }

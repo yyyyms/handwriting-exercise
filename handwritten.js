@@ -3455,3 +3455,53 @@ const date = new Date();
   // }
   // test(1, 2, 3, 4);
 }
+//用sort打乱数组
+{
+  let arr = [1, 2, 3, 4, 5, 6];
+  arr = arr.sort((a, b) => {
+    let test = Math.random();
+    if (test > 0.5) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
+  // console.log(arr);
+}
+//开平方根
+
+{
+  let a = 144.1;
+  function test(num) {
+    if (num == 0 || num == 1) {
+      return num;
+    }
+    let l = 0;
+    let r = num - 1;
+    let m = null;
+
+    while (l <= r) {
+      m = Math.floor((r + l) / 2);
+      let res = m * m;
+      if (res == num) {
+        return m;
+      } else if (res > num) {
+        r = m - 1;
+      } else {
+        l = m + 1;
+      }
+    }
+    // console.log(l);
+    return l - 1;
+  }
+  // console.log(test(a));
+}
+//使用reduce实现获取数组中最大相同字符的方法，不能使用其他遍历方式。
+{
+  let arr = ["a", "b", "c", "f", "a", "c", "e", "c"];
+  let res = arr.reduce((pre, cur) => {
+    pre[cur] = (pre[cur] || 0) + 1;
+    return pre;
+  }, {});
+  // console.log(res);
+}
