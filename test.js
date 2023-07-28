@@ -932,7 +932,7 @@ function _new(fn, ...args) {
   // console.log([] == ![]);
   // console.log([] == []);
   [] == false;
-  console.log([].valueOf());
+  // console.log([].valueOf());
 }
 {
   async function test(params) {
@@ -1003,3 +1003,20 @@ function _new(fn, ...args) {
   //   })
   // );
 }
+{
+  // let a = 2;
+  // function test(params) {
+  //   let a = 1;
+  //   return function b(params) {
+  //     console.log(a);
+  //   };
+  // }
+  // let fn = test();
+  // fn();
+}
+
+var foo = 1;
+function foo(params) {
+  console.log(111);
+}
+console.log(foo);

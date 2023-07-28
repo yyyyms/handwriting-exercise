@@ -2615,15 +2615,7 @@ function parseStr(params) {}
 }
 //零钱兑换
 {
-  function change(amount, coins) {
-    let dp = Array(amount + 1).fill(0);
-    dp[0] = 1;
-    for (let i = 0; i < coins.length; i++) {
-      for (let j = coins[i]; j <= amount; j++) {
-        dp[j] = dp[j] + dp[j - coins[i]];
-      }
-    }
-  }
+  function change(amount, coins) {}
   // console.log(change(5, [2, 4, 5]));
 }
 //最长重复子数组
@@ -2631,7 +2623,105 @@ function parseStr(params) {}
   let findLength = function (nums1, nums2) {};
   let nums1 = [1, 2, 3, 2, 1];
   let nums2 = [3, 2, 1, 4, 7];
-  console.log(findLength(nums1, nums2));
+  // console.log(findLength(nums1, nums2));
+}
+//有效的括号
+{
+  function isValid(s) {
+    const map = new Map([
+      [")", "("],
+      ["}", "{"],
+      ["]", "["],
+    ]);
+    let stack = [];
+    for (const item of s) {
+      if (item === "(" || item === "{" || item === "[") {
+        stack.push(item);
+      } else {
+        let right = map.get(item);
+        let left = stack.pop();
+        if (left == right) {
+          continue;
+        } else {
+          return false;
+        }
+      }
+    }
+    if (stack.length !== 0) {
+      return false;
+    }
+    return true;
+  }
+  // console.log(isValid("()[]{}"));
+}
+//递增子序列
+{
+  function findSubsequences(nums) {
+    let res = [];
+    let used = {};
+    function backtrack(path, nums, startIndex) {
+      if (path.length > 1) {
+        res.push([...path]);
+      }
+      for (let i = startIndex; i < nums.length; i++) {
+        if (nums[i] === nums[i - 1] && nums[i] !== path[path.length - 1]) {
+          continue;
+        }
+        if (!used[i]) {
+          if (path.length === 0 || nums[i] >= path[path.length - 1]) {
+            path.push(nums[i]);
+            used[i] = true;
+            backtrack(path, nums, i + 1);
+            path.pop();
+            used[i] = false;
+          }
+        } else {
+          continue;
+        }
+      }
+    }
+    backtrack([], nums, 0);
+    return res;
+  }
+
+  let nums = [4, 6, 7, 7];
+  // console.log(findSubsequences(nums));
+}
+//最长递增子序列
+{
+  function lengthOfLIS(nums) {
+    let res = [];
+    let used = {};
+    let max = 1;
+    function backtrack(path, nums, startIndex) {
+      if (path.length > 1) {
+        if (path.length > max) {
+          max = path.length;
+        }
+        res.push([...path]);
+      }
+      for (let i = startIndex; i < nums.length; i++) {
+        if (nums[i] === nums[i - 1] && nums[i] !== path[path.length - 1]) {
+          continue;
+        }
+        if (!used[i]) {
+          if (path.length === 0 || nums[i] > path[path.length - 1]) {
+            path.push(nums[i]);
+            used[i] = true;
+            backtrack(path, nums, i + 1);
+            path.pop();
+            used[i] = false;
+          }
+        } else {
+          continue;
+        }
+      }
+    }
+    backtrack([], nums, 0);
+    return max;
+  }
+  let nums = [7, 7, 7, 7, 7, 7, 7];
+  // console.log(lengthOfLIS(nums));
 }
 // 最大岛屿面积
 {

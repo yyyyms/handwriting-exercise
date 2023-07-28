@@ -3505,3 +3505,20 @@ const date = new Date();
   }, {});
   // console.log(res);
 }
+//数组去重 时间复杂度On 不能用set 空间复杂度为O1
+{
+  let arr = [1, 1, 2, 3, 3, 4, 4, 5];
+  function test(arr) {
+    let len = arr.length;
+    let low = 0;
+    for (let i = 1; i < len; i++) {
+      if (arr[low] !== arr[i]) {
+        low++;
+        arr[low] = arr[i];
+      }
+    }
+
+    return arr.slice(0, low + 1);
+  }
+  // console.log(test(arr));
+}
