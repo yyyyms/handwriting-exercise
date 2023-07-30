@@ -1015,8 +1015,23 @@ function _new(fn, ...args) {
   // fn();
 }
 
-var foo = 1;
-function foo(params) {
-  console.log(111);
+// {
+//   var foo = 1;
+//   function foo(params) {
+//     console.log(111);
+//   }
+//   // console.log(foo);
+// }
+{
+  let fn = (...rest) => {
+    console.log(rest);
+    console.log(arguments);
+  };
+  // fn(1, 2, 3);
 }
-console.log(foo);
+{
+  let arr = [1, 3, 5, 4, 2];
+  let a = arr.sort((a, b) => a - b);
+  a[0] = 0;
+  // console.log(arr);
+}

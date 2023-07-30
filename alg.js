@@ -2723,12 +2723,172 @@ function parseStr(params) {}
   let nums = [7, 7, 7, 7, 7, 7, 7];
   // console.log(lengthOfLIS(nums));
 }
-// 最大岛屿面积
+
+//手撕快排(双指针)
 {
+  let arr = [3, 5, 2, 1, 6, 4];
+  function test(arr) {
+    quickSort(0, arr.length - 1, arr);
+    return arr;
+    function quickSort(left, right, arr) {
+      if (left > right) {
+        return;
+      }
+      let base = arr[left];
+      let i = left,
+        j = right;
+      //整个过程 i和j不会交叉
+      while (i !== j) {
+        //右边先找到比base小的数然后停止
+        while (arr[j] >= base && i < j) {
+          j--;
+        }
+
+        //左边找到比base大的数
+        while (arr[i] <= base && i < j) {
+          i++;
+        }
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      arr[left] = arr[i];
+      arr[i] = base;
+      quickSort(left, i - 1, arr); //基准值左边
+      quickSort(i + 1, right, arr); //基准值右边
+    }
+  }
+  // console.log(test(arr));
 }
-//手撕快排
+//冒泡排序
 {
+  let arr = [3, 5, 2, 1, 6, 4];
+  function BubbleSort(arr) {
+    let len = arr.length;
+    let isSort = true;
+    for (let i = 0; i < len; i++) {
+      for (let j = 0; j < len; j++) {
+        isSort = false;
+        if (arr[j] > arr[j + 1]) {
+          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        }
+      }
+      if (isSort) {
+        return arr;
+      }
+    }
+    return arr;
+  }
+  // console.log(BubbleSort(arr));
+}
+//合并有序数组 空间复杂度为1
+{
+  let arr1 = [1, 3, 5, 8, 9, 11];
+  let arr2 = [3, 5, 7, 10, 12];
+  function test(arr1, arr2) {
+    let l1 = arr1.length - 1,
+      l2 = arr2.length - 1;
+    while (l1 >= 0 && l2 >= 0) {
+      if (arr2[l2] > arr1[l1]) {
+        arr1[l1 + l2 + 1] = arr2[l2];
+        l2--;
+      } else {
+        arr1[l1 + l2 + 1] = arr1[l1];
+        l1--;
+      }
+    }
+    if (l2 >= 0) {
+      console.log("arr2有剩余");
+      console.log(l2);
+      for (let i = 0; i <= l2; i++) {
+        arr1[i] = arr2[i];
+      }
+    }
+    return arr1;
+  }
+
+  // console.log(test(arr2, arr1));
 }
 //归并排序
+{
+  let arr = [2, 9, 6, 7, 4, 3, 1, 7, 0, -1, -2];
+  function test(arr) {
+    //合并两个小数组
+    let merge = function (left, right) {
+      let res = [];
+      while (left.length && right.length) {
+        if (left[0] <= right[0]) {
+          res.push(left.shift());
+        } else {
+          res.push(right.shift());
+        }
+      }
+      while (left.length) {
+        res.push(left.shift());
+      }
+      while (right.length) {
+        res.push(right.shift());
+      }
+      return res;
+    };
+    let mergeSort = function (arr) {
+      if (arr.length <= 1) {
+        return arr;
+      }
+      let middle = Math.floor(arr.length / 2);
+      //拆分
+      let left = arr.slice(0, middle);
+      let right = arr.slice(middle);
+      let mergeleft = mergeSort(left);
+      let mergeright = mergeSort(right);
+      return merge(mergeleft, mergeright);
+    };
+    return mergeSort(arr);
+  }
+  // console.log(test(arr));
+}
+//堆排序
+{
+  function test(arr) {
+    let n = arr.length;
+    buildMaxHeap(arr, n);
+    console.log(arr);
+    for (let i = n - 1; i > 0; i--) {
+      swap(arr, 0, i);
+      heapify(arr, 0, i);
+    }
+    console.log(arr);
+    //建堆
+    function buildMaxHeap(arr, n) {
+      //倒着数第一个有子节点的节点
+      let iParent = Math.floor(n - 1 / 2);
+      for (let i = iParent; i >= 0; i--) {
+        heapify(arr, i, n);
+      }
+    }
+    //维护大顶堆
+    function heapify(arr, i, n) {
+      let large = i;
+      let left = i * 2 + 1;
+      let right = i * 2 + 2;
+      if (arr[large] < arr[left] && left < n) {
+        large = left;
+      }
+      if (arr[large] < arr[right] && right < n) {
+        large = right;
+      }
+      //发生过交换
+      if (large !== i) {
+        swap(arr, i, large);
+        heapify(arr, large, n);
+      }
+    }
+    //交换
+    function swap(arr, i, j) {
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+  }
+  let arr = [10, 7, 3, 9, 4, 14, 1, 8, 2, 16];
+  test(arr);
+}
+// 最大岛屿面积
 {
 }

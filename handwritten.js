@@ -3522,3 +3522,43 @@ const date = new Date();
   }
   // console.log(test(arr));
 }
+//反转url
+{
+  let url = "https://www.example.com/path/to/page";
+  let arr = url.split("/");
+  arr.reverse();
+  let res = arr.join("/");
+  // console.log(res);
+}
+//大数相加
+{
+  const num1 = "12345678901234567895";
+  const num2 = "98765432109876543215";
+  function test(num1, num2) {
+    let res = "";
+    let j = num1.length - 1,
+      k = num2.length - 1,
+      carry = 0;
+    while (j >= 0 || k >= 0 || carry !== 0) {
+      let n1 = num1[j] >= 0 ? parseInt(num1[j]) : 0;
+      let n2 = num2[k] >= 0 ? parseInt(num2[k]) : 0;
+      let sum = n1 + n2 + carry;
+      carry = Math.floor(sum / 10);
+      res = (sum % 10) + res;
+      j--;
+      k--;
+    }
+    return res;
+  }
+  // console.log(test(num1, num2));
+}
+//log(0.1+0.2)
+{
+  console.log(0.1 + 0.2);
+}
+//手写千分位格式化(复习)
+{
+}
+//写算法 十进制转换
+{
+}
