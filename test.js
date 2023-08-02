@@ -1035,3 +1035,98 @@ function _new(fn, ...args) {
   a[0] = 0;
   // console.log(arr);
 }
+{
+  let obj = [
+    {
+      name: "1",
+      age: 1,
+    },
+    {
+      name: "2",
+      age: 2,
+    },
+    {
+      name: "3",
+      age: 3,
+    },
+    {
+      name: "4",
+      age: 4,
+    },
+  ];
+  let proxy = new Proxy(obj, {
+    get(obj, key) {
+      return obj[key];
+    },
+    set(obj, key, newValue) {
+      console.log(newValue);
+      obj[key] = newValue;
+    },
+  });
+  // console.log(proxy);
+  // proxy.push({});
+}
+{
+  // console.log(1);
+  // new Promise((resolve, reject) => {
+  //   console.log(2);
+  //   resolve(3);
+  // }).then((res) => {
+  //   console.log(res);
+  //   setTimeout(() => {
+  //     console.log(6);
+  //   });
+  // });
+  // setTimeout(() => {
+  //   console.log(4);
+  //   // new Promise((resolve, reject) => {
+  //   //   resolve(5);
+  //   // }).then((res) => {
+  //   //   console.log(res);
+  //   // });
+  // });
+}
+// {
+//   // console.log(NaN == NaN);
+//   let a = 3.2;
+//   console.log(a >> 1);
+// }
+{
+  let a = {
+    a: 1,
+  };
+  // console.log(undefined == null);
+  // console.log();
+  // console.log(typeof [].valueOf());
+  // console.log([] == ![]);
+  // console.log([].toString());
+  // console.log(Number(""));
+  // console.log([] == false);
+}
+{
+  // ==
+  let a = {
+    i: 0,
+  };
+  // a.valueOf = function (params) {
+  //   return this;
+  // };
+  // console.log(Number(null));
+
+  // a.toString = function (params) {
+  //   return this.i++;
+  // };
+  // console.log(a == 0 && a == 1 && a == 2);
+  // console.log(Object.is("1", "1"));
+}
+{
+  var _a = 0;
+  Object.defineProperty(this, "a", {
+    get() {
+      return _a++;
+    },
+  });
+  // console.log(a);
+  // console.log(a);
+  // console.log(a);
+}

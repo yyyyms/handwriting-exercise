@@ -2887,7 +2887,35 @@ function parseStr(params) {}
     }
   }
   let arr = [10, 7, 3, 9, 4, 14, 1, 8, 2, 16];
-  test(arr);
+  // test(arr);
+}
+//比较版本号
+{
+  function compareVersion(version1, version2) {
+    const v1 = version1.split(".");
+    const v2 = version2.split(".");
+    console.log(v1, v2);
+    for (let i = 0; i < v1.length || i < v2.length; ++i) {
+      let x = 0,
+        y = 0;
+      if (i < v1.length) {
+        x = parseInt(v1[i]);
+      }
+      if (i < v2.length) {
+        y = parseInt(v2[i]);
+      }
+      if (x > y) {
+        return 1;
+      }
+      if (x < y) {
+        return -1;
+      }
+    }
+    return 0;
+  }
+  let version1 = "1.0",
+    version2 = "1.0.1";
+  console.log(compareVersion(version1, version2));
 }
 // 最大岛屿面积
 {

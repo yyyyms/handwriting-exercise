@@ -282,39 +282,51 @@
     <button id="reload">点击重新加载</button>
     <button id="rehref">点击重定向</button>
     <script>
-        let button = document.querySelector('#test')
-        button.onclick = () => {
-            // console.log(document.documentElement.scrollTop);
-            // document.body.scrollTop = document.documentElement.scrollTop = 0
-            // document.body.scrollIntoView({
-            //     behavior: 'smooth',
-            //     block: "end"
-            // })
-            window.scrollTo(0, 0)
+        var _a = 0
+        Object.defineProperty(this, "a", {
+            get() {
+                return _a++
+            },
+        });
+        console.log(a);
+        console.log(a);
+        console.log(a);
 
-        }
-        let rehref = document.querySelector('#rehref')
-        rehref.onclick = () => {
-            location.href = '666'
-        }
+    </script>
+    <script>
+        // let button = document.querySelector('#test')
+        // button.onclick = () => {
+        //     // console.log(document.documentElement.scrollTop);
+        //     // document.body.scrollTop = document.documentElement.scrollTop = 0
+        //     // document.body.scrollIntoView({
+        //     //     behavior: 'smooth',
+        //     //     block: "end"
+        //     // })
+        //     window.scrollTo(0, 0)
+
+        // }
+        // let rehref = document.querySelector('#rehref')
+        // rehref.onclick = () => {
+        //     location.href = '666'
+        // }
         // let button = document.querySelector('#reload')
         // button.onclick = () => {
         //     location.reload()
         // }
     </script>
     <script>
-        function test(params) {
-            console.log(this);
-            setTimeout(() => {
-                console.log(this);
-            }, 2000);
-        }
-        let obj = {
-            a: 1,
-            name: "yms",
-            age: 18,
-        };
-        test.call(obj)
+        // function test(params) {
+        //     console.log(this);
+        //     setTimeout(() => {
+        //         console.log(this);
+        //     }, 2000);
+        // }
+        // let obj = {
+        //     a: 1,
+        //     name: "yms",
+        //     age: 18,
+        // };
+        // test.call(obj)
     </script>
     <script>
         const currentArray = [
@@ -334,33 +346,33 @@
             { id: "14", name: "小强", pid: "05", job: "测试工程师" },
             { id: "15", name: "小涛", pid: "06", job: "运维工程师" },
         ];
-        function arrToTree(arr) {
-            let root = null;
-            let list = JSON.parse(JSON.stringify(arr));
-            let obj = {};
-            while (list.length > 0) {
-                let item = list.shift();
-                if (!obj[item.id]) {
-                    obj[item.id] = item;
-                }
-                if (item.pid === "" || !root) {
-                    root = item;
-                    continue;
-                }
+        // function arrToTree(arr) {
+        //     let root = null;
+        //     let list = JSON.parse(JSON.stringify(arr));
+        //     let obj = {};
+        //     while (list.length > 0) {
+        //         let item = list.shift();
+        //         if (!obj[item.id]) {
+        //             obj[item.id] = item;
+        //         }
+        //         if (item.pid === "" || !root) {
+        //             root = item;
+        //             continue;
+        //         }
 
-                let parent = obj[item.pid];
-                if (parent) {
-                    if (parent.child) {
-                        parent.child.push(item);
-                    } else {
-                        parent.child = [item];
-                    }
-                } else {
-                    list.push(item);
-                }
-            }
-            return root;
-        }
+        //         let parent = obj[item.pid];
+        //         if (parent) {
+        //             if (parent.child) {
+        //                 parent.child.push(item);
+        //             } else {
+        //                 parent.child = [item];
+        //             }
+        //         } else {
+        //             list.push(item);
+        //         }
+        //     }
+        //     return root;
+        // }
         // console.log(arrToTree(currentArray));
         // var obj = {
         //     foo() {

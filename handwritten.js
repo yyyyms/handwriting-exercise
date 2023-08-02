@@ -3554,11 +3554,121 @@ const date = new Date();
 }
 //log(0.1+0.2)
 {
-  console.log(0.1 + 0.2);
+  // console.log(0.1 + 0.2);
 }
 //手写千分位格式化(复习)
 {
 }
 //写算法 十进制转换
 {
+}
+//手写promise
+{
+  const PENDING = "PENDING";
+  const FULFILLED = "FULFILLED";
+  const REJECTED = "REJECTED";
+  class Mypromise {
+    constructor(executor) {
+      this.state = PENDING;
+      //收集成功回调函数
+      this.fulfilledCallback = [];
+      //收集失败回调函数
+      this.rejectedCallback = [];
+      this.value = undefined;
+      this.reason = undefined;
+      const resolve = (value) => {
+        if (this.state !== PENDING) {
+          return;
+        }
+        this.state = FULFILLED;
+        this.value = value;
+        while (this.fulfilledCallback.length) {
+          this.fulfilledCallback.shift().onFulfilled(this.value);
+        }
+      };
+      const reject = (reason) => {
+        if (this.state !== PENDING) {
+          return;
+        }
+        this.state = REJECTED;
+        this.reason = reason;
+        while (this.rejectedCallback.length) {
+          this.rejectedCallback.shift().onRejected(this.reason);
+        }
+      };
+
+      try {
+        executor(resolve, reject);
+      } catch (err) {
+        console.log("捕获到的错误", err);
+        reject(err);
+      }
+    }
+    then(onFulfilled, onRejected) {
+      return new Mypromise((resolve, reject) => {
+        if (this.state === FULFILLED) {
+          setTimeout(() => {
+            try {
+              res = onFulfilled(this.value);
+              resolve(res);
+            } catch (error) {
+              reject(error);
+            }
+          }, 0);
+        } else if (this.state === REJECTED) {
+          setTimeout(() => {
+            try {
+              res = onRejected(this.reason);
+              resolve(res);
+            } catch (error) {
+              reject(error);
+            }
+          }, 0);
+        } else {
+          setTimeout(() => {
+            this.fulfilledCallback.push({
+              onFulfilled: () => {
+                try {
+                  let res = onFulfilled(this.value);
+                  if (res instanceof Promise) {
+                    return res;
+                  }
+                } catch (error) {
+                  reject(error);
+                }
+              },
+            });
+            this.rejectedCallback.push({
+              onRejected: () => {
+                try {
+                  let res = onRejected(this.reason);
+                  console.log("return 了", res);
+                  resolve(res);
+                } catch (error) {
+                  console.log("捕获到的错误", error);
+                  reject(error);
+                }
+              },
+            });
+          }, 0);
+        }
+      });
+    }
+  }
+
+  let promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject(1);
+    }, 1000);
+  });
+  promise
+    .then((res) => {
+      console.log(res);
+      return new Promise((resolve, reject) => {
+        resolve(666);
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
