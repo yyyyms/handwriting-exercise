@@ -2915,8 +2915,22 @@ function parseStr(params) {}
   }
   let version1 = "1.0",
     version2 = "1.0.1";
-  console.log(compareVersion(version1, version2));
+  // console.log(compareVersion(version1, version2));
 }
 // 最大岛屿面积
+{
+}
+//给定一个只包含大写英文字母的字符串S，要求你给出对S重新排列的所有不相同的排列数。
+//  如：S为ABA，则不同的排列有ABA、AAB、BAA三种 //深搜 set去重
+{
+  function test(str) {
+    function backTrack(params) {}
+  }
+  // console.log(test("ABA"));
+}
+//堆排序
+{
+}
+//归并排序
 {
 }

@@ -192,25 +192,31 @@ function myPromiseRace(iterable) {
 
 //
 
-const arr = [1, [2, [3, [4, 5]]], 6];
+let arr = [1, 2, [3, 4, [5, [6]]]];
 //es6 flat方法扁平数组
 // console.log(arr.flat(Infinity));
 
 //用栈实现数组扁平
-function stack(arr) {
+function stack(arr, i) {
   let res = [];
+  let count = 0;
   let stack = [...arr];
   while (stack.length) {
     let first = stack.shift();
     if (Array.isArray(first)) {
-      stack.unshift(...first);
+      count++;
+      if (count >= i) {
+        res.push(res);
+      } else {
+        stack.unshift(...first);
+      }
     } else {
       res.push(first);
     }
   }
   return res;
 }
-// console.log(stack(arr));
+// console.log(stack(arr, 1));
 //利用join 或 tostring 扁平化
 arr
   .toString()
@@ -3656,19 +3662,159 @@ const date = new Date();
     }
   }
 
-  let promise = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      reject(1);
-    }, 1000);
-  });
-  promise
-    .then((res) => {
-      console.log(res);
-      return new Promise((resolve, reject) => {
-        resolve(666);
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  // let promise = new Promise((resolve, reject) => {
+  //   setTimeout(() => {
+  //     resolve("666");
+  //   }, 1000);
+  // });
+  // promise
+  //   .then(2)
+  //   .then(3)
+  //   .then((res) => {
+  //     console.log(res);
+  //   });
+  //
 }
+{
+  let arr = [1, 2, 2, [], [], 3, [2, 3, 4, [22]]];
+  function stack(arr, i) {
+    let res = [];
+    let count = 0;
+    let stack = [...arr];
+    while (stack.length) {
+      let first = stack.shift();
+      if (Array.isArray(first)) {
+        count++;
+        if (count >= i + 1) {
+          res.push(first);
+        } else {
+          stack.unshift(...first);
+        }
+      } else {
+        res.push(first);
+      }
+    }
+    return res;
+  }
+  // console.log(stack(arr));
+  // console.log(arr.flat(1));
+}
+{
+  function test(i) {
+    let count = 0;
+    let arr = this;
+    let res = [];
+    function test2(arr) {
+      count++;
+      if (count >= i + 1) {
+        res.push(arr);
+        return;
+      }
+      while (arr.length) {
+        let item = arr.shift();
+        // console.log(item);
+        if (!Array.isArray(item)) {
+          res.push(item);
+        } else {
+          // console.log(item, "进来了");
+          test2(item);
+        }
+      }
+    }
+    test2(arr);
+    return res;
+  }
+  // let arr = [1, 2, [3, 4, [5, [6]]]];
+  // arr.__proto__.flat = test;
+  // console.log(arr.flat(3));
+}
+//手写千分位格式化(复习)
+{
+  // let num = "123456.7890";
+  let num = "1234567890";
+  function test(num) {
+    let intNum = num.split(".")[0];
+    let reg = /\d(?=(\d{3})+$)/g;
+    let res = intNum.replace(reg, ($1, $2) => {
+      console.log($1, $2);
+      return $1 + ",";
+    });
+    console.log(res);
+  }
+  // test(num);
+}
+//千分位 正着取 正则
+{
+  let num = "1234567890";
+  function test(num) {
+    let reg = /(?<=^(\d{3})+)(\d)/g;
+    let res = num.replace(reg, ($1, $2) => {
+      console.log($1, $2);
+      return "," + $1;
+    });
+    console.log(res);
+  }
+  // test(num);
+}
+//输入一个数字 返回阶乘
+{
+  //迭代
+  function test(num) {
+    let i = 1;
+    let res = 1;
+    while (i <= num) {
+      res = res * i;
+      i++;
+    }
+    console.log(res);
+  }
+  // test(5);
+  //递归
+  function test1(num) {
+    if (num == 0) {
+      return 1;
+    }
+    return num * test1(num - 1);
+  }
+  // console.log(test1(5));
+  //dp
+  function dp(num) {
+    let dp = [];
+    dp[0] = 1;
+    for (let i = 1; i <= num; i++) {
+      dp[i] = i * dp[i - 1];
+    }
+    return dp[num];
+  }
+  // console.log(dp(5));
+}
+//实现isMatch(str1, str2)函数，判断str2是否符合str1匹配：
+// str1=“A B B A” 匹配  str2="apple banana banana apple"
+// 不匹配：str1=“A B B A” 匹配  str2="Orange banana banana apple"
+{
+  function isMatch(str1, str2) {
+    let arr1 = str1.split(" ");
+    let arr2 = str2.split(" ");
+    if (arr1.length !== arr2.length) {
+      return false;
+    }
+    console.log(arr1);
+    console.log(arr2);
+    let map1 = new Map();
+    for (let i = 0; i < arr1.length; i++) {
+      if (map1.has(arr1[i])) {
+        let item = map1.get(arr1[i]);
+        if (arr2[i] !== item) {
+          return false;
+        } else {
+          continue;
+        }
+      } else {
+        map1.set(arr1[i], arr2[i]);
+      }
+    }
+    return true;
+  }
+  // console.log(isMatch("A B B C A", "Orange banana apple banana  Orange"));
+}
+

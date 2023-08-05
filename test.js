@@ -1130,3 +1130,104 @@ function _new(fn, ...args) {
   // console.log(a);
   // console.log(a);
 }
+{
+  // let a = "20";
+  // let b = "21";
+  // if (a > b) {
+  //   console.log(1);
+  // } else if (b > a) {
+  //   console.log(2);
+  // } else {
+  //   console.log("相等");
+  // }
+  // console.log();
+}
+{
+  let a = +1;
+  // console.log("1" + a);
+}
+{
+  // console.log(a == 1 && a == 2 && a == 3);
+}
+{
+  // let arr = [];
+  // arr[2] = 0;
+}
+{
+  // var i;
+  // for (i = 0; i < 3; i++) {
+  //   setTimeout(() => {
+  //     console.log(this.i);
+  //   });
+  // }
+  // for (var i = 0; i < 3; i++) {
+  //   var i = 6;
+  //   setTimeout(() => {
+  //     console.log(i);
+  //   });
+  // }
+}
+{
+  function Foo() {
+    Foo.a = function () {
+      console.log(1);
+    };
+    this.a = function () {
+      console.log(2);
+    };
+  }
+
+  Foo.prototype.a = function () {
+    console.log(3);
+  };
+  Foo.a = function () {
+    console.log(4);
+  };
+  // Foo.a(); //4
+  // let obj = new Foo();
+  // obj.a(); //2
+  // Foo.a(); //1
+}
+{
+  var obj = {
+    foo() {
+      this.a = 111111;
+    },
+    fun() {
+      console.log(this.a);
+    },
+  };
+  obj.foo();
+  //obj.a = 111111
+  // setTimeout(obj.fun, 0);
+  //undefined
+}
+{
+  {
+    setTimeout(() => {
+      console.log(1);
+    }, 0);
+
+    new Promise((resolve) => {
+      console.log(2);
+      resolve();
+      console.log(3);
+    }).then(() => {
+      console.log(4);
+    });
+
+    const promise2 = new Promise(async (resolve) => {
+      console.log(await resolve(5));
+      console.log(6);
+    });
+
+    async function test() {
+      console.log(7);
+      console.log(await promise2);
+      console.log(8);
+    }
+    test();
+    console.log(9);
+  }
+  // 2 3 7  9  4 undefined 6 5 8  1
+}

@@ -282,15 +282,69 @@
     <button id="reload">点击重新加载</button>
     <button id="rehref">点击重定向</button>
     <script>
-        var _a = 0
-        Object.defineProperty(this, "a", {
-            get() {
-                return _a++
-            },
-        });
+        // let i
+        let a
+        for (a = 0; a < 3; a++) {
+            //这个块级作用域里 相当于有个 a = 0/1/2
+            //setTimeout 本质是个函数 函数执行前会保存自己的执行环境 
+            // 所以理解成每个循环体也就是每个块级作用域里都有个a让 setTimeout 保存下来了
+            //而 var 的话 循环体里没有 a 这个变量  setTimeout就从外层的执行上下文里找a 找到了最外层的a
+            a = 6
+            console.log(a);
+        }
         console.log(a);
-        console.log(a);
-        console.log(a);
+        //解析
+        // let a = 0
+        // function test(params) {
+        //     setTimeout(() => {
+        //         console.log(a);
+        //     }, 0)
+        // }
+        // test()
+
+
+
+
+
+
+
+    </script>
+    <!-- <script src="./b.js" type="module"> -->
+    <script>
+        // let arr = [1, 2, [3, 4, [5, [6]]]];
+        // //用栈实现数组扁平
+        // function stack(arr, i) {
+        //     let res = [];
+        //     let count = 0;
+        //     let stack = [...arr];
+        //     while (stack.length) {
+        //         let first = stack.shift();
+        //         if (Array.isArray(first)) {
+        //             count++;
+        //             if (count >= i + 1) {
+        //                 res.push(first);
+        //             } else {
+        //                 stack.unshift(...first);
+        //             }
+        //         } else {
+        //             res.push(first);
+        //         }
+        //     }
+        //     return res;
+        // }
+        // console.log(stack(arr, 1));
+    </script>
+    </script>
+    <script>
+        // var _a = 0
+        // Object.defineProperty(this, "a", {
+        //     get() {
+        //         return _a++
+        //     },
+        // });
+        // console.log(a);
+        // console.log(a);
+        // console.log(a);
 
     </script>
     <script>
