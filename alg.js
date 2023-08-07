@@ -2930,7 +2930,86 @@ function parseStr(params) {}
 }
 //堆排序
 {
+  function test(arr) {
+    //维护大顶堆
+    function heapify(arr, i, n) {
+      // console.log(1);
+      let largest = i;
+      let leftchild = i * 2 + 1,
+        rightchild = i * 2 + 2;
+      if (arr[leftchild] > arr[largest] && leftchild < n) {
+        largest = leftchild;
+      }
+      if (arr[rightchild] > arr[largest] && rightchild < n) {
+        largest = rightchild;
+      }
+      if (largest !== i) {
+        swap(arr, largest, i);
+        heapify(arr, largest, n);
+      }
+    }
+    //建堆
+    function buildMaxHeap(arr, n) {
+      let k = (n - 1) >> 1;
+      for (let i = k; i >= 0; i--) {
+        heapify(arr, i, n);
+      }
+    }
+    //交换
+    function swap(arr, j, k) {
+      [arr[j], arr[k]] = [arr[k], arr[j]];
+    }
+
+    let len = arr.length;
+    buildMaxHeap(arr, len);
+    for (let i = len - 1; i > 0; i--) {
+      swap(arr, 0, i);
+      heapify(arr, 0, i);
+    }
+    console.log(arr);
+  }
+  let arr = [10, 7, 3, 9, 4, 14, 1, 8, 2, 16];
+  // test(arr);
 }
 //归并排序
 {
+  function test(arr) {
+    //拆分数组
+    function mergeSort(arr) {
+      if (arr.length < 2) {
+        return arr;
+      }
+      let middle = arr.length >> 1;
+      let left = arr.slice(0, middle);
+      let right = arr.slice(middle);
+      return merge(mergeSort(left), mergeSort(right));
+    }
+    //合并数组
+    function merge(left, right) {
+      let res = [];
+      while (left.length && right.length) {
+        if (left[0] < right[0]) {
+          res.push(left.shift());
+        } else {
+          res.push(right.shift());
+        }
+      }
+
+      while (left.length) {
+        res.push(left.shift());
+      }
+
+      while (right.length) {
+        res.push(right.shift());
+      }
+      return res;
+    }
+    return mergeSort(arr);
+  }
+  let arr = [3, 1, 4, 1, 5, 9, 2, 6, 5];
+  // console.log(test(arr));
+}
+//数组中的逆序对
+{
+  let reversePairs = () => {};
 }

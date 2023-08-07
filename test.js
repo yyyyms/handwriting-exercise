@@ -1202,32 +1202,167 @@ function _new(fn, ...args) {
   // setTimeout(obj.fun, 0);
   //undefined
 }
+//输出顺序题
 {
-  {
-    setTimeout(() => {
-      console.log(1);
-    }, 0);
-
-    new Promise((resolve) => {
-      console.log(2);
-      resolve();
-      console.log(3);
-    }).then(() => {
-      console.log(4);
-    });
-
-    const promise2 = new Promise(async (resolve) => {
-      console.log(await resolve(5));
-      console.log(6);
-    });
-
-    async function test() {
-      console.log(7);
-      console.log(await promise2);
-      console.log(8);
-    }
-    test();
-    console.log(9);
-  }
+  // {
+  //   setTimeout(() => {
+  //     console.log(1);
+  //   }, 0);
+  //   new Promise((resolve) => {
+  //     console.log(2);
+  //     resolve();
+  //     console.log(3);
+  //   }).then(() => {
+  //     console.log(4);
+  //   });
+  //   const promise2 = new Promise(async (resolve) => {
+  //     console.log(await resolve(5));
+  //     console.log(6);
+  //   });
+  //   async function test() {
+  //     console.log(7);
+  //     console.log(await promise2);
+  //     console.log(8);
+  //   }
+  //   test();
+  //   console.log(9);
+  // }
   // 2 3 7  9  4 undefined 6 5 8  1
+}
+{
+  // const promise2 = new Promise(async (resolve) => {
+  //   console.log(await resolve(5));
+  //   console.log(6);
+  // });
+  // async function test() {
+  //   console.log(7);
+  //   console.log(promise2);
+  //   console.log(await promise2);
+  //   console.log(8);
+  // }
+  // test();
+}
+// {
+//   async function example() {
+//     console.log(3);
+//     let result = await 1;
+//     console.log(result);
+//     return 2;
+//   }
+//   let p = example();
+//   console.log(p);
+//   p.then((res) => {
+//     console.log(res);
+//   });
+// }
+// {
+//   let res = await getDate()
+//   console.log(res);
+//   == getDate().then((res)=>{
+//     console.log();
+//   })
+// }
+// {
+//   var myObj = {
+//     name: "极客时间",
+//     showThis: function () {
+//       console.log(this); //myOjb
+//       var self = this; //self = obj
+//       function bar() {
+//         self.name = "极客邦";
+//       }
+//       bar();
+//     },
+//   };
+//   myObj.showThis();
+// }
+{
+  // function maxCropYield(cropField) {
+  //   let rowIncrease = cropField.map((row) => row.reduce((a, b) => a + b, 0));
+  //   let colIncrease = cropField[0].map((_, i) => cropField.reduce((a, b) => a + b[i], 0));
+
+  //   let maxRowIncrease = Math.max(...rowIncrease);
+  //   let maxColIncrease = Math.max(...colIncrease);
+
+  //   let totalYield = rowIncrease.reduce((a, b) => a + b, 0) + maxRowIncrease + maxColIncrease;
+
+  //   return totalYield;
+  // }
+  let cropField = [
+    [2, 3, 1, 4],
+    [1, 2, 0, 3],
+    [4, 2, 1, 7],
+    [3, 1, 4, 2],
+  ];
+  // console.log(maxCropYield(cropField));
+}
+// {
+//   function maxCropYield(cropField) {
+//     let rowIncrease = cropField.map((row) => row.reduce((a, b) => a + b, 0));
+//     let colIncrease = cropField[0].map((_, i) => cropField.reduce((a, b) => a + b[i], 0));
+
+//     let maxRowIndex = rowIncrease.indexOf(Math.max(...rowIncrease));
+//     let maxColIndex = colIncrease.indexOf(Math.max(...colIncrease));
+
+//     let totalYield = rowIncrease.reduce((a, b) => a + b, 0) + Math.max(...colIncrease) + Math.max(...rowIncrease);
+
+//     if (maxRowIndex !== -1 && maxColIndex !== -1) {
+//       totalYield -= cropField[maxRowIndex][maxColIndex];
+//     }
+
+//     return totalYield;
+//   }
+
+//   let cropField = [
+//     [2, 3, 1, 4],
+//     [1, 2, 0, 3],
+//     [4, 2, 1, 7],
+//     [3, 1, 4, 2],
+//   ];
+
+//   console.log(maxCropYield(cropField)); // 输出 63
+// }
+{
+  class Solution {
+    /* Write Code Here */
+    calculateMaxTotalYie(cropField) {
+      let row = cropField.map((row) =>
+        row.reduce((a, b) => {
+          return a + b;
+        }, 0)
+      );
+      let col = cropField[0].map((k, i) => cropField.reduce((a, b) => a + b[i], 0));
+
+      let maxRow = row.indexOf(Math.max(...row));
+      let maxCol = col.indexOf(Math.max(...col));
+
+      let totalYield = row.reduce((a, b) => a + b, 0) + Math.max(...col) + Math.max(...row);
+      if (maxRow !== -1 && maxCol !== -1) {
+        totalYield -= cropField[maxRow][maxCol];
+      }
+      return totalYield;
+    }
+  }
+  let res;
+
+  // let cropField_rows = readInt();
+  // let cropField_cols = readInt();
+
+  // let cropField = Array();
+  // for (let cropField_i = 0; cropField_i < cropField_rows; cropField_i++) {
+  //   cropField[cropField_i] = new Array();
+  //   for (let cropField_j = 0; cropField_j < cropField_cols; cropField_j++) {
+  //     cropField[cropField_i][cropField_j] = readInt();
+  //   }
+  // }
+
+  let acmSolution = new Solution();
+  let cropField = [
+    [2, 3, 1, 4],
+    [1, 2, 0, 3],
+    [4, 2, 1, 7],
+    [3, 1, 4, 2],
+  ];
+  res = acmSolution.calculateMaxTotalYie(cropField);
+  console.log(res);
 }
