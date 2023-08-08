@@ -3013,3 +3013,53 @@ function parseStr(params) {}
 {
   let reversePairs = () => {};
 }
+//转置矩阵
+{
+  let matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+  ];
+  function transpose(matrix) {
+    let res = [];
+    let l1 = matrix.length;
+    let l2 = matrix[0].length;
+    for (let i = 0; i < l2; i++) {
+      let arr = [];
+      for (let j = 0; j < l1; j++) {
+        let item = matrix[j][i];
+        arr.push(item);
+      }
+      res.push(arr);
+    }
+    return res;
+  }
+  // console.log(transpose(matrix));
+}
+//排序矩阵查找(非二分查找)
+{
+  function searchMatrix(matrix, target) {
+    let l1 = matrix.length,
+      l2 = matrix[0].length;
+    let i = l1 - 1;
+    let j = 0;
+    while (i >= 0 && j < l2) {
+      if (matrix[i][j] > target) {
+        i--;
+      } else if (matrix[i][j] < target) {
+        j++;
+      } else {
+        return true;
+      }
+    }
+    return false;
+  }
+  let matrix = [
+    [1, 4, 7, 11, 15],
+    [2, 5, 8, 12, 19],
+    [3, 6, 9, 16, 22],
+    [10, 13, 14, 17, 24],
+    [18, 21, 23, 26, 30],
+  ];
+  // console.log(searchMatrix(matrix, 20));
+}

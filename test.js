@@ -1364,5 +1364,45 @@ function _new(fn, ...args) {
     [3, 1, 4, 2],
   ];
   res = acmSolution.calculateMaxTotalYie(cropField);
-  console.log(res);
+  // console.log(res);
+}
+{
+  class Queue {
+    constructor() {
+      this.queue = [];
+    }
+    add(fn) {
+      this.queue.push(fn);
+    }
+    run() {
+      setInterval(async () => {
+        if (this.queue.length) {
+          let p = this.queue.shift()();
+          if (p === undefined) {
+            this.run();
+          } else if (p instanceof Promise) {
+            console.log(await p);
+            this.run();
+          }
+        }
+      }, 1000);
+    }
+  }
+  let queue = new Queue();
+  let fn1 = () => {
+    console.log("同步任务执行");
+  };
+  let fn2 = () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve("异步任务执行");
+      }, 1000);
+    });
+  };
+  // queue.run();
+  // queue.add(fn2);
+  // queue.add(fn1);
+}
+{
+  console.log(Number(undefined));
 }
