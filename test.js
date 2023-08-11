@@ -1404,5 +1404,18 @@ function _new(fn, ...args) {
   // queue.add(fn1);
 }
 {
-  console.log(Number(undefined));
+  // console.log(Number(undefined));
+}
+{
+  // function outer(params) {
+  //   let a = 25;
+  //   function inner(params) {
+  //     let b = 10;
+  //     console.log(a + b);
+  //   }
+  //   a = 30;
+  //   return inner;
+  // }
+  // let fn = outer();
+  // fn();
 }

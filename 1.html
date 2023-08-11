@@ -5,15 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .test {
+            min-width: 500px;
+            background-color: aqua;
+        }
+
+        .img1 {
+            width: 500px;
+            height: 500px;
+            clip-path: circle(50px at center);
+            transition: all 0.5s 0s linear;
+            /* clip-path: circle(200px at center); */
+            /* clip-path: inset(50px 50px 50px 50px round 20px); */
+        }
+
+        .img1:hover {
+            clip-path: circle(200px at center);
+            animation: test 0.5s;
+        }
+
+        @keyframes test2 {
+            0% {
+                clip-path: circle(200px at center);
+                clip-path: circle(50px at center);
+            }
+
+            100% {
+                clip-path: circle(50px at center);
+            }
+        }
+
+        @keyframes test {
+            0% {
+                clip-path: circle(50px at center);
+            }
+
+            /* 50% {
+                clip-path: circle(100px at center);
+            } */
+
+            100% {
+                clip-path: circle(200px at center);
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <div class="test">
+        666
+    </div>
+    <div>
+        <img class="img1" src="./git命令.jpg" alt="">
+    </div>
     <script>
-        var foo = 1;
-        function foo(params) {
-            console.log(111);
-        }
-        console.log(foo);
+
     </script>
 </body>
 

@@ -3063,3 +3063,23 @@ function parseStr(params) {}
   ];
   // console.log(searchMatrix(matrix, 20));
 }
+//子集  输入：nums = [1,2,3]
+// 输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+{
+  function subsets(arr) {
+    let path = [];
+    let res = [];
+    function backTrack(arr, path, index) {
+      res.push([...path]);
+      for (let i = index; i < arr.length; i++) {
+        path.push(arr[i]);
+        backTrack(arr, path, i + 1);
+        path.pop();
+      }
+    }
+    backTrack(arr, path, 0);
+    console.log(res);
+  }
+  let arr = [1, 2, 3];
+  // subsets(arr);
+}

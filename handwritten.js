@@ -3817,4 +3817,37 @@ const date = new Date();
   }
   // console.log(isMatch("A B B C A", "Orange banana apple banana  Orange"));
 }
+{
+  const hexColor = "#FF0000";
 
+  function hexToRgb(hex) {
+    hex = hex.replace("#", "");
+    let res = parseInt(hex.slice(0, 2), 16);
+    console.log(res);
+  }
+  // hexToRgb(hexColor);
+}
+//
+{
+  const spu = "AB1234567";
+  const specList = [
+    ["red", "yellow"],
+    ["XL", "S"],
+    ["a1", "a2"],
+    ["b1", "b2"],
+  ];
+
+  const results = specList.reduce(
+    (acc, curr) => {
+      const newAcc = [];
+      acc.forEach((result) => {
+        curr.forEach((option) => {
+          newAcc.push(`${result}-${option}`);
+        });
+      });
+      return newAcc;
+    },
+    [spu]
+  );
+  // console.log(results);
+}

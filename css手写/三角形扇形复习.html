@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .test {
+            transition: all 1s 1s linear;
+        }
+
+        .test1 {
+            visibility: hidden;
+        }
+
+        .triangle {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            clip-path: polygon(0 0, 0 100%, 100%0);
+        }
+
+        .triangle1 {
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-bottom: 100px solid transparent;
+            border-top: 100px solid yellowgreen;
+            border-right: 100px solid transparent;
+        }
+
+        .sector {
+            width: 100px;
+            height: 100px;
+            background-color: orangered;
+            border-radius: 50%;
+            clip-path: polygon(0 0, 50% 50%, 100% 0);
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <button class="test">按钮</button>
+        <div class="triangle">三角形</div>
+        <div class="triangle1"></div>
+        <div class="sector">扇形</div>
+    </div>
+    <script>
+        let button = document.querySelector('button')
+        button.addEventListener('click', (e) => {
+            button.classList.add('test1')
+        })
+    </script>
+</body>
+
+</html>
