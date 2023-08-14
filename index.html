@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Y Logo</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="logoCanvas" width="200" height="200"></canvas>
+
+    <script>
+        var canvas = document.getElementById("logoCanvas");
+        var ctx = canvas.getContext("2d");
+
+        // 设置画笔样式
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 10;
+
+        // 画出Y字母的线条
+        ctx.beginPath();
+        ctx.moveTo(100, 50);
+        ctx.lineTo(50, 150);
+        ctx.lineTo(100, 150);
+        ctx.lineTo(150, 150);
+        ctx.lineTo(100, 50);
+        ctx.stroke();
+    </script>
+</body>
+
+</html>

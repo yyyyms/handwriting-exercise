@@ -1419,3 +1419,37 @@ function _new(fn, ...args) {
   // let fn = outer();
   // fn();
 }
+{
+  let matrix = [
+    ["D", "A", "B", "C"],
+    ["A", "B", "A", "B"],
+    ["B", "A", "B", "A"],
+    ["B", "B", "A", "B"],
+  ];
+  function test1(n, m, matrix) {
+    let count = 0;
+    n = matrix.length;
+    m = matrix[0].length;
+
+    for (let i = 0; i < n - 2; i++) {
+      for (let j = 0; j < m - 2; j++) {
+        const subMatrix = new Set();
+        for (let x = i; x < i + 3; x++) {
+          for (let y = j; y < j + 3; y++) {
+            subMatrix.add(matrix[x][y]);
+          }
+        }
+
+        if (subMatrix.size === 3 && subMatrix.has("A") && subMatrix.has("B") && subMatrix.has("C")) {
+          count++;
+        }
+      }
+    }
+
+    return count;
+  }
+  console.log(test1(4, 4, matrix));
+  result.forEach((element) => {
+    console.log(element);
+  });
+}
